@@ -46,16 +46,10 @@
                                     <li class="p-1 pl-2">Account List</li>
                                 </div>
                             </router-link>
-                            <router-link to="/employee">
-                                <div class="flex items-center w-full pl-6 transition-all">
-                                    <ThemifyIcon icon="heart" />
-                                    <li class="p-1 pl-2">Employees list</li>
-                                </div>
-                            </router-link>
                             <router-link to="/dashboard/account/register" v-if="payload.role == 'ADMIN'">
                                 <div class="flex items-center w-full pl-6 transition-all">
                                     <ThemifyIcon icon="plus" />
-                                    <li class="p-1 pl-2">Import data</li>
+                                    <li class="p-1 pl-2">Create</li>
                                 </div>
                             </router-link>
                         </ul>
@@ -94,18 +88,18 @@
                         <ul class="mb-3" v-if="payload.role == 'ADMIN'">
                             <div class="flex items-center mb-1 text-white">
                                 <ThemifyIcon icon="arrow-circle-right" />
-                                <h1 class="ml-2 font-bold uppercase">Finance Management</h1>
+                                <h1 class="ml-2 font-bold uppercase">Category & Dish</h1>
                             </div>
-                            <router-link to="/employee/salary/visualize">
+                            <router-link to="/food/category">
                                 <div class="flex items-center w-full pl-6 transition-all">
                                     <ThemifyIcon icon="bar-chart" />
-                                    <li class="p-1 pl-2">Salary visualize</li>
+                                    <li class="p-1 pl-2">Categories</li>
                                 </div>
                             </router-link>
-                            <router-link to="/finance/sales">
+                            <router-link to="/food/dish">
                                 <div class="flex items-center w-full pl-6 transition-all">
                                     <ThemifyIcon icon="money" />
-                                    <li class="p-1 pl-2">Sales visualize</li>
+                                    <li class="p-1 pl-2">Dishes</li>
                                 </div>
                             </router-link>
                         </ul>
@@ -181,7 +175,6 @@ main.main-container {
     position: absolute;
     width: calc(100% - 400px);
     transform: translateX(400px);
-    padding: 20px 20px;
 }
 a.is-active div {
     background: white;

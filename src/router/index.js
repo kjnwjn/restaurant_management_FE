@@ -9,14 +9,14 @@ const routes = [
         path: "/",
         name: "home",
         beforeEnter: () => {
-            router.push("/pos");
+            router.push("/home");
         },
     },
     {
-        path: "/pos",
-        name: "pos",
+        path: "/home",
+        name: "home",
         beforeEnter: auth,
-        component: () => import(/* webpackChunkName: "pos" */ "../views/POSView.vue"),
+        component: () => import(/* webpackChunkName: "home" */ "../views/POSView.vue"),
     },
     {
         path: "/transaction/:transactionID",
@@ -83,6 +83,18 @@ const routes = [
         name: "employee",
         beforeEnter: auth,
         component: () => import(/* webpackChunkName: "employee" */ "../views/dashboard/EmployeeView.vue"),
+    },
+    {
+        path: "/food/category",
+        name: "foodCategory",
+        beforeEnter: auth,
+        component: () => import(/* webpackChunkName: "foodCategory" */ "../views/dashboard/FoodCategory.vue"),
+    },
+    {
+        path: "/food/dish",
+        name: "foodDish",
+        beforeEnter: auth,
+        component: () => import(/* webpackChunkName: "foodDish" */ "../views/dashboard/FoodDish.vue"),
     },
     {
         path: "/employee/:userCode/detail",

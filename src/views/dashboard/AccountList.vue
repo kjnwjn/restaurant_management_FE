@@ -1,5 +1,5 @@
 <template>
-    <main>
+    <main class="p-6">
         <Loading :active="isLoading" :is-full-page="true" :can-cancel="false" />
         <div class="flex items-center mb-4 text-green-700 font-bold text-lg uppercase">
             <ThemifyIcon icon="menu" />
@@ -13,28 +13,19 @@
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
                         <th scope="col" class="py-3 px-6">User code</th>
-                        <th scope="col" class="py-3 px-6">Fullname</th>
-                        <th scope="col" class="py-3 px-6">Email</th>
-                        <th scope="col" class="py-3 px-6">Phone</th>
+                        <th scope="col" class="py-3 px-6">Full name</th>
                         <th scope="col" class="py-3 px-6">Role</th>
                         <th scope="col" class="py-3 px-6">Created At</th>
                         <th scope="col" class="py-3 px-6">Last modified</th>
                         <th scope="col" class="py-3 px-6" v-if="payload.role == 'ADMIN'">Action</th>
                     </tr>
                 </thead>
-                <tbody v-if="accountList && accountList.data.length > 0">
-                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700" v-for="(account, i) in accountList.data" :key="i">
-                        <router-link :to="'/dashboard/account/' + account.userCode + '/detail'" v-if="payload.role == 'ADMIN'">
-                            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                {{ account.userCode }}
-                            </th>
-                        </router-link>
-                        <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white" v-else>
+                <tbody v-if="accountList && accountList.length > 0">
+                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700" v-for="(account, i) in accountList" :key="i">
+                        <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                             {{ account.userCode }}
                         </th>
                         <td class="py-4 px-6">{{ account.fullName }}</td>
-                        <td class="py-4 px-6">{{ account.email }}</td>
-                        <td class="py-4 px-6">{{ account.phoneNumber }}</td>
                         <td class="py-4 px-6">{{ account.role }}</td>
                         <td class="py-4 px-6">{{ dateFormat(account.createdAt) }}</td>
                         <td class="py-4 px-6">{{ dateFormat(account.updatedAt) }}</td>
@@ -75,11 +66,12 @@ export default {
         async fetchData() {
             this.isLoading = true;
             await axios
-                .get(`${process.env.VUE_APP_API_URL}/account/get-all?token=${this.accessToken}`)
+                .get(`${process.env.VUE_APP_API_URL}/account/get-all-account?token=${this.accessToken}`)
                 .then((res) => {
+                    console.log(res);
                     if (res.data.status) {
-                        this.accountList = res.data.result;
-                        this.totalAccounts = res.data.result.total;
+                        this.accountList = res.data.data.listUsers;
+                        this.totalAccounts = res.data.data.listUsers.length;
                     }
                 })
                 .catch(() => {
@@ -90,7 +82,7 @@ export default {
         async accountRemoveHandler(userCode) {
             this.isLoading = true;
             await axios
-                .delete(`${process.env.VUE_APP_API_URL}/account/disable/${userCode}?token=${this.accessToken}`)
+                .delete(`${process.env.VUE_APP_API_URL}/account/${userCode}?token=${this.accessToken}`)
                 .then((res) => {
                     if (res.data.status) {
                         this.toastify.success(res.data.msg.en);

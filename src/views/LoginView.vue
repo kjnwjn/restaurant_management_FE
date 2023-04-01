@@ -1,7 +1,7 @@
 <template>
     <section class="bg-white dark:bg-gray-900">
         <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-            <a href="#" class="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
+            <a href="/home" class="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
                 <img class="w-8 h-8 mr-2" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/logo.svg" alt="logo" />
                 Store Sytem
             </a>
@@ -62,22 +62,23 @@ export default {
             axios
                 .post(`${process.env.VUE_APP_API_URL}/account/login`, { userCode: this.userCode, password: this.password })
                 .then((res) => {
+                    console.log(res);
                     if (!res.data.status) {
                         this.$store.state.toastify.error(res.data.msg.en);
                     } else {
                         this.$store.state.toastify.success(res.data.msg.en);
-                        localStorage.setItem("x-access-token", JSON.stringify(res.data.token));
-                        localStorage.setItem("payload", JSON.stringify(res.data.payload));
-                        this.$store.commit("set_access_token", res.data.token);
-                        this.$store.commit("set_payload", res.data.payload);
+                        localStorage.setItem("x-access-token", JSON.stringify(res.data.data.token));
+                        localStorage.setItem("payload", JSON.stringify(res.data.data.payload));
+                        this.$store.commit("set_access_token", res.data.data.token);
+                        this.$store.commit("set_payload", res.data.data.payload);
                         router.push("/");
                     }
                 })
                 .catch((err) => {
+                    if (!err.response?.data.msg.en) return this.$store.state.toastify.error(err.message);
                     this.$store.state.toastify.error(err.response.data.msg.en);
                 });
         },
     },
-    name: "LoginView",
 };
 </script>
