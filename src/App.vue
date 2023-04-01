@@ -3,9 +3,9 @@
         <div class="left-menu">
             <div class="flex text-white justify-center items-center p-4" style="background: #458b69">
                 <img src="@/assets/logo.png" width="25px" />
-                <h1 class="font-bold text-2xl uppercase ml-4">Store POS</h1>
+                <h1 class="font-bold text-2xl uppercase ml-4">Store System</h1>
             </div>
-            <div class="w-full p-6">
+            <div class="w-full p-6 main-content-menu">
                 <h1 class="text-2xl text-center">{{ payload ? `Hi, ${payload.fullName}` : "Welcome!" }}</h1>
                 <div class="menu-list mt-8" v-if="payload && accessToken">
                     <ul class="mb-3">
@@ -33,7 +33,6 @@
                         </router-link>
                     </ul>
                     <hr class="my-4 opacity-50" />
-
                     <div v-if="payload.role === 'ADMIN' || payload.role === 'MANAGER'">
                         <ul class="mb-3">
                             <div class="flex items-center mb-1 text-white">
@@ -57,30 +56,12 @@
                         <ul class="mb-3">
                             <div class="flex items-center mb-1 text-white">
                                 <ThemifyIcon icon="arrow-circle-right" />
-                                <h1 class="ml-2 font-bold uppercase">Products & Supplier</h1>
+                                <h1 class="ml-2 font-bold uppercase">Table management</h1>
                             </div>
-                            <router-link to="/dashboard/product-list">
+                            <router-link to="/dashboard/table">
                                 <div class="flex items-center w-full pl-6 transition-all">
                                     <ThemifyIcon icon="harddrives" />
-                                    <li class="p-1 pl-2">Products list</li>
-                                </div>
-                            </router-link>
-                            <router-link to="/dashboard/supplier-list">
-                                <div class="flex items-center w-full pl-6 transition-all">
-                                    <ThemifyIcon icon="user" />
-                                    <li class="p-1 pl-2">Suppliers list</li>
-                                </div>
-                            </router-link>
-                            <router-link to="/dashboard/product-supplier/import">
-                                <div class="flex items-center w-full pl-6 transition-all">
-                                    <ThemifyIcon icon="plus" />
-                                    <li class="p-1 pl-2">Import data</li>
-                                </div>
-                            </router-link>
-                            <router-link to="/dashboard/product/out-of-stock">
-                                <div class="flex items-center w-full pl-6 transition-all">
-                                    <ThemifyIcon icon="package" />
-                                    <li class="p-1 pl-2">Out of stock</li>
+                                    <li class="p-1 pl-2">Table</li>
                                 </div>
                             </router-link>
                         </ul>
@@ -90,13 +71,13 @@
                                 <ThemifyIcon icon="arrow-circle-right" />
                                 <h1 class="ml-2 font-bold uppercase">Category & Dish</h1>
                             </div>
-                            <router-link to="/food/category">
+                            <router-link to="/dashboard/food/category">
                                 <div class="flex items-center w-full pl-6 transition-all">
                                     <ThemifyIcon icon="bar-chart" />
                                     <li class="p-1 pl-2">Categories</li>
                                 </div>
                             </router-link>
-                            <router-link to="/food/dish">
+                            <router-link to="/dashboard/food/dish">
                                 <div class="flex items-center w-full pl-6 transition-all">
                                     <ThemifyIcon icon="money" />
                                     <li class="p-1 pl-2">Dishes</li>
@@ -151,7 +132,11 @@ input[type="number"]::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
-
+.main-content-menu {
+    height: 100%;
+    overflow: hidden scroll;
+    padding-bottom: 10.5rem;
+}
 .left-menu {
     position: fixed;
     width: 400px;
