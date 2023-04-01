@@ -4,7 +4,6 @@ import router from "./router";
 import store from "./store";
 import ThemifyIcon from "vue-themify-icons";
 import VueToastify from "vue-toastify";
-import "@/assets/css/tailwind.css";
 
 Vue.config.productionTip = false;
 
