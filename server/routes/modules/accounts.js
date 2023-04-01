@@ -75,9 +75,7 @@ module.exports = {
                 status: false,
                 statusCode: 500,
                 msg: { en: "Interal Server Error" },
-                data: {
-                    error: error.message
-                },
+                error: error.message,
             });
         }
     },
