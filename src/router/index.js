@@ -1,96 +1,125 @@
-import { createRouter, createWebHistory } from "vue-router";
-import HomeLayout from "../layouts/HomeLayout.vue";
-import ChefLayout from "../layouts/ChefLayout.vue";
-import ManagerLayout from "../layouts/ManagerLayout.vue";
-// import ProductLayout from "../layouts/ProductLayout.vue";
+import Vue from "vue";
+import VueRouter from "vue-router";
+import auth from "@/middlewares/auth";
 
-const router = createRouter({
-    history: createWebHistory(import.meta.env.BASE_URL),
-    routes: [
-        {
-            path: "/",
-            name: "home",
-            redirect: "/",
-            component: HomeLayout,
-            children: [
-                {
-                    path: "/",
-                    component: () => import("../views/HomeView.vue"),
-                },
-                {
-                    path: "/Seafood",
-                    component: () => import("../views/SeafoodView.vue"),
-                },
-                {
-                    path: "/Waterfood",
-                    component: () => import("../views/WaterfoodView.vue"),
-                },
-                {
-                    path: "/Cachloroathite",
-                    component: () => import("../views/CachloroathiteView.vue"),
-                },
-                {
-                    path: "/Other",
-                    component: () => import("../views/OtherView.vue"),
-                },
-                {
-                    path: "/Drinks",
-                    component: () => import("../views/DrinksView.vue"),
-                },
-                {
-                    path: "/Dessert",
-                    component: () => import("../views/DessertView.vue"),
-                },
-            ],
+Vue.use(VueRouter);
+
+const routes = [
+    {
+        path: "/",
+        name: "home",
+        beforeEnter: () => {
+            router.push("/pos");
         },
-        {
-            path: "/chef",
-            name: "chef",
-            redirect: "/chef/table",
-            component: ChefLayout,
-            children: [
-                {
-                    path: "/chef/table",
-                    component: () => import("../views/chef/TableView.vue"),
-                },
-            ],
-        },
-        {
-            path: "/manager",
-            name: "manager",
-            redirect: "/manager",
-            component: ManagerLayout,
-            children: [
-                {
-                    path: "/manager",
-                    component: () => import("../views/manager/TableView.vue"),
-                },
-                {
-                    path: "/manager/table",
-                    component: () => import("../views/manager/TableView.vue"),
-                },
-                {
-                    path: "/manager/order",
-                    component: () => import("../views/manager/orderView.vue"),
-                },
-                {
-                    path: "/manager/menu",
-                    component: () => import("../views/manager/TableView.vue"),
-                },
-                {
-                    path: "/manager/category",
-                    component: () => import("../views/manager/TableView.vue"),
-                },
-                {
-                    path: "/manager/employee",
-                    component: () => import("../views/manager/TableView.vue"),
-                },
-            ],
-        },
-    ],
-    scrollBehavior() {
-        window.scrollTo(0, 0);
     },
+    {
+        path: "/pos",
+        name: "pos",
+        beforeEnter: auth,
+        component: () => import(/* webpackChunkName: "pos" */ "../views/POSView.vue"),
+    },
+    {
+        path: "/transaction/:transactionID",
+        name: "transactionDetail",
+        beforeEnter: auth,
+        component: () => import(/* webpackChunkName: "transactionDetail" */ "../views/TransactionView.vue"),
+    },
+    {
+        path: "/dashboard/account",
+        name: "dashboardAccount",
+        beforeEnter: auth,
+        component: () => import(/* webpackChunkName: "dashboardAccount" */ "../views/dashboard/AccountList.vue"),
+    },
+    {
+        path: "/dashboard/account/:userCode/detail",
+        name: "dashboardAccountDetail",
+        beforeEnter: auth,
+        component: () => import(/* webpackChunkName: "dashboardAccountDetail" */ "../views/dashboard/AccountDetail.vue"),
+    },
+    {
+        path: "/dashboard/account/register",
+        name: "dashboardRegister",
+        beforeEnter: auth,
+        component: () => import(/* webpackChunkName: "dashboardRegister" */ "../views/dashboard/AccountNew.vue"),
+    },
+    {
+        path: "/dashboard/product-list",
+        name: "dashboardProduct",
+        beforeEnter: auth,
+        component: () => import(/* webpackChunkName: "dashboardProduct" */ "../views/dashboard/ProductList.vue"),
+    },
+    {
+        path: "/dashboard/supplier-list",
+        name: "dashboardProduct",
+        beforeEnter: auth,
+        component: () => import(/* webpackChunkName: "dashboardProduct" */ "../views/dashboard/SupplierList.vue"),
+    },
+    {
+        path: "/dashboard/product-supplier/import",
+        name: "dashboardProductImport",
+        beforeEnter: auth,
+        component: () => import(/* webpackChunkName: "dashboardProductImport" */ "../views/dashboard/ProductImport.vue"),
+    },
+    {
+        path: "/dashboard/product/out-of-stock",
+        name: "dashboardProductOutOfStock",
+        beforeEnter: auth,
+        component: () => import(/* webpackChunkName: "dashboardProductOutOfStock" */ "../views/dashboard/ProductStock.vue"),
+    },
+    {
+        path: "/attendance",
+        name: "attendance",
+        beforeEnter: auth,
+        component: () => import(/* webpackChunkName: "attendance" */ "../views/dashboard/AttendanceView.vue"),
+    },
+    {
+        path: "/customer",
+        name: "customer",
+        beforeEnter: auth,
+        component: () => import(/* webpackChunkName: "customer" */ "../views/dashboard/CustomerView.vue"),
+    },
+    {
+        path: "/employee",
+        name: "employee",
+        beforeEnter: auth,
+        component: () => import(/* webpackChunkName: "employee" */ "../views/dashboard/EmployeeView.vue"),
+    },
+    {
+        path: "/employee/:userCode/detail",
+        name: "employeeDetail",
+        beforeEnter: auth,
+        component: () => import(/* webpackChunkName: "employeeDetail" */ "../views/dashboard/EmployeeDetail.vue"),
+    },
+    {
+        path: "/employee/salary/visualize",
+        name: "employeeSalaryVisualize",
+        beforeEnter: auth,
+        component: () => import(/* webpackChunkName: "employeeSalaryVisualize" */ "../views/dashboard/EmployeeSalary.vue"),
+    },
+    {
+        path: "/finance/sales",
+        name: "financeSales",
+        beforeEnter: auth,
+        component: () => import(/* webpackChunkName: "financeSales" */ "../views/dashboard/FinanceSales.vue"),
+    },
+    {
+        path: "/login",
+        name: "login",
+        component: () => import(/* webpackChunkName: "login" */ "../views/LoginView.vue"),
+    },
+    {
+        path: "*",
+        name: "notfound",
+        beforeEnter: auth,
+        component: () => import(/* webpackChunkName: "notfound" */ "../views/NotFound.vue"),
+    },
+];
+
+const router = new VueRouter({
+    mode: "history",
+    linkExactActiveClass: "is-active",
+    base: process.env.BASE_URL,
+    routes,
 });
 
 export default router;
