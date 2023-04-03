@@ -126,13 +126,18 @@ export default {
         },
         async fetchData() {
             this.isLoading = true;
-            await axios.get(`${process.env.VUE_APP_API_URL}/category/get-all?token=${this.accessToken}`).then((res) => {
-                if (res.data.status && res.data.data) {
-                    this.categoryList = res.data.data;
-                } else {
-                    this.categoryList = null;
-                }
-            });
+            await axios
+                .get(`${process.env.VUE_APP_API_URL}/category/get-all?token=${this.accessToken}`)
+                .then((res) => {
+                    if (res.data.status && res.data.data) {
+                        this.categoryList = res.data.data;
+                    } else {
+                        this.categoryList = null;
+                    }
+                })
+                .catch((err) => {
+                    this.toastify.error(err.message);
+                });
             this.isLoading = false;
         },
     },

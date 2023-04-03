@@ -8,6 +8,7 @@ import VueToastify from "vue-toastify";
 Vue.config.productionTip = false;
 
 Vue.component("ThemifyIcon", ThemifyIcon);
+
 Vue.use(VueToastify, {
     position: "bottom-right",
     theme: "light",
