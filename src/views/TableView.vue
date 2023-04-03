@@ -1,6 +1,6 @@
 <template>
     <section class="bg-white dark:bg-gray-900">
-        <div class="left-menu hidden" >
+        <div class="left-menu hidden">
             <div class="flex text-white justify-center items-center p-4" style="background: rgb(71 69 139)">
                 <img src="@/assets/logo.png" width="25px" />
                 <h1 class="font-bold text-2xl uppercase ml-4">Store System</h1>

@@ -1,33 +1,14 @@
 <template>
     <div id="app">
-        <left-menu></left-menu>
-        <main class="main-container">
-            <router-view />
-        </main>
+        <router-view />
     </div>
 </template>
 
 <script>
-// import { mapState } from "vuex";
-import leftMenu from "@/components/leftMenu";
-
 export default {
-    // mounted() {
-    //     this.$store.commit("set_toastify", this.$vToastify);
-    // },
-    // methods: {
-    //     handleSignOut() {
-    //         localStorage.removeItem("x-access-token");
-    //         localStorage.removeItem("payload");
-    //         this.$store.commit("set_access_token", null);
-    //         this.$store.commit("set_payload", null);
-    //         this.$router.push("/login");
-    //     },
-    // },
-    components: { leftMenu },
-    // computed: {
-    //     ...mapState(["accessToken", "payload"]),
-    // },
+    mounted() {
+        this.$store.commit("set_toastify", this.$vToastify);
+    },
 };
 </script>
 
@@ -39,5 +20,12 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 .vld-overlay.is-full-page {
     height: 100vh;
+}
+main.main-container {
+    padding: 1.5rem;
+    background: white;
+    position: absolute;
+    width: calc(100% - 300px);
+    transform: translateX(300px);
 }
 </style>
