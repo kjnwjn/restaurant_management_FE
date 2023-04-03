@@ -24,14 +24,13 @@
         </div>
         <div class="mb-6">
             <div class="grid-menu">
-                <card-vue>hello</card-vue>
-                <card-vue>hello</card-vue>
-                <card-vue>hello</card-vue>
-                <card-vue>hello</card-vue>
-                <card-vue>hello</card-vue>
+                <div v-for="(table, index) in tableList" :key="index">
+                    <router-link :to="'/dashboard/table/' + table.tableId">
+                        <card-vue :table-id="table.tableId" :status="table.status" />
+                    </router-link>
+                </div>
             </div>
         </div>
-        <pre>{{ tableList }}</pre>
     </main>
 </template>
 
@@ -72,6 +71,7 @@ export default {
                 .catch((err) => {
                     this.toastify.error(err.message);
                 });
+            this.fetchData();
             this.isLoading = false;
         },
         async fetchData() {
@@ -98,6 +98,6 @@ export default {
 <style>
 .grid-menu {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 }
 </style>
