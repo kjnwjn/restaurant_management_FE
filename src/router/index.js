@@ -52,7 +52,8 @@ const routes = [
     {
         path: "/pos",
         name: "pos",
-        component: () => import(/* webpackChunkName: "login" */ "../views/TransactionView.vue"),
+        beforeEnter: auth,
+        component: () => import(/* webpackChunkName: "pos" */ "../views/TransactionView.vue"),
     },
     {
         path: "/login",
