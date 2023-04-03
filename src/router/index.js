@@ -48,6 +48,12 @@ const routes = [
         beforeEnter: auth,
         component: () => import(/* webpackChunkName: "dashboardTable" */ "../views/dashboard/TableManagement.vue"),
     },
+
+    {
+        path: "/pos",
+        name: "pos",
+        component: () => import(/* webpackChunkName: "login" */ "../views/TransactionView.vue"),
+    },
     {
         path: "/login",
         name: "login",

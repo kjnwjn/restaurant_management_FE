@@ -16,7 +16,7 @@
                         <router-link to="/pos">
                             <div class="flex items-center w-full pl-6 transition-all">
                                 <ThemifyIcon icon="server" />
-                                <li class="p-1 pl-2">Transaction</li>
+                                <li class="p-1 pl-2">Order</li>
                             </div>
                         </router-link>
                         <router-link to="/attendance">
