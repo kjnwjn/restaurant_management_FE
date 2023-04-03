@@ -34,7 +34,8 @@ const routes = [
         path: "/dashboard/account/:userCode/detail",
         name: "dashboardAccountDetail",
         beforeEnter: auth,
-        component: () => import(/* webpackChunkName: "dashboardAccountDetail" */ "../views/dashboard/AccountDetail.vue"),
+        component: () =>
+            import(/* webpackChunkName: "dashboardAccountDetail" */ "../views/dashboard/AccountDetail.vue"),
     },
     {
         path: "/dashboard/account/register",
@@ -58,13 +59,15 @@ const routes = [
         path: "/dashboard/product-supplier/import",
         name: "dashboardProductImport",
         beforeEnter: auth,
-        component: () => import(/* webpackChunkName: "dashboardProductImport" */ "../views/dashboard/ProductImport.vue"),
+        component: () =>
+            import(/* webpackChunkName: "dashboardProductImport" */ "../views/dashboard/ProductImport.vue"),
     },
     {
         path: "/dashboard/product/out-of-stock",
         name: "dashboardProductOutOfStock",
         beforeEnter: auth,
-        component: () => import(/* webpackChunkName: "dashboardProductOutOfStock" */ "../views/dashboard/ProductStock.vue"),
+        component: () =>
+            import(/* webpackChunkName: "dashboardProductOutOfStock" */ "../views/dashboard/ProductStock.vue"),
     },
     {
         path: "/attendance",
@@ -106,13 +109,20 @@ const routes = [
         path: "/employee/salary/visualize",
         name: "employeeSalaryVisualize",
         beforeEnter: auth,
-        component: () => import(/* webpackChunkName: "employeeSalaryVisualize" */ "../views/dashboard/EmployeeSalary.vue"),
+        component: () =>
+            import(/* webpackChunkName: "employeeSalaryVisualize" */ "../views/dashboard/EmployeeSalary.vue"),
     },
     {
         path: "/finance/sales",
         name: "financeSales",
         beforeEnter: auth,
         component: () => import(/* webpackChunkName: "financeSales" */ "../views/dashboard/FinanceSales.vue"),
+    },
+
+    {
+        path: "/pos",
+        name: "pos",
+        component: () => import(/* webpackChunkName: "login" */ "../views/TransactionView.vue"),
     },
     {
         path: "/login",

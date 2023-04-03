@@ -274,118 +274,119 @@ export default {
         async fetchData() {
             this.isLoading = true;
             await axios
-                .get(`${process.env.VUE_APP_API_URL}/transaction/${this.$route.params.transactionID}?token=${this.$store.state.accessToken}`)
+                .get(`${process.env.VUE_APP_API_URL}/order/query-all?token=${this.$store.state.accessToken}`)
                 .then(async (res) => {
-                    if (res.data.status && res.data.transactionQuery) {
-                        this.transactionDetail = res.data.transactionQuery;
-                        this.allowPoint = res.data.transactionQuery.usePoint;
-                        await axios.get(`${process.env.VUE_APP_API_URL}/customer/${res.data.transactionQuery.customerID}/detail?token=${this.accessToken}`).then((res) => {
-                            if (res.data.status) {
-                                this.customerDetail = res.data.data;
-                            } else {
-                                this.customerDetail = null;
-                            }
-                        });
-                    }
+                    console.log(res);
+                    // if (res.data.status && res.data.transactionQuery) {
+                    //     this.transactionDetail = res.data.transactionQuery;
+                    //     this.allowPoint = res.data.transactionQuery.usePoint;
+                    //     await axios.get(`${process.env.VUE_APP_API_URL}/customer/${res.data.transactionQuery.customerID}/detail?token=${this.accessToken}`).then((res) => {
+                    //         if (res.data.status) {
+                    //             this.customerDetail = res.data.data;
+                    //         } else {
+                    //             this.customerDetail = null;
+                    //         }
+                    //     });
+                    // }
                 })
                 .catch(() => this.$router.push("/pos"));
             this.isLoading = false;
         },
-        async handleCancelTransaction() {
-            this.isLoading = true;
-            const transactionID = this.$route.params.transactionID;
-            await axios.delete(`${process.env.VUE_APP_API_URL}/transaction/${transactionID}/delete?token=${this.$store.state.accessToken}`).then((res) => {
-                if (res.data.status) {
-                    this.$store.state.toastify.success(res.data.msg.en);
-                    this.$router.push("/pos");
-                } else {
-                    this.toastify.error(res.data.msg.en);
-                }
-            });
-            this.isLoading = false;
-        },
-        async orderHandler() {
-            this.isLoading = true;
-            await axios
-                .post(`${process.env.VUE_APP_API_URL}/transaction/${this.transactionDetail.transactionID}/order?token=${this.accessToken}`, {
-                    barcode: this.barcode,
-                })
-                .then((res) => {
-                    if (!res.data.status) this.toastify.error(res.data.msg.en);
-                })
-                .catch((err) => {
-                    console.log(err);
-                    this.toastify.error(err.response.data.msg.en || "Error occurred while processing order.");
-                });
-            this.fetchData();
-            this.isLoading = false;
-        },
-        async handlePay() {
-            this.isLoading = true;
-            await axios
-                .post(`${process.env.VUE_APP_API_URL}/transaction/${this.transactionDetail.transactionID}/pay?token=${this.accessToken}`, {
-                    cash: this.cash,
-                })
-                .then((res) => {
-                    if (res.data.status) {
-                        this.toastify.success(res.data.msg.en);
-                    } else {
-                        this.toastify.error(res.data.msg.en);
-                    }
-                })
-                .catch((err) => {
-                    this.toastify.error(err.response.data.msg.en || "Error occurred while processing order.");
-                });
-            this.fetchData();
-            this.isLoading = false;
-        },
-        async handleUpdateQuantity(product, type) {
-            this.isLoading = true;
-            let qty = product.qty;
-            let barcode = product.barcode;
-            await axios
-                .post(`${process.env.VUE_APP_API_URL}/transaction/${this.transactionDetail.transactionID}/order?token=${this.accessToken}`, {
-                    barcode,
-                    qty: type == "increase" ? (qty += 1) : (qty -= 1),
-                })
-                .then((res) => {
-                    if (res.data.status) {
-                        this.toastify.success(res.data.msg.en);
-                    } else {
-                        this.toastify.error(res.data.msg.en);
-                    }
-                })
-                .catch((err) => {
-                    this.toastify.error(err.response.data.msg.en || "Error occurred while processing order.");
-                });
-            this.fetchData();
-            this.isLoading = false;
-        },
-        async handleAddCustomer() {
-            this.isLoading = true;
-            await axios
-                .post(`${process.env.VUE_APP_API_URL}/transaction/${this.transactionDetail.transactionID}/add-customer?token=${this.accessToken}`, {
-                    customerID: this.customerID,
-                })
-                .then((res) => {
-                    if (res.data.status) {
-                        this.toastify.success(res.data.msg.en);
-                    } else {
-                        this.toastify.error(res.data.msg.en);
-                    }
-                })
-                .catch((err) => {
-                    this.toastify.error(err.response.data.msg.en || "Error occurred while processing order.");
-                });
-            this.fetchData();
-            this.isLoading = false;
-        },
-        async togglePointHandler() {
-            await axios.post(`${process.env.VUE_APP_API_URL}/transaction/${this.transactionDetail.transactionID}/toggle-point?token=${this.accessToken}`).then((res) => {
-                console.log(res.data);
-            });
-            this.fetchData();
-        },
+        // async handleCancelTransaction() {
+        //     this.isLoading = true;
+        //     const transactionID = this.$route.params.transactionID;
+        //     await axios.delete(`${process.env.VUE_APP_API_URL}/transaction/${transactionID}/delete?token=${this.$store.state.accessToken}`).then((res) => {
+        //         if (res.data.status) {
+        //             this.$store.state.toastify.success(res.data.msg.en);
+        //             this.$router.push("/pos");
+        //         } else {
+        //             this.toastify.error(res.data.msg.en);
+        //         }
+        //     });
+        //     this.isLoading = false;
+        // },
+        // async orderHandler() {
+        //     this.isLoading = true;
+        //     await axios
+        //         .post(`${process.env.VUE_APP_API_URL}/transaction/${this.transactionDetail.transactionID}/order?token=${this.accessToken}`, {
+        //             barcode: this.barcode,
+        //         })
+        //         .then((res) => {
+        //             if (!res.data.status) this.toastify.error(res.data.msg.en);
+        //         })
+        //         .catch((err) => {
+        //             console.log(err);
+        //             this.toastify.error(err.response.data.msg.en || "Error occurred while processing order.");
+        //         });
+        //     this.fetchData();
+        //     this.isLoading = false;
+        // },
+        // async handlePay() {
+        //     this.isLoading = true;
+        //     await axios
+        //         .post(`${process.env.VUE_APP_API_URL}/transaction/${this.transactionDetail.transactionID}/pay?token=${this.accessToken}`, {
+        //             cash: this.cash,
+        //         })
+        //         .then((res) => {
+        //             if (res.data.status) {
+        //                 this.toastify.success(res.data.msg.en);
+        //             } else {
+        //                 this.toastify.error(res.data.msg.en);
+        //             }
+        //         })
+        //         .catch((err) => {
+        //             this.toastify.error(err.response.data.msg.en || "Error occurred while processing order.");
+        //         });
+        //     this.fetchData();
+        //     this.isLoading = false;
+        // },
+        // async handleUpdateQuantity(product, type) {
+        //     this.isLoading = true;
+        //     let qty = product.qty;
+        //     let barcode = product.barcode;
+        //     await axios
+        //         .post(`${process.env.VUE_APP_API_URL}/transaction/${this.transactionDetail.transactionID}/order?token=${this.accessToken}`, {
+        //             barcode,
+        //             qty: type == "increase" ? (qty += 1) : (qty -= 1),
+        //         })
+        //         .then((res) => {
+        //             if (res.data.status) {
+        //                 this.toastify.success(res.data.msg.en);
+        //             } else {
+        //                 this.toastify.error(res.data.msg.en);
+        //             }
+        //         })
+        //         .catch((err) => {
+        //             this.toastify.error(err.response.data.msg.en || "Error occurred while processing order.");
+        //         });
+        //     this.fetchData();
+        //     this.isLoading = false;
+        // },
+        // async handleAddCustomer() {
+        //     this.isLoading = true;
+        //     await axios
+        //         .post(`${process.env.VUE_APP_API_URL}/transaction/${this.transactionDetail.transactionID}/add-customer?token=${this.accessToken}`, {
+        //             customerID: this.customerID,
+        //         })
+        //         .then((res) => {
+        //             if (res.data.status) {
+        //                 this.toastify.success(res.data.msg.en);
+        //             } else {
+        //                 this.toastify.error(res.data.msg.en);
+        //             }
+        //         })
+        //         .catch((err) => {
+        //             this.toastify.error(err.response.data.msg.en || "Error occurred while processing order.");
+        //         });
+        //     this.fetchData();
+        //     this.isLoading = false;
+        // },
+        // async togglePointHandler() {
+        //     await axios.post(`${process.env.VUE_APP_API_URL}/transaction/${this.transactionDetail.transactionID}/toggle-point?token=${this.accessToken}`).then((res) => {
+        //         console.log(res.data);
+        //     });
+        //     this.fetchData();
+        // },
     },
     computed: { ...mapState(["accessToken", "payload", "toastify"]) },
     components: { ThemifyIcon, Loading },

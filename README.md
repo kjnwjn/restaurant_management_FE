@@ -1,15 +1,13 @@
-# ENTERPRISE SYSTEMS DEVELOPMENT CONCEPTS
+# Service-Oriented Architecture
 
-[![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)]()
-
-Đồ án môn học: **Phát triển hệ thống thông tin doanh nghiệp**
+Đồ án môn học: **KIẾN TRÚC HƯỚNG DỊCH VỤ**
 Giảng viên hướng dẫn: [**Dương Hữu Phúc**][dhp]
 
 Thành viên tham gia:
 
 -   Phạm Nguyễn Hoàng Quân - 51900419
--   Phạm Anh Tuấn - 51900460
--   Phạm Trường Giang - 51900793
+-   Nguyễn Minh Phước -
+-   Phạm
 
 ## Giới thiệu đề tài
 
@@ -46,7 +44,7 @@ Yêu cầu tối thiểu [Node.js](https://nodejs.org/) v10+
 Tài xuống bằng [git] bằng cách sao chép dòng lệnh dưới đây và chạy trong cmd:
 
 ```
-git clone https://github.com/truonggiangit793/store-system.git
+git clone https://github.com/kjnwjn/-Customer-order-management-module
 ```
 
 Tiến hành cài đặt các gói thư viện cần thiết:
