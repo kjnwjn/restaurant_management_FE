@@ -55,9 +55,16 @@ const routes = [
     },
 
     {
+<<<<<<< HEAD
         path: "/dashboard/order",
         name: "/dashboard/order",
         component: () => import(/* webpackChunkName: "login" */ "../views/OrderManagement.vue"),
+=======
+        path: "/pos",
+        name: "pos",
+        beforeEnter: auth,
+        component: () => import(/* webpackChunkName: "pos" */ "../views/TransactionView.vue"),
+>>>>>>> 684f6b2b79a6e54a1c0be2e7aa0371df2f9108f0
     },
     {
         path: "/login",
