@@ -19,6 +19,11 @@ const routes = [
         component: () => import(/* webpackChunkName: "home" */ "../views/POSView.vue"),
     },
     {
+        path: "/client/table",
+        name: "client/table",
+        component: () => import(/* webpackChunkName: "client/table" */ "../views/TableView.vue"),
+    },
+    {
         path: "/dashboard/account",
         name: "dashboardAccount",
         beforeEnter: auth,
@@ -50,9 +55,9 @@ const routes = [
     },
 
     {
-        path: "/pos",
-        name: "pos",
-        component: () => import(/* webpackChunkName: "login" */ "../views/TransactionView.vue"),
+        path: "/dashboard/order",
+        name: "/dashboard/order",
+        component: () => import(/* webpackChunkName: "login" */ "../views/OrderManagement.vue"),
     },
     {
         path: "/login",
