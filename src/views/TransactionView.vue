@@ -1,60 +1,49 @@
 <template>
-    <main>
+    <main class="p-6">
         <Loading :active="isLoading" :is-full-page="true" :can-cancel="false" />
-        <!-- <div v-if="transactionDetail && !transactionDetail.payStatus">
-            <div
-                class="py-2 bg-red-400 hover:bg-red-500 transition-all rounded-full text-white text-center mb-9 font-bold text-lg cursor-pointer"
-                v-on:click="handleCancelTransaction"
-            >
-                <ThemifyIcon icon="close" />
-                <button class="ml-3">Cancel this transaction</button>
-            </div>
-        </div> -->
-        <!-- <div class="flex mb-8" v-if="transactionDetail && !transactionDetail.payStatus">
+     
+        <div class="flex mb-8" v-if="orderList">
             <input
-                v-model="barcode"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full py-2.5 px-4"
                 type="text"
-                placeholder="Enter barcode here..."
-                :disabled="transactionDetail && transactionDetail.payStatus"
+                placeholder="Enter table here..."
             />
-            <button class="bg-blue-400 py-4 px-8 rounded-lg text-white ml-4 hover:bg-blue-500 transition-all" v-on:click="orderHandler">Enter</button>
-        </div> -->
-        <!-- <div class="grid grid-cols-3 p-4">
+            <button class="bg-blue-400 py-4 px-8 rounded-lg text-white ml-4 hover:bg-blue-500 transition-all" >Enter</button>
+        </div>
+        <div class="grid grid-cols-3 p-4">
             <div class="col-span-2 pr-6">
                 <div class="overflow-x-auto relative">
                     <table class="overflow-scroll w-full text-sm text-left text-gray-500 dark:text-gray-400">
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                             <tr>
-                                <th scope="col" class="py-3 px-6">Barcode</th>
-                                <th scope="col" class="py-3 px-6">Product name</th>
-                                <th scope="col" class="py-3 px-6">Qty</th>
-                                <th scope="col" class="py-3 px-6">Unit cost</th>
+                                <th scope="col" class="py-3 px-6">order Id</th>
+                                <th scope="col" class="py-3 px-6">table Id</th>
+                                <th scope="col" class="py-3 px-6">status</th>
+                                <th scope="col" class="py-3 px-6">total Amount</th>
                             </tr>
                         </thead>
-                        <tbody v-if="transactionDetail && transactionDetail.details">
-                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700" v-for="(product, i) in transactionDetail.details" :key="i">
+                        <tbody v-if="orderList">
+                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700" v-for="(orderItem, i) in orderList" :key="i">
                                 <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
-                                    {{ product.barcode }}
+                                    {{ orderItem.orderId }}
                                 </th>
-                                <td class="py-4 px-6">{{ product.productName }}</td>
-                                <td class="py-4 px-6 flex justify-between items-center">
+                                <td class="py-4 px-6">{{ orderItem.tableId }}</td>
+                                <!-- <td class="py-4 px-6 flex justify-between items-center">
                                     <button
                                         class="inline-flex items-center p-1 text-sm font-medium text-gray-500 bg-white rounded-full border border-gray-300"
                                         type="button"
-                                        v-on:click="handleUpdateQuantity(product, 'descrease')"
+                                      
                                     >
                                         <svg class="w-4 h-4" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                             <path fill-rule="evenodd" d="M3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path>
                                         </svg>
                                     </button>
                                     <div>
-                                        <input type="number" class="px-3 py-1 bg-gray-50 w-14 border border-gray-300 text-gray-900 text-sm rounded-lg" :value="product.qty" />
+                                        <input type="number" class="px-3 py-1 bg-gray-50 w-14 border border-gray-300 text-gray-900 text-sm rounded-lg" :value="orderItem.qty" />
                                     </div>
                                     <button
                                         class="inline-flex items-center p-1 text-sm font-medium text-gray-500 bg-white rounded-full border border-gray-300"
                                         type="button"
-                                        v-on:click="handleUpdateQuantity(product, 'increase')"
                                     >
                                         <svg class="w-4 h-4" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                             <path
@@ -64,15 +53,16 @@
                                             ></path>
                                         </svg>
                                     </button>
-                                </td>
-                                <td class="py-4 px-6">{{ priceFormat(product.unitCost) }}</td>
+                                </td> -->
+                                <td class="py-4 px-6">{{ orderItem.status }}</td>
+                                <td class="py-4 px-6">{{ priceFormat(orderItem.totalAmount) }}</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
             <div class="bg-gray-100 p-4 rounded-md shadow-md">
-                <div class="relative mb-4">
+                <!-- <div class="relative mb-4">
                     <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
                         <ThemifyIcon icon="user" />
                     </div>
@@ -94,9 +84,9 @@
                     >
                         Add
                     </button>
-                </div>
+                </div> -->
 
-                <div class="mb-4">
+                <!-- <div class="mb-4">
                     <table class="overflow-scroll w-full text-sm text-left text-gray-500 dark:text-gray-400 mb-4">
                         <tbody>
                             <tr>
@@ -212,9 +202,9 @@
                             </tr>
                         </tbody>
                     </table>
-                </div>
+                </div> -->
 
-                <div class="mb-2">
+                <!-- <div class="mb-2">
                     <div class="relative mb-4">
                         <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
                             <ThemifyIcon icon="money" />
@@ -238,9 +228,9 @@
                         <ThemifyIcon icon="credit-card" />
                         <button :disabled="transactionDetail && transactionDetail.payStatus" class="ml-3">PAY</button>
                     </div>
-                </div>
+                </div> -->
             </div>
-        </div> -->
+        </div>
          <pre>{{ orderList }}</pre>
     </main>
 </template>
