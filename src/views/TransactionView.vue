@@ -1,14 +1,14 @@
 <template>
     <main class="p-6">
         <Loading :active="isLoading" :is-full-page="true" :can-cancel="false" />
-     
+
         <div class="flex mb-8" v-if="orderList">
             <input
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full py-2.5 px-4"
                 type="text"
                 placeholder="Enter table here..."
             />
-            <button class="bg-blue-400 py-4 px-8 rounded-lg text-white ml-4 hover:bg-blue-500 transition-all" >Enter</button>
+            <button class="bg-blue-400 py-4 px-8 rounded-lg text-white ml-4 hover:bg-blue-500 transition-all">Enter</button>
         </div>
         <div class="grid grid-cols-3 p-4">
             <div class="col-span-2 pr-6">
@@ -230,13 +230,8 @@
                     </div>
                 </div> -->
             </div>
-<<<<<<< HEAD
         </div>
-         <pre>{{ orderList }}</pre>
-=======
-        </div> -->
         <pre>{{ orderList }}</pre>
->>>>>>> abddb6858f432b6f0ce753a87913a20086698b52
     </main>
 </template>
 
