@@ -1,7 +1,7 @@
 <template>
     <div id="app">
         <div class="left-menu">
-            <div class="flex text-white justify-center items-center p-4" style="background: #458b69">
+            <div class="flex text-white justify-center items-center p-4" style="background: rgb(71 69 139)">
                 <img src="@/assets/logo.png" width="25px" />
                 <h1 class="font-bold text-2xl uppercase ml-4">Store System</h1>
             </div>
@@ -142,7 +142,7 @@ input[type="number"]::-webkit-outer-spin-button {
     width: 400px;
     top: 0;
     bottom: 0;
-    background: #79bda1;
+    background: #797cbd;
     color: white;
     box-shadow: 8px 0 10px 0 #0000001f;
     z-index: 10;
