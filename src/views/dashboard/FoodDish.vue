@@ -26,7 +26,7 @@
                 </div>
                 <div>
                     <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Price</label>
-                    <input v-model="dish.price" type="text" class="text-gray-900 bg-gray-50 border border-gray-300 text-sm rounded-lg block w-full p-2.5" />
+                    <input v-model="dish.price" type="number" class="text-gray-900 bg-gray-50 border border-gray-300 text-sm rounded-lg block w-full p-2.5" />
                 </div>
                 <div>
                     <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Category ID</label>
@@ -108,9 +108,9 @@ export default {
             dishList: null,
             fileUpload: null,
             dish: {
-                name: null,
-                price: null,
-                categoryId: null,
+                name: "",
+                price: "",
+                categoryId: "",
             },
         };
     },
@@ -173,14 +173,19 @@ export default {
         },
         async fetchData() {
             this.isLoading = true;
-            await axios.get(`${process.env.VUE_APP_API_URL}/dish/get-all?token=${this.accessToken}`).then((res) => {
-                if (res.data.status && res.data.data) {
-                    console.log(res);
-                    this.dishList = res.data.data;
-                } else {
-                    this.dishList = null;
-                }
-            });
+            await axios
+                .get(`${process.env.VUE_APP_API_URL}/dish/get-all?token=${this.accessToken}`)
+                .then((res) => {
+                    if (res.data.status && res.data.data) {
+                        console.log(res);
+                        this.dishList = res.data.data;
+                    } else {
+                        this.dishList = null;
+                    }
+                })
+                .catch((err) => {
+                    this.toastify.error(err.message);
+                });
             this.isLoading = false;
         },
     },

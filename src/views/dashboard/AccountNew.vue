@@ -31,6 +31,18 @@
                     </select>
                 </div>
             </div>
+            <div class="mb-6">
+                <div>
+                    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Password</label>
+                    <input
+                        v-model="password"
+                        type="password"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                        placeholder="Password"
+                        required=""
+                    />
+                </div>
+            </div>
             <button
                 type="submit"
                 v-on:click="registerAccountHandler"
@@ -54,7 +66,8 @@ export default {
     data() {
         return {
             isLoading: false,
-            fullName: null,
+            fullName: "",
+            password: "",
             role: "STAFF",
         };
     },
@@ -64,6 +77,7 @@ export default {
             await axios
                 .post(`${process.env.VUE_APP_API_URL}/account/new-account?token=${this.accessToken}`, {
                     fullName: this.fullName,
+                    password: this.password,
                     role: this.role,
                 })
                 .then((res) => {

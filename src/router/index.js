@@ -19,18 +19,13 @@ const routes = [
         component: () => import(/* webpackChunkName: "home" */ "../views/POSView.vue"),
     },
     {
-        path: "/transaction/:transactionID",
-        name: "transactionDetail",
-        beforeEnter: auth,
-        component: () => import(/* webpackChunkName: "transactionDetail" */ "../views/TransactionView.vue"),
-    },
-    {
         path: "/dashboard/account",
         name: "dashboardAccount",
         beforeEnter: auth,
         component: () => import(/* webpackChunkName: "dashboardAccount" */ "../views/dashboard/AccountList.vue"),
     },
     {
+<<<<<<< HEAD
         path: "/dashboard/account/:userCode/detail",
         name: "dashboardAccountDetail",
         beforeEnter: auth,
@@ -38,12 +33,15 @@ const routes = [
             import(/* webpackChunkName: "dashboardAccountDetail" */ "../views/dashboard/AccountDetail.vue"),
     },
     {
+=======
+>>>>>>> ebc2fa626c6f337e2e9a8c7db50a6fe2c41d5f38
         path: "/dashboard/account/register",
         name: "dashboardRegister",
         beforeEnter: auth,
         component: () => import(/* webpackChunkName: "dashboardRegister" */ "../views/dashboard/AccountNew.vue"),
     },
     {
+<<<<<<< HEAD
         path: "/dashboard/product-list",
         name: "dashboardProduct",
         beforeEnter: auth,
@@ -89,20 +87,24 @@ const routes = [
     },
     {
         path: "/food/category",
+=======
+        path: "/dashboard/food/category",
+>>>>>>> ebc2fa626c6f337e2e9a8c7db50a6fe2c41d5f38
         name: "foodCategory",
         beforeEnter: auth,
         component: () => import(/* webpackChunkName: "foodCategory" */ "../views/dashboard/FoodCategory.vue"),
     },
     {
-        path: "/food/dish",
+        path: "/dashboard/food/dish",
         name: "foodDish",
         beforeEnter: auth,
         component: () => import(/* webpackChunkName: "foodDish" */ "../views/dashboard/FoodDish.vue"),
     },
     {
-        path: "/employee/:userCode/detail",
-        name: "employeeDetail",
+        path: "/dashboard/table",
+        name: "dashboardTable",
         beforeEnter: auth,
+<<<<<<< HEAD
         component: () => import(/* webpackChunkName: "employeeDetail" */ "../views/dashboard/EmployeeDetail.vue"),
     },
     {
@@ -117,6 +119,9 @@ const routes = [
         name: "financeSales",
         beforeEnter: auth,
         component: () => import(/* webpackChunkName: "financeSales" */ "../views/dashboard/FinanceSales.vue"),
+=======
+        component: () => import(/* webpackChunkName: "dashboardTable" */ "../views/dashboard/TableManagement.vue"),
+>>>>>>> ebc2fa626c6f337e2e9a8c7db50a6fe2c41d5f38
     },
 
     {
