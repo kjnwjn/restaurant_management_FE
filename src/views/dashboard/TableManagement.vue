@@ -28,7 +28,7 @@
                 <div class="grid-menu">
                     <div v-for="(table, index) in tableList" :key="index">
                         <router-link :to="'/dashboard/table/' + table.tableId">
-                            <card-vue :table-id="table.tableId" :status="table.status" />
+                            <card-table :table-id="table.tableId" :status="table.status" />
                         </router-link>
                     </div>
                 </div>
@@ -44,11 +44,11 @@ import { mapState } from "vuex";
 import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
 import dateFormat from "@/helpers/dateFormat";
-import CardVue from "@/components/CardVue.vue";
+import CardTable from "@/components/CardTable.vue";
 import DashboardMenu from "@/components/DashboardMenu.vue";
 
 export default {
-    components: { Loading, CardVue, DashboardMenu },
+    components: { Loading, CardTable, DashboardMenu },
     data() {
         return {
             isLoading: false,
