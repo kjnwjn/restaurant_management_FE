@@ -4030,11 +4030,7 @@ debug@4, debug@^4.0.1, debug@^4.1.0, debug@^4.1.1, debug@^4.3.2:
 
 debug@^3.2.7:
   version "3.2.7"
-<<<<<<< HEAD
-  resolved "https://registry.npmjs.org/debug/-/debug-3.2.7.tgz"
-=======
   resolved "https://registry.yarnpkg.com/debug/-/debug-3.2.7.tgz#72580b7e9145fb39b6676f9c5e5fb100b934179a"
->>>>>>> ebc2fa626c6f337e2e9a8c7db50a6fe2c41d5f38
   integrity sha512-CFjzYYAi4ThfiQvizrFQevTTXHtnCqWfe7x1AhgEscTz6ZbLbfoLRLPugTQyBth6f8ZERVUSyWHFD/7Wu4t1XQ==
   dependencies:
     ms "^2.1.1"
@@ -9995,11 +9991,7 @@ strict-uri-encode@^1.0.0:
 
 "string-width@^1.0.2 || 2 || 3 || 4", string-width@^4.0.0, string-width@^4.1.0, string-width@^4.2.0, string-width@^4.2.3:
   version "4.2.3"
-<<<<<<< HEAD
-  resolved "https://registry.npmjs.org/string-width/-/string-width-4.2.3.tgz"
-=======
   resolved "https://registry.yarnpkg.com/string-width/-/string-width-4.2.3.tgz#269c7117d27b05ad2e536830a8ec895ef9c6d010"
->>>>>>> ebc2fa626c6f337e2e9a8c7db50a6fe2c41d5f38
   integrity sha512-wKyQRQpjJ0sIp62ErSZdGsjMJWsap5oRNihHhu6G7JVO/9jIB6UyevL+tXuOqrng8j/cxKTWyWUwvSTriiZz/g==
   dependencies:
     emoji-regex "^8.0.0"
