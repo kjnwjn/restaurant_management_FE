@@ -230,8 +230,13 @@
                     </div>
                 </div> -->
             </div>
+<<<<<<< HEAD
         </div>
          <pre>{{ orderList }}</pre>
+=======
+        </div> -->
+        <pre>{{ orderList }}</pre>
+>>>>>>> abddb6858f432b6f0ce753a87913a20086698b52
     </main>
 </template>
 
@@ -248,7 +253,7 @@ export default {
     data() {
         return {
             isLoading: true,
-            orderList  :null,
+            orderList: null,
         };
     },
     async mounted() {
@@ -266,7 +271,7 @@ export default {
                         this.orderList = res.data.data;
                         // await axios.get(`${process.env.VUE_APP_API_URL}/customer/${res.data.transactionQuery.customerID}/detail?token=${this.accessToken}`).then((res) => {
                         //     if (res.data.status) {
-                                
+
                         //     } else {
                         //         this.orderList = null;
                         //     }
@@ -373,6 +378,6 @@ export default {
         // },
     },
     computed: { ...mapState(["accessToken", "payload", "toastify"]) },
-    components: {  Loading },
+    components: { Loading },
 };
 </script>

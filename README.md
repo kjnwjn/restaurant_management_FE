@@ -65,7 +65,7 @@ Dưới đây là các bước chi tiết khởi chạy hệ thông sau khi hoà
 -   Khởi chạy Vue app:
 
 ```
-npm serve
+npm run serve
 ```
 
 Ứng dụng Vue sẽ được khởi chạy mặc định tại [localhost:8080](http://localhost:8080)
@@ -75,7 +75,7 @@ npm serve
 Để build ứng dụng VUE bằng cách chạy dòng lệnh sau:
 
 ```
-npm build
+npm run build
 ```
 
 Sau khi hoàn tất quá trình build ứng dụng, các tài nguyên được tạo trong thư mục **/dist**
