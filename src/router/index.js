@@ -19,7 +19,7 @@ const routes = [
         component: () => import(/* webpackChunkName: "home" */ "../views/POSView.vue"),
     },
     {
-        path: "/client/table",
+        path: "/client/table/:tableId",
         name: "client/table",
         component: () => import(/* webpackChunkName: "client/table" */ "../views/TableView.vue"),
     },

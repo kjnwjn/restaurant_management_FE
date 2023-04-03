@@ -1,16 +1,12 @@
 <template>
     <main class="p-6">
         <Loading :active="isLoading" :is-full-page="true" :can-cancel="false" />
-     
+
         <div class="flex mb-8" v-if="orderList">
-            <input
-                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full py-2.5 px-4"
-                type="text"
-                placeholder="Enter table here..."
-            />
-            <button class="bg-blue-400 py-4 px-8 rounded-lg text-white ml-4 hover:bg-blue-500 transition-all" >Enter</button>
+            <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full py-2.5 px-4" type="text" placeholder="Enter table here..." />
+            <button class="bg-blue-400 py-4 px-8 rounded-lg text-white ml-4 hover:bg-blue-500 transition-all">Enter</button>
         </div>
-          <div class="flex items-center mb-4 text-green-700 font-bold text-lg uppercase">
+        <div class="flex items-center mb-4 text-green-700 font-bold text-lg uppercase">
             <ThemifyIcon icon="menu" />
             <h1 class="ml-2">List of order</h1>
         </div>
@@ -31,14 +27,8 @@
                         <tbody v-if="orderList">
                             <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700" v-for="(orderItem, i) in orderList" :key="i">
                                 <td class="py-4 px-6 flex justify-between items-center">
-                                    <button
-                                        class="inline-flex items-center p-1 text-sm font-medium text-gray-500 bg-white rounded-full border border-gray-300"
-                                        type="button"
-                                        v-on:click="handleGetPendingOrder(orderItem.orderId)"
-                                      
-                                    >
+                                    <button class="inline-flex items-center p-1 text-sm font-medium text-gray-500 bg-white rounded-full border border-gray-300" type="button" v-on:click="handleGetPendingOrder(orderItem.orderId)">
                                         {{ orderItem.orderId }}
-                                      
                                     </button>
                                 </td>
                                 <td class="py-4 px-6">{{ orderItem.tableId }}</td>
@@ -53,12 +43,12 @@
             </div>
         </div>
 
-        <div class="flex items-center mb-4 text-green-700 font-bold text-lg uppercase"  v-if="pendingOrderList">
+        <div class="flex items-center mb-4 text-green-700 font-bold text-lg uppercase" v-if="pendingOrderList">
             <ThemifyIcon icon="menu" />
-            <h1 class="ml-2">List of pending order belong to order : {{pendingOrderList[0].orderId}}</h1>
+            <h1 class="ml-2">List of pending order belong to order : {{ pendingOrderList[0].orderId }}</h1>
         </div>
-        <div class="grid grid-cols-3 p-4"  v-if="pendingOrderList">
-             <div class="col-span-3 pr-6">
+        <div class="grid grid-cols-3 p-4" v-if="pendingOrderList">
+            <div class="col-span-3 pr-6">
                 <div class="overflow-x-auto relative">
                     <table class="overflow-scroll w-full text-sm text-left text-gray-500 dark:text-gray-400">
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -74,14 +64,8 @@
                         <tbody v-if="pendingOrderList">
                             <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700" v-for="(pendingItem, i) in pendingOrderList" :key="i">
                                 <td class="py-4 px-6 flex justify-between items-center">
-                                    <button
-                                        class="inline-flex items-center p-1 text-sm font-medium text-gray-500 bg-white rounded-full border border-gray-300"
-                                        type="button"
-                                        v-on:click="handleGetPendingOrder(pendingItem.pendingId)"
-                                      
-                                    >
+                                    <button class="inline-flex items-center p-1 text-sm font-medium text-gray-500 bg-white rounded-full border border-gray-300" type="button" v-on:click="handleGetPendingOrder(pendingItem.pendingId)">
                                         {{ pendingItem.pendingId }}
-                                      
                                     </button>
                                 </td>
                                 <td class="py-4 px-6">{{ pendingItem.orderId }}</td>
@@ -95,9 +79,8 @@
                     </table>
                 </div>
             </div>
-           
         </div>
-         <!-- <pre>{{ orderList }}</pre> -->
+        <!-- <pre>{{ orderList }}</pre> -->
     </main>
 </template>
 
@@ -115,9 +98,9 @@ export default {
     data() {
         return {
             isLoading: true,
-            orderList  :null,
-            pendingOrderList : null,
-            dish :null
+            orderList: null,
+            pendingOrderList: null,
+            dish: null,
         };
     },
     async mounted() {
@@ -144,7 +127,7 @@ export default {
             await axios.get(`${process.env.VUE_APP_API_URL}/pendingOrder/query/${orderId}?token=${this.$store.state.accessToken}`).then((res) => {
                 if (res.data.status) {
                     this.pendingOrderList = res.data.data;
-                    
+
                     this.$store.state.toastify.success(res.data.msg.en);
                 } else {
                     this.toastify.error(res.data.msg.en);
@@ -236,6 +219,6 @@ export default {
         // },
     },
     computed: { ...mapState(["accessToken", "payload", "toastify"]) },
-    components: {  Loading },
+    components: { Loading },
 };
 </script>

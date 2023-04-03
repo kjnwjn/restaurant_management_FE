@@ -12,22 +12,7 @@
 import leftMenu from "@/components/leftMenu";
 
 export default {
-    // mounted() {
-    //     this.$store.commit("set_toastify", this.$vToastify);
-    // },
-    // methods: {
-    //     handleSignOut() {
-    //         localStorage.removeItem("x-access-token");
-    //         localStorage.removeItem("payload");
-    //         this.$store.commit("set_access_token", null);
-    //         this.$store.commit("set_payload", null);
-    //         this.$router.push("/login");
-    //     },
-    // },
     components: { leftMenu },
-    // computed: {
-    //     ...mapState(["accessToken", "payload"]),
-    // },
 };
 </script>
 
