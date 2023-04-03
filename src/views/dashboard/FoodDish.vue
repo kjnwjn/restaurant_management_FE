@@ -16,29 +16,21 @@
                     <input
                         v-on:change="uploadFile()"
                         ref="file"
-                        class="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer pl-2 py-2 mr-4"
+                        class="border-gray-300 text-gray-900 border rounded-lg block w-full text-sm cursor-pointer pl-2 py-2 mr-4"
                         type="file"
                     />
                 </div>
                 <div>
                     <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Dish name</label>
-                    <input v-model="dish.name" class="text-gray-900 bg-gray-50 border border-gray-300 text-sm rounded-lg block w-full p-2.5" />
+                    <input v-model="dish.name" class="border-gray-300 text-gray-900 border text-sm rounded-lg block w-full p-2.5" />
                 </div>
                 <div>
                     <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Price</label>
-                    <input v-model="dish.price" type="number" class="text-gray-900 bg-gray-50 border border-gray-300 text-sm rounded-lg block w-full p-2.5" />
+                    <input v-model="dish.price" type="number" class="border-gray-300 text-gray-900 border text-sm rounded-lg block w-full p-2.5" />
                 </div>
                 <div>
                     <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Category ID</label>
-                    <input
-                        :class="{
-                            ' bg-gray-200 text-gray-500': payload.role != 'ADMIN',
-                            'border-gray-300 text-gray-900': payload.role == 'ADMIN',
-                        }"
-                        v-model="dish.categoryId"
-                        type="number"
-                        class="border-gray-200 border text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                    />
+                    <input v-model="dish.categoryId" type="number" class="border-gray-300 text-gray-900 border text-sm rounded-lg block w-full p-2.5" />
                 </div>
             </div>
             <button
@@ -177,7 +169,6 @@ export default {
                 .get(`${process.env.VUE_APP_API_URL}/dish/get-all?token=${this.accessToken}`)
                 .then((res) => {
                     if (res.data.status && res.data.data) {
-                        console.log(res);
                         this.dishList = res.data.data;
                     } else {
                         this.dishList = null;
