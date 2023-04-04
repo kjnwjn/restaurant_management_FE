@@ -1,55 +1,58 @@
 <template>
-    <main>
-        <Loading :active="isLoading" :is-full-page="true" :can-cancel="false" />
-        <div class="flex items-center mb-4 text-green-700 font-bold text-lg uppercase">
-            <ThemifyIcon icon="menu" />
-            <h1 class="ml-2">Employee management</h1>
-        </div>
-        <div class="mb-6">
-            <div class="mb-6 text-md font-medium text-gray-900 flex items-center">
-                <ThemifyIcon icon="settings" />
-                <p class="ml-2">Detail of Employee:</p>
+    <div>
+        <DashboardMenu />
+        <main class="main-container">
+            <Loading :active="isLoading" :is-full-page="true" :can-cancel="false" />
+            <div class="flex items-center mb-4 text-green-700 font-bold text-lg uppercase">
+                <ThemifyIcon icon="menu" />
+                <h1 class="ml-2">Employee management</h1>
             </div>
-            <div class="grid gap-6 mb-6 md:grid-cols-2">
-                <div>
-                    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">User code</label>
-                    <input v-model="employee.userCode" disabled class="bg-gray-200 border border-gray-300 text-gray-500 text-sm rounded-lg block w-full p-2.5" />
+            <div class="mb-6">
+                <div class="mb-6 text-md font-medium text-gray-900 flex items-center">
+                    <ThemifyIcon icon="settings" />
+                    <p class="ml-2">Detail of Employee:</p>
                 </div>
-                <div>
-                    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Full name</label>
-                    <input v-model="employee.fullName" type="text" disabled class="bg-gray-200 border border-gray-300 text-gray-500 text-sm rounded-lg block w-full p-2.5" />
+                <div class="grid gap-6 mb-6 md:grid-cols-2">
+                    <div>
+                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">User code</label>
+                        <input v-model="employee.userCode" disabled class="bg-gray-200 border border-gray-300 text-gray-500 text-sm rounded-lg block w-full p-2.5" />
+                    </div>
+                    <div>
+                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Full name</label>
+                        <input v-model="employee.fullName" type="text" disabled class="bg-gray-200 border border-gray-300 text-gray-500 text-sm rounded-lg block w-full p-2.5" />
+                    </div>
+                    <div>
+                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Basic salary</label>
+                        <input
+                            :disabled="payload.role != 'ADMIN'"
+                            :class="{
+                                ' bg-gray-200 text-gray-500': payload.role != 'ADMIN',
+                                'border-gray-300 text-gray-900': payload.role == 'ADMIN',
+                            }"
+                            v-model="employee.preSalary"
+                            type="number"
+                            class="border-gray-200 border text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                        />
+                    </div>
+                    <div>
+                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Role</label>
+                        <input disabled v-model="employee.role" class="bg-gray-200 border border-gray-300 text-gray-500 text-sm rounded-lg block w-full p-2.5" />
+                    </div>
                 </div>
-                <div>
-                    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Basic salary</label>
-                    <input
-                        :disabled="payload.role != 'ADMIN'"
-                        :class="{
-                            ' bg-gray-200 text-gray-500': payload.role != 'ADMIN',
-                            'border-gray-300 text-gray-900': payload.role == 'ADMIN',
-                        }"
-                        v-model="employee.preSalary"
-                        type="number"
-                        class="border-gray-200 border text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                    />
-                </div>
-                <div>
-                    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Role</label>
-                    <input disabled v-model="employee.role" class="bg-gray-200 border border-gray-300 text-gray-500 text-sm rounded-lg block w-full p-2.5" />
-                </div>
+                <button
+                    type="submit"
+                    v-on:click="updateSalaryHandler"
+                    :class="{
+                        'bg-blue-400 hover:bg-blue-500 ': payload.role == 'ADMIN',
+                        'bg-gray-400 cursor-default': payload.role != 'ADMIN',
+                    }"
+                    class="text-white transition-all focus:outline-none font-medium rounded-lg text-sm w-full sm:w-auto px-8 py-2.5 text-center"
+                >
+                    Update
+                </button>
             </div>
-            <button
-                type="submit"
-                v-on:click="updateSalaryHandler"
-                :class="{
-                    'bg-blue-400 hover:bg-blue-500 ': payload.role == 'ADMIN',
-                    'bg-gray-400 cursor-default': payload.role != 'ADMIN',
-                }"
-                class="text-white transition-all focus:outline-none font-medium rounded-lg text-sm w-full sm:w-auto px-8 py-2.5 text-center"
-            >
-                Update
-            </button>
-        </div>
-    </main>
+        </main>
+    </div>
 </template>
 
 <script>
@@ -58,9 +61,10 @@ import ThemifyIcon from "vue-themify-icons/ThemifyIcon.vue";
 import { mapState } from "vuex";
 import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
+import DashboardMenu from "@/components/DashboardMenu.vue";
 
 export default {
-    components: { ThemifyIcon, Loading },
+    components: { ThemifyIcon, Loading, DashboardMenu },
     data() {
         return {
             isLoading: false,

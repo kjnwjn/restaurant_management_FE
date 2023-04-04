@@ -8,4 +8,7 @@ export default {
     set_toastify(state, obj) {
         state.toastify = obj;
     },
+    set_tableData(state, tableData) {
+        state.tableData = tableData;
+    },
 };

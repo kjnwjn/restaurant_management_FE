@@ -1,5 +1,6 @@
 <template>
     <main>
+        <DashboardMenu />
         <Loading :active="isLoading" :is-full-page="true" :can-cancel="false" />
         <div class="flex items-center mb-4 text-green-700 font-bold text-lg uppercase">
             <ThemifyIcon icon="menu" />
@@ -81,11 +82,13 @@
 import axios from "axios";
 import { mapState } from "vuex";
 import dateFormat from "@/helpers/dateFormat";
-import priceFormat from "../../helpers/priceFormat";
+import priceFormat from "@/helpers/priceFormat";
 import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
+import DashboardMenu from "@/components/DashboardMenu.vue";
 
 export default {
+    components: { Loading, DashboardMenu },
     data() {
         return {
             isLoading: false,
@@ -143,6 +146,5 @@ export default {
     computed: {
         ...mapState(["accessToken", "payload", "toastify"]),
     },
-    components: { Loading },
 };
 </script>
