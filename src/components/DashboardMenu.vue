@@ -88,6 +88,37 @@
                 <button class="ml-4">Logout</button>
             </div>
         </div>
+        <div class="w-full p-6 main-content-men" v-else>
+            <h1 class="text-2xl text-center">Welcome</h1>
+            <div class="menu-list mt-8">
+                <ul class="mb-3">
+                    <div class="flex items-center mb-1 text-white">
+                        <ThemifyIcon icon="arrow-circle-right" />
+                        <h1 class="ml-2 font-bold uppercase">Category</h1>
+                    </div>
+                    <li class="category-item" v-for="(cateItem, i) in menu" :key="i" @click="handleGetIndex(i)">
+                        <div class="flex items-center w-full pl-6 transition-all">
+                            <ThemifyIcon icon="server" />
+                            <p class="p-1 pl-2">{{ cateItem.category.name }}</p>
+                        </div>
+                    </li>
+                </ul>
+                <hr class="my-4 opacity-50" />
+                <ul class="mb-3">
+                    <div class="flex items-center mb-1 text-white">
+                        <ThemifyIcon icon="arrow-circle-right" />
+                        <h1 class="ml-2 font-bold uppercase">Order</h1>
+                    </div>
+                    <li class="category-item">
+                        <div class="flex items-center w-full pl-6 transition-all">
+                            <ThemifyIcon icon="server" />
+                            <li class="p-1 pl-2">Order Section</li>
+                        </div>
+                    </li>
+                </ul>
+                <hr class="my-4 opacity-50" />
+            </div>
+        </div>
     </div>
 </template>
 
@@ -96,6 +127,7 @@ import ThemifyIcon from "vue-themify-icons/ThemifyIcon.vue";
 import { mapState } from "vuex";
 
 export default {
+    props: { menu: Array },
     methods: {
         handleSignOut() {
             localStorage.removeItem("x-access-token");
@@ -104,10 +136,14 @@ export default {
             this.$store.commit("set_payload", null);
             this.$router.push("/login");
         },
+        handleGetIndex(index) {
+            localStorage.setItem("menuIndex", index + 1);
+            this.$store.commit("set_menuIndex", index + 1);
+        },
     },
     components: { ThemifyIcon },
     computed: {
-        ...mapState(["accessToken", "payload", "tableData"]),
+        ...mapState(["accessToken", "payload", "tableData", "menuIndex"]),
     },
 };
 </script>
@@ -141,6 +177,10 @@ a.is-active div {
     background: white;
     color: black;
     border-radius: 100px;
+}
+.category-item:hover {
+    cursor: pointer;
+    background: #bdaed181;
 }
 .logout-btn {
     width: 85%;

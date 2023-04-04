@@ -27,5 +27,6 @@ main.main-container {
     position: absolute;
     width: calc(100% - 300px);
     transform: translateX(300px);
+    height: 100%;
 }
 </style>
