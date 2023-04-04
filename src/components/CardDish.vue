@@ -5,9 +5,9 @@
                 <img src="@/assets/dish.jpeg" width="100%" />
             </div>
             <div class="py-4 flex justify-center items-center btn-gr" :class="{ active: !dish.status }">
-                <button class="text-base inline-flex items-center px-2 text-sm font-medium text-white-500 bg-red-500 rounded-full" type="button">-</button>
-                <input type="number" class="w-1/6 text-black outline-none rounded-xl text-center" min="0" max="10" />
-                <button class="text-base inline-flex items-center px-2 text-sm font-medium text-white-500 bg-green-500 rounded-full" type="button">+</button>
+                <!-- <button class="text-base inline-flex items-center px-2 text-sm font-medium text-white-500 bg-red-500 rounded-full" type="button">-</button>
+                <input type="number" class="w-1/6 text-black outline-none rounded-xl text-center" min="0" max="10" /> -->
+                <button class="text-base inline-flex items-center px-2 text-sm font-medium text-white-500 bg-green-500 rounded-full" @click="addToCart(dish)" type="button">+</button>
             </div>
             <div class="flex justify-between items-baseline">
                 <span>name :</span>
@@ -24,12 +24,40 @@
 
 <script>
 import priceFormat from "@/helpers/priceFormat";
+import { mapState } from "vuex";
 export default {
     props: {
         dish: Object,
     },
-    methods: { priceFormat },
-    components: {},
+    methods: {
+        priceFormat,
+        addToCart(dish) {
+            // let index;
+            // let listData = localStorage.getItem("pendingOrderData") ? localStorage.getItem("pendingOrderData") : [];
+            // if (this.pendingOrderData && this.pendingOrderData.length <= 0) {
+            //     localStorage.setItem("pendingOrderData", JSON.stringify([dish]));
+            //     this.$store.commit("set_pendingOrderData", dish);
+            // } else {
+            //     let isExist = this.pendingOrderData.filter((item, i) => {
+            //         if (item.dishId == dish.dishId) {
+            //             index = i;
+            //             return item;
+            //         }
+            //     });
+            //     if (isExist.length > 0) {
+            //         isExist[0].qty += 1;
+            //         listData[index] = isExist[0];
+            //         localStorage.setItem("pendingOrderData", JSON.stringify(listData));
+            //         this.$store.commit("set_pendingItem", isExist[0], index);
+            //     } else {
+            //         console.log("item add success");
+            //     }
+            // }
+        },
+    },
+    computed: {
+        ...mapState(["pendingOrderData"]),
+    },
 };
 </script>
 

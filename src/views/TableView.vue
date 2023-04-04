@@ -19,7 +19,7 @@
                 </div>
                 <!-- <div class="col-span-1"> -->
                 <div class="order-detail h-full flex flex-col w-full px-[20px] py-[15px] gap-3">
-                    <button class="hide-button absolute text-medium inline-flex items-center px-3 text-sm font-medium text-white-500 bg-red-500" type="button">-</button>
+                    <!-- <button class="minimize-btn absolute text-medium inline-flex items-center px-3 text-sm font-medium text-white-500 bg-red-500" type="button"></button> -->
 
                     <!-- chi tiết bảng hóa đơn -->
                     <div class="flex flex-col absolute inset-0 mx-auto my-auto px-2 py-2 rounded-[20px]">
@@ -112,7 +112,6 @@ import { mapState } from "vuex";
 export default {
     data() {
         return {
-            tableId: null,
             menu: null,
         };
     },
@@ -125,23 +124,34 @@ export default {
         dateFormatV2,
         async fetchData() {
             this.isLoading = true;
-            localStorage.setItem("tableData", JSON.stringify({ tableId: this.$route.params.tableId }));
-            this.$store.commit("set_tableData", { tableId: this.$route.params.tableId });
+
             await axios
                 .get(`${process.env.VUE_APP_API_URL}/menu/get-data`)
                 .then(async (res) => {
-                    console.log(res);
                     if (res.data.status && res.data.data) {
                         this.menu = res.data.data;
                     }
                 })
                 .catch(() => {});
+            await axios
+                .get(`${process.env.VUE_APP_API_URL}/table/get-order/${this.$route.params.tableId}`)
+                .then(async (res) => {
+                    if (res.data.status && res.data.data) {
+                        localStorage.setItem("tableData", JSON.stringify(res.data.data));
+                        this.$store.commit("set_tableData", res.data.data);
+                    } else {
+                        localStorage.setItem("tableData", JSON.stringify({ tableId: this.$route.params.tableId }));
+                        this.$store.commit("set_tableData", { tableId: this.$route.params.tableId });
+                    }
+                })
+                .catch(() => {});
+
             this.isLoading = false;
         },
     },
     components: { cardDish, DashboardMenu },
     computed: {
-        ...mapState(["menuIndex"]),
+        ...mapState(["menuIndex", "tableData"]),
     },
 };
 </script>
@@ -152,12 +162,30 @@ export default {
     position: fixed;
     bottom: 0;
     right: 0;
+    top: 0;
     width: 57vh;
-    height: 75%;
 }
-.hide-button {
+.minimize-btn {
     top: 0;
     z-index: 1000;
     left: 10px;
+}
+#cjss::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+#cjss::-webkit-scrollbar-track {
+    background: #1c6758;
+}
+
+/* Handle */
+#cjss::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
+/* Handle on hover */
+#cjss::-webkit-scrollbar-thumb:hover {
+    background: #225a4f;
 }
 </style>

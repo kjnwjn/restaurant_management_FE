@@ -14,4 +14,13 @@ export default {
     set_menuIndex(state, index) {
         state.menuIndex = index;
     },
+    set_pendingOrderData(state, index) {
+        state.pendingOrderData.push(index);
+    },
+    set_defaultPOD(state, pendingOrderData) {
+        state.pendingOrderData = pendingOrderData;
+    },
+    set_pendingItem(state, newPendingItem, i) {
+        state.pendingOrderData[i] = newPendingItem;
+    },
 };
