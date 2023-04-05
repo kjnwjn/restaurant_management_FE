@@ -23,4 +23,7 @@ export default {
     set_pendingItem(state, newPendingItem, i) {
         state.pendingOrderData[i] = newPendingItem;
     },
+    set_menuList(state, menuList) {
+        state.menuList = menuList;
+    },
 };

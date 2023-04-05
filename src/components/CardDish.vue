@@ -7,7 +7,7 @@
             <div class="py-4 flex justify-center items-center btn-gr" :class="{ active: !dish.status }">
                 <!-- <button class="text-base inline-flex items-center px-2 text-sm font-medium text-white-500 bg-red-500 rounded-full" type="button">-</button>
                 <input type="number" class="w-1/6 text-black outline-none rounded-xl text-center" min="0" max="10" /> -->
-                <button class="text-base inline-flex items-center px-2 text-sm font-medium text-white-500 bg-green-500 rounded-full" @click="addToCart(dish)" type="button">+</button>
+                <button v-if="tableData.tableData" class="text-base inline-flex items-center px-2 text-sm font-medium text-white-500 bg-green-500 rounded-full" @click="addToCart(dish)" type="button">+</button>
             </div>
             <div class="flex justify-between items-baseline">
                 <span>name :</span>
@@ -55,7 +55,7 @@ export default {
         },
     },
     computed: {
-        ...mapState(["pendingOrderData"]),
+        ...mapState(["pendingOrderData", "tableData"]),
     },
 };
 </script>

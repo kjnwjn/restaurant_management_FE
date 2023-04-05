@@ -1,79 +1,102 @@
-<div class="col-span-1">
-    <div class="min-h-screen w-full">
-        <div class="order-detail flex flex-col min-h-screen w-full px-[20px] py-[15px] gap-3">
-            <h1 class="text-[25px] font-bold text-gray-300 text-center">TABLE 1</h1>
-            <!-- chi tiết bảng hóa đơn -->
-            <div class="flex flex-col absolute inset-0 mx-auto my-auto px-2 py-2 h-[500px] rounded-[20px]">
-                <div class="flex items-center justify-center text-gray-300 font-semibold text-[25px] relative my-3">
-                    <h1 class="flex justify-center">ORDER DETAIL FOR TABLE 1</h1>
-                    <font-awesome-icon icon="fa-solid fa-xmark" class="absolute top-0 right-2 cursor-pointer text-gray-300" />
-                </div>
-                <div class="flex flex-col gap-1 text-lime-400 w-[100%] justify-center items-center text-[15px]">
-                    <h1>Mã hóa đơn : 123456789</h1>
-                    <h1>Thời gian : 7:45 31/3/2023</h1>
-                </div>
-                <div id="cjss" class="flex flex-col overflow-auto h-1/2">
-                    <div class="flex text-18px font-semibold pl-3 py-2 rounded-t">
-                        <div class="flex gap-2 w-[65%]">
-                            <h1 class="">Danh sách món ăn</h1>
-                        </div>
-                        <h1 class="w-[15%]">Số lượng</h1>
-                        <h1 class="w-[15%]">Đơn giá</h1>
-                        <h1 class="w-[15%]">Thành tiền</h1>
-                    </div>
-                    <div class="flex flex-col my-5">
-                        <h1 class="rounded px-2 flex items-center justify-center">Lần 1 - 22:10 - 31/3/2023</h1>
-                        <div class="flex text-18px font-medium text-gray-200 pl-3 py-2 border-b-[1px] border-slate-700">
-                            <h1 class="w-[65%]">Cá hồi</h1>
-                            <h1 class="w-[15%]">2</h1>
-                            <h1 class="w-[15%]">100k</h1>
-                            <h1 class="w-[15%]">200k</h1>
-                        </div>
-                        <div class="flex text-18px font-medium text-gray-200 pl-3 py-2 border-b-[1px] border-slate-700">
-                            <h1 class="w-[65%]">Cá chim</h1>
-                            <h1 class="w-[15%]">3</h1>
-                            <h1 class="w-[15%]">100k</h1>
-                            <h1 class="w-[15%]">300k</h1>
-                        </div>
-                    </div>
-                    <div class="flex flex-col my-5">
-                        <h1 class="rounded px-2 flex items-center justify-center">Lần 1 - 22:10 - 31/3/2023</h1>
-                        <div class="flex text-18px font-medium text-gray-200 pl-3 py-2 border-b-[1px] border-slate-700">
-                            <h1 class="w-[65%]">Cá hồi</h1>
-                            <h1 class="w-[15%]">2</h1>
-                            <h1 class="w-[15%]">100k</h1>
-                            <h1 class="w-[15%]">200k</h1>
-                        </div>
-                        <div class="flex text-18px font-medium text-gray-200 pl-3 py-2 border-b-[1px] border-slate-700">
-                            <h1 class="w-[65%]">Cá chim</h1>
-                            <h1 class="w-[15%]">3</h1>
-                            <h1 class="w-[15%]">100k</h1>
-                            <h1 class="w-[15%]">300k</h1>
-                        </div>
-                    </div>
-                    <div class="flex flex-col my-5">
-                        <h1 class="rounded px-2 flex items-center justify-center">Lần 1 - 22:10 - 31/3/2023</h1>
-                        <div class="flex text-18px font-medium text-gray-200 pl-3 py-2 border-b-[1px] border-slate-700">
-                            <h1 class="w-[65%]">Cá hồi</h1>
-                            <h1 class="w-[15%]">2</h1>
-                            <h1 class="w-[15%]">100k</h1>
-                            <h1 class="w-[15%]">200k</h1>
-                        </div>
-                        <div class="flex text-18px font-medium text-gray-200 pl-3 py-2 border-b-[1px] border-slate-700">
-                            <h1 class="w-[65%]">Cá chim</h1>
-                            <h1 class="w-[15%]">3</h1>
-                            <h1 class="w-[15%]">100k</h1>
-                            <h1 class="w-[15%]">300k</h1>
+<template>
+    <div>
+        <DashboardMenu />
+
+        <main class="main-container">
+            <!-- <Loading :active="isLoading" :is-full-page="true" :can-cancel="false" /> -->
+
+            <div class="grid grid-cols-3 p-4" v-if="tableData">
+                <div class="col-span-3 pr-6 mb-4" v-for="(item, i) in tableData.pendingOrder" :key="i">
+                    <h1 class="ml-2 text-green-700 font-bold text-lg uppercase">Session order {{ i + 1 }}</h1>
+                    <p class="ml-2 text-green-500 font-bold text-md">Session Status : {{ item.status }}</p>
+                    <p class="ml-2 text-green-500 font-bold text-md">Session Note: {{ item.note }}</p>
+
+                    <div class="col-span-3 pr-6">
+                        <div class="overflow-x-auto relative">
+                            <table class="overflow-scroll w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                                    <tr>
+                                        <th scope="col" class="py-3 px-6">dishId</th>
+                                        <th scope="col" class="py-3 px-6">dishId</th>
+                                        <th scope="col" class="py-3 px-6">qty</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700" v-for="(dish, i) in item.orderData" :key="i">
+                                        <td class="py-4 px-6 flex justify-between items-center">
+                                            <button class="inline-flex items-center p-1 text-sm font-medium text-gray-500 bg-white rounded-full border border-gray-300" type="button">
+                                                {{ dish.dishId }}
+                                            </button>
+                                        </td>
+                                        <td class="py-4 px-6">{{ dish.dishId }}</td>
+                                        <td class="py-4 px-6">{{ dish.qty }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="flex text-yellow-300 font-semibold py-5 text-[16px] mt-auto mb-5 sdsad">
-                <h1 class="w-[65%] ml-2">Tổng</h1>
-                <h1 class="w-[15%]">5</h1>
-                <h1 class="w-[15%]"></h1>
-                <h1 class="w-[15%]">500k</h1>
-            </div>
-        </div>
+
+            <!-- <pre>{{ orderList }}</pre> -->
+        </main>
     </div>
-</div>
+</template>
+
+<script>
+// import axios from "axios";
+// import ThemifyIcon from "vue-themify-icons/ThemifyIcon.vue";
+import dateFormat from "@/helpers/dateFormat";
+import dateFormatV2 from "@/helpers/dateFormatV2";
+import priceFormat from "@/helpers/priceFormat";
+import { mapState } from "vuex";
+// import Loading from "vue-loading-overlay";
+import "vue-loading-overlay/dist/vue-loading.css";
+import DashboardMenu from "@/components/DashboardMenu.vue";
+
+export default {
+    data() {
+        return {
+            isLoading: true,
+            orderList: null,
+            pendingOrderList: null,
+            dish: null,
+        };
+    },
+    async mounted() {
+        // this.fetchData();
+    },
+    methods: {
+        dateFormat,
+        priceFormat,
+        dateFormatV2,
+        // async fetchData() {
+        //     this.isLoading = true;
+        //     await axios
+        //         .get(`${process.env.VUE_APP_API_URL}/order/query-all?token=${this.$store.state.accessToken}`)
+        //         .then(async (res) => {
+        //             if (res.data.status && res.data.data) {
+        //                 this.orderList = res.data.data;
+        //             }
+        //         })
+        //         .catch(() => this.$router.push("/pos"));
+        //     this.isLoading = false;
+        // },
+        // async handleGetPendingOrder(orderId) {
+        //     this.isLoading = true;
+        //     await axios.get(`${process.env.VUE_APP_API_URL}/pendingOrder/query/${orderId}?token=${this.$store.state.accessToken}`).then((res) => {
+        //         if (res.data.status) {
+        //             this.pendingOrderList = res.data.data;
+
+        //             this.$store.state.toastify.success(res.data.msg.en);
+        //         } else {
+        //             this.toastify.error(res.data.msg.en);
+        //         }
+        //     });
+        //     this.isLoading = false;
+        // },
+    },
+    computed: { ...mapState(["tableData"]) },
+    components: { DashboardMenu },
+};
+</script>

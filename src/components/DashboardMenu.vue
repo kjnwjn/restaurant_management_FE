@@ -96,7 +96,7 @@
                         <ThemifyIcon icon="arrow-circle-right" />
                         <h1 class="ml-2 font-bold uppercase">Category</h1>
                     </div>
-                    <li class="category-item" v-for="(cateItem, i) in menu" :key="i" @click="handleGetIndex(i)">
+                    <li class="category-item" v-for="(cateItem, i) in menuList" :key="i" @click="handleGetIndex(i)">
                         <div class="flex items-center w-full pl-6 transition-all">
                             <ThemifyIcon icon="server" />
                             <p class="p-1 pl-2">{{ cateItem.category.name }}</p>
@@ -143,7 +143,7 @@ export default {
     },
     components: { ThemifyIcon },
     computed: {
-        ...mapState(["accessToken", "payload", "tableData", "menuIndex"]),
+        ...mapState(["accessToken", "payload", "tableData", "menuIndex", "menuList"]),
     },
 };
 </script>

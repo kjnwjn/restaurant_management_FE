@@ -16,6 +16,8 @@ Vue.use(VueToastify, {
     errorDuration: 4000,
     singular: true,
     hideProgressbar: true,
+    withBackdrop: true,
+    backdrop: "rgba(0, 0, 0, 0.2)",
 });
 
 new Vue({

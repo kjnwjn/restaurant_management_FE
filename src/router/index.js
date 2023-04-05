@@ -1,6 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import auth from "@/middlewares/auth";
+import getMenuData from "@/middlewares/getMenuData";
 
 Vue.use(VueRouter);
 
@@ -21,7 +22,13 @@ const routes = [
     {
         path: "/client/table/:tableId",
         name: "client/table",
+        beforeEnter: getMenuData,
         component: () => import(/* webpackChunkName: "client/table" */ "../views/TableView.vue"),
+    },
+    {
+        path: "/client/table/:tableId/order-session",
+        name: "client/table/order-session",
+        component: () => import(/* webpackChunkName: "client/table" */ "../views/OrderPending.vue"),
     },
     {
         path: "/dashboard/account",
