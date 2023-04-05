@@ -19,15 +19,10 @@
                     </div>
                 </div>
                 <!-- <div class="col-span-1"> -->
-<<<<<<< HEAD
-                <div class="order-detail absolute h-full flex flex-col w-full px-[20px] py-[15px] gap-3" v-if="tableData?.tableData">
-                    <button class="minimize-btn absolute text-medium inline-flex items-center px-3 text-sm font-medium text-gray-300" type="button"><ThemifyIcon icon="angle-double-up" /></button>
-=======
                 <div class="order-detail absolute h-full flex flex-col w-full px-[20px] py-[15px] gap-3" v-if="tableData.tableData">
                     <button class="minimize-btn absolute text-medium inline-flex items-center px-3 text-sm font-medium text-gray-300" type="button">
                         <ThemifyIcon icon="angle-double-up" />
                     </button>
->>>>>>> e3ff7c6572bc401fa2637f648fc3846c5fe3b5f0
 
                     <!-- chi tiết bảng hóa đơn -->
                     <div class="flex flex-col absolute inset-0 mx-auto my-auto px-2 py-2 rounded-[20px]">
