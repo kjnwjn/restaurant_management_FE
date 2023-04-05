@@ -69,7 +69,6 @@ export default {
                         this.$store.state.toastify.success(res.data.msg.en);
                         localStorage.setItem("x-access-token", JSON.stringify(res.data.data.token));
                         localStorage.setItem("payload", JSON.stringify(res.data.data.payload));
-                        localStorage.setItem("tableData", null);
                         this.$store.commit("set_access_token", res.data.data.token);
                         this.$store.commit("set_payload", res.data.data.payload);
                         this.$store.commit("set_tableData", null);

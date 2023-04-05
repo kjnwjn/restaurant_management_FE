@@ -47,7 +47,7 @@
 </template>
 
 <script>
-// import axios from "axios";
+import axios from "axios";
 // import ThemifyIcon from "vue-themify-icons/ThemifyIcon.vue";
 import dateFormat from "@/helpers/dateFormat";
 import dateFormatV2 from "@/helpers/dateFormatV2";
@@ -67,37 +67,32 @@ export default {
         };
     },
     async mounted() {
-        // this.fetchData();
+        this.fetchData();
     },
     methods: {
         dateFormat,
         priceFormat,
         dateFormatV2,
-        // async fetchData() {
-        //     this.isLoading = true;
-        //     await axios
-        //         .get(`${process.env.VUE_APP_API_URL}/order/query-all?token=${this.$store.state.accessToken}`)
-        //         .then(async (res) => {
-        //             if (res.data.status && res.data.data) {
-        //                 this.orderList = res.data.data;
-        //             }
-        //         })
-        //         .catch(() => this.$router.push("/pos"));
-        //     this.isLoading = false;
-        // },
-        // async handleGetPendingOrder(orderId) {
-        //     this.isLoading = true;
-        //     await axios.get(`${process.env.VUE_APP_API_URL}/pendingOrder/query/${orderId}?token=${this.$store.state.accessToken}`).then((res) => {
-        //         if (res.data.status) {
-        //             this.pendingOrderList = res.data.data;
+        async fetchData() {
+            this.isLoading = true;
 
-        //             this.$store.state.toastify.success(res.data.msg.en);
-        //         } else {
-        //             this.toastify.error(res.data.msg.en);
-        //         }
-        //     });
-        //     this.isLoading = false;
-        // },
+            await axios
+                .get(`${process.env.VUE_APP_API_URL}/table/get-order/${this.$route.params.tableId}`)
+                .then(async (res) => {
+                    if (res.data.status && res.data.data) {
+                        this.$store.commit("set_tableData", res.data.data);
+                        this.$store.state.toastify.success(res.data.msg.en);
+                    } else {
+                        this.$store.commit("set_tableData", { tableId: this.$route.params.tableId });
+                        this.$store.state.toastify.error(res.data.msg.en);
+                    }
+                })
+                .catch(() => {});
+            localStorage.setItem("set_defaultPOD", JSON.stringify([]));
+            this.$store.commit("set_defaultPOD", []);
+
+            this.isLoading = false;
+        },
     },
     computed: { ...mapState(["tableData"]) },
     components: { DashboardMenu },
