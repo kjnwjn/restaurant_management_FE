@@ -32,27 +32,26 @@ export default {
     methods: {
         priceFormat,
         addToCart(dish) {
-            // let index;
-            // let listData = localStorage.getItem("pendingOrderData") ? localStorage.getItem("pendingOrderData") : [];
-            // if (this.pendingOrderData && this.pendingOrderData.length <= 0) {
-            //     localStorage.setItem("pendingOrderData", JSON.stringify([dish]));
-            //     this.$store.commit("set_pendingOrderData", dish);
-            // } else {
-            //     let isExist = this.pendingOrderData.filter((item, i) => {
-            //         if (item.dishId == dish.dishId) {
-            //             index = i;
-            //             return item;
-            //         }
-            //     });
-            //     if (isExist.length > 0) {
-            //         isExist[0].qty += 1;
-            //         listData[index] = isExist[0];
-            //         localStorage.setItem("pendingOrderData", JSON.stringify(listData));
-            //         this.$store.commit("set_pendingItem", isExist[0], index);
-            //     } else {
-            //         console.log("item add success");
-            //     }
-            // }
+            let index;
+            let listData = localStorage.getItem("pendingOrderData") ? JSON.parse(localStorage.getItem("pendingOrderData")) : [];
+            if (this.pendingOrderData && this.pendingOrderData.length <= 0) {
+                localStorage.setItem("pendingOrderData", JSON.stringify([{ dish: dish, qty: 1 }]));
+                this.$store.commit("set_pendingOrderData", { dish: dish, qty: 1 });
+            } else {
+                let isExist = this.pendingOrderData.filter((item, i) => {
+                    if (item.dish.dishId == dish.dishId) {
+                        index = i;
+                        return item;
+                    }
+                });
+                if (isExist.length > 0) {
+                    listData[index].qty += 1;
+                } else {
+                    listData.push({ dish, qty: 1 });
+                }
+                localStorage.setItem("pendingOrderData", JSON.stringify(listData));
+                this.$store.commit("set_defaultPOD", listData);
+            }
         },
     },
     computed: {
