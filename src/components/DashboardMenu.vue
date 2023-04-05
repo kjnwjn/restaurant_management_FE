@@ -96,12 +96,12 @@
                         <ThemifyIcon icon="arrow-circle-right" />
                         <h1 class="ml-2 font-bold uppercase">Category</h1>
                     </div>
-                    <li class="category-item" v-for="(cateItem, i) in menuList" :key="i" @click="handleGetIndex(i)">
+                    <router-link :to="'/client/table/' + $route.params.tableId + '/' + cateItem.category.categoryId" class="category-item" v-for="(cateItem, i) in menuList" :key="i">
                         <div class="flex items-center w-full pl-6 transition-all">
                             <ThemifyIcon icon="server" />
                             <p class="p-1 pl-2">{{ cateItem.category.name }}</p>
                         </div>
-                    </li>
+                    </router-link>
                 </ul>
                 <hr class="my-4 opacity-50" />
                 <ul class="mb-3">
@@ -109,12 +109,12 @@
                         <ThemifyIcon icon="arrow-circle-right" />
                         <h1 class="ml-2 font-bold uppercase">Order</h1>
                     </div>
-                    <li class="category-item">
+                    <router-link :to="'/client/table/' + $route.params.tableId + '/order-session'" class="category-item">
                         <div class="flex items-center w-full pl-6 transition-all">
                             <ThemifyIcon icon="server" />
                             <li class="p-1 pl-2">Order Section</li>
                         </div>
-                    </li>
+                    </router-link>
                 </ul>
                 <hr class="my-4 opacity-50" />
             </div>
@@ -137,7 +137,6 @@ export default {
             this.$router.push("/login");
         },
         handleGetIndex(index) {
-            localStorage.setItem("menuIndex", index + 1);
             this.$store.commit("set_menuIndex", index + 1);
         },
     },

@@ -5,9 +5,9 @@
         <main class="main-container">
             <div class="grid grid-cols-3 p-4">
                 <div class="col-span-3 pr-2">
-                    <div class="grid grid-cols-3" v-if="menuIndex">
-                        <template v-if="menuList[menuIndex - 1].disList.length > 0">
-                            <div class="col-span-1 pr-2" v-for="(dish, i) in menuList[menuIndex - 1].disList" :key="i">
+                    <div class="grid grid-cols-3">
+                        <template v-if="getCategoryList() && getCategoryList()?.disList.length > 0">
+                            <div class="col-span-1 pr-2" v-for="(dish, i) in getCategoryList().disList" :key="i">
                                 <card-dish :dish="dish"></card-dish>
                             </div>
                         </template>
@@ -19,7 +19,7 @@
                     </div>
                 </div>
                 <!-- <div class="col-span-1"> -->
-                <div class="order-detail absolute h-full flex flex-col w-full px-[20px] py-[15px] gap-3" v-if="tableData.tableData">
+                <div class="order-detail absolute h-full flex flex-col w-full px-[20px] py-[15px] gap-3" v-if="tableData?.tableData">
                     <button class="minimize-btn absolute text-medium inline-flex items-center px-3 text-sm font-medium text-gray-300" type="button"><ThemifyIcon icon="angle-double-up" /></button>
 
                     <!-- chi tiết bảng hóa đơn -->
@@ -82,6 +82,7 @@ export default {
     data() {
         return {
             note: "",
+            categoryList: null,
         };
     },
     async mounted() {
@@ -98,11 +99,9 @@ export default {
                 .get(`${process.env.VUE_APP_API_URL}/table/get-order/${this.$route.params.tableId}`)
                 .then(async (res) => {
                     if (res.data.status && res.data.data) {
-                        localStorage.setItem("tableData", JSON.stringify(res.data.data));
                         this.$store.commit("set_tableData", res.data.data);
                         this.$store.state.toastify.success(res.data.msg.en);
                     } else {
-                        localStorage.setItem("tableData", JSON.stringify({ tableId: this.$route.params.tableId }));
                         this.$store.commit("set_tableData", { tableId: this.$route.params.tableId });
                         this.$store.state.toastify.error(res.data.msg.en);
                     }
@@ -146,7 +145,7 @@ export default {
                             .then(async (res) => {
                                 if (res.data.status && res.data.data) {
                                     this.$store.state.toastify.success(res.data.msg.en);
-                                    this.$router.push(`/client/table/${this.tableId}/order-session`);
+                                    this.$router.push(`/client/table/${this.tableData.tableData.tableId}/order-session`);
                                 } else {
                                     this.$store.state.toastify.error(res.data.msg.en);
                                 }
@@ -158,6 +157,11 @@ export default {
                 });
 
             this.isLoading = false;
+        },
+        getCategoryList() {
+            const categoryId = this.$route.params.categoryId;
+            const categoryLis = this.menuList.filter((item) => item.category.categoryId == categoryId);
+            return categoryLis.length > 0 ? categoryLis[0] : null;
         },
     },
     components: { Loading, cardDish, DashboardMenu, ThemifyIcon },

@@ -31,6 +31,13 @@ const routes = [
         component: () => import(/* webpackChunkName: "client/table" */ "../views/OrderPending.vue"),
     },
     {
+        path: "/client/table/:tableId/:categoryId",
+        name: "client/table",
+        beforeEnter: getMenuData,
+        component: () => import(/* webpackChunkName: "client/table" */ "../views/TableView.vue"),
+    },
+
+    {
         path: "/dashboard/account",
         name: "dashboardAccount",
         beforeEnter: auth,

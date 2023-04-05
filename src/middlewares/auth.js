@@ -11,7 +11,6 @@ export default async function (to, from, next) {
             .then((response) => {
                 if (response.data.status) {
                     store.commit("set_tableData", null);
-                    localStorage.setItem("tableData", null);
                 }
                 return response.data.status ? next() : router.push({ path: "/login" });
             })
