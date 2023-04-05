@@ -8,7 +8,7 @@ Vue.use(VueRouter);
 const routes = [
     {
         path: "/",
-        name: "home",
+        name: "index",
         beforeEnter: () => {
             router.push("/home");
         },

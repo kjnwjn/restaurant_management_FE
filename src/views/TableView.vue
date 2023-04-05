@@ -1,8 +1,8 @@
 <template>
-    <section class="bg-white dark:bg-gray-900">
-        <Loading :active="isLoading" :is-full-page="true" :can-cancel="false" />
+    <section class="bg-white dark:bg-gray-900" v-if="menuList && menuList.length > 0">
         <DashboardMenu :menu="menuList" />
         <main class="main-container">
+            <Loading :active="isLoading" :is-full-page="true" :can-cancel="false" />
             <div class="grid grid-cols-3 p-4">
                 <div class="col-span-3 pr-2">
                     <div class="grid grid-cols-3" v-if="menuIndex">
@@ -67,6 +67,10 @@
             </div>
         </main>
     </section>
+    <section v-else>
+        <pre>{{ menuList }}</pre>
+        <h1>No data</h1>
+    </section>
 </template>
 
 <script>
@@ -83,6 +87,7 @@ import Loading from "vue-loading-overlay";
 export default {
     data() {
         return {
+            isLoading: true,
             note: "",
         };
     },
@@ -148,7 +153,7 @@ export default {
                             .then(async (res) => {
                                 if (res.data.status && res.data.data) {
                                     this.$store.state.toastify.success(res.data.msg.en);
-                                    this.$router.push(`/client/table/${this.tableId}/order-session`);
+                                    this.$router.push(`/client/table/${this.tableData.tableData.tableId}/order-session`);
                                 } else {
                                     this.$store.state.toastify.error(res.data.msg.en);
                                 }
