@@ -8,6 +8,7 @@
 export default {
     mounted() {
         this.$store.commit("set_toastify", this.$vToastify);
+        console.log(this.$socket);
     },
 };
 </script>

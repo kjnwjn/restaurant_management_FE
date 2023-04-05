@@ -8,7 +8,6 @@ export default async function (to, from, next) {
         await axios
             .get(`${process.env.VUE_APP_API_URL}/menu/get-data`)
             .then((res) => {
-                console.log(res);
                 if (res.data.status) {
                     store.commit("set_menuList", res.data.data);
                     localStorage.setItem("menuList", JSON.stringify(res.data.data));

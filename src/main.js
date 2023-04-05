@@ -5,6 +5,11 @@ import store from "./store";
 import ThemifyIcon from "vue-themify-icons";
 import VueToastify from "vue-toastify";
 
+import VueSocketIO from "vue-socket.io";
+import socketio from "socket.io";
+
+Vue.use(VueSocketIO, socketio("http://localhost:3300"));
+
 Vue.config.productionTip = false;
 
 Vue.component("ThemifyIcon", ThemifyIcon);
