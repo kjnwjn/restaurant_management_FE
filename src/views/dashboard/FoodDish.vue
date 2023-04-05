@@ -15,12 +15,7 @@
                 <div class="grid gap-6 mb-6 md:grid-cols-2">
                     <div>
                         <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Thumbnail</label>
-                        <input
-                            v-on:change="uploadFile()"
-                            ref="file"
-                            class="border-gray-300 text-gray-900 border rounded-lg block w-full text-sm cursor-pointer pl-2 py-2 mr-4"
-                            type="file"
-                        />
+                        <input v-on:change="uploadFile()" ref="file" class="border-gray-300 text-gray-900 border rounded-lg block w-full text-sm cursor-pointer pl-2 py-2 mr-4" type="file" />
                     </div>
                     <div>
                         <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Dish name</label>
@@ -35,13 +30,7 @@
                         <input v-model="dish.categoryId" type="number" class="border-gray-300 text-gray-900 border text-sm rounded-lg block w-full p-2.5" />
                     </div>
                 </div>
-                <button
-                    type="submit"
-                    v-on:click="newDish"
-                    class="text-white transition-all bg-blue-400 hover:bg-blue-500 focus:outline-none font-medium rounded-lg text-sm w-full sm:w-auto px-8 py-2.5 text-center"
-                >
-                    Submit
-                </button>
+                <button type="submit" v-on:click="newDish" class="text-white transition-all bg-blue-400 hover:bg-blue-500 focus:outline-none font-medium rounded-lg text-sm w-full sm:w-auto px-8 py-2.5 text-center">Submit</button>
             </div>
             <div class="flex items-center mb-4 text-green-700 font-bold text-lg uppercase">
                 <ThemifyIcon icon="menu" />

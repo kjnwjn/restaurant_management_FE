@@ -18,10 +18,10 @@
                             <li class="p-1 pl-2">Order</li>
                         </div>
                     </router-link>
-                    <router-link to="/attendance">
+                    <router-link to="/dashboard/pendingOrder">
                         <div class="flex items-center w-full pl-6 transition-all">
                             <ThemifyIcon icon="timer" />
-                            <li class="p-1 pl-2">Attendance</li>
+                            <li class="p-1 pl-2">Pending Order</li>
                         </div>
                     </router-link>
                     <router-link to="/customer">

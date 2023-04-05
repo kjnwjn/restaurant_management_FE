@@ -107,7 +107,7 @@ export default {
                 .then(async (res) => {
                     if (res.data.status && res.data.data) {
                         this.$store.commit("set_tableData", res.data.data);
-                        this.$store.state.toastify.success(res.data.msg.en);
+                        // this.$store.state.toastify.success(res.data.msg.en);
                     } else {
                         this.$store.commit("set_tableData", { tableId: this.$route.params.tableId });
                         this.$store.state.toastify.error(res.data.msg.en);
@@ -151,7 +151,7 @@ export default {
                             })
                             .then(async (res) => {
                                 if (res.data.status && res.data.data) {
-                                    this.$store.state.toastify.success(res.data.msg.en);
+                                    // this.$store.state.toastify.success(res.data.msg.en);
                                     this.$router.push(`/client/table/${this.tableData.tableData.tableId}/order-session`);
                                 } else {
                                     this.$store.state.toastify.error(res.data.msg.en);

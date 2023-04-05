@@ -75,6 +75,12 @@ const routes = [
         component: () => import(/* webpackChunkName: "login" */ "../views/OrderManagement.vue"),
     },
     {
+        path: "/dashboard/pendingOrder",
+        name: "/dashboard/pendingOrder",
+        beforeEnter: auth,
+        component: () => import(/* webpackChunkName: "login" */ "../views/PendingOrderManagement.vue"),
+    },
+    {
         path: "/login",
         name: "login",
         component: () => import(/* webpackChunkName: "login" */ "../views/LoginView.vue"),

@@ -61,7 +61,8 @@
                                     <th scope="col" class="py-3 px-6">tableId</th>
                                     <th scope="col" class="py-3 px-6">status</th>
                                     <th scope="col" class="py-3 px-6">note</th>
-                                    <th scope="col" class="py-3 px-6">orderData</th>
+                                    <th scope="col" class="py-3 px-6">Pending Order Data</th>
+                                    <th scope="col" class="py-3 px-6">Create At</th>
                                 </tr>
                             </thead>
                             <tbody v-if="pendingOrderList">
@@ -76,7 +77,7 @@
                                     <td class="py-4 px-6">{{ pendingItem.status }}</td>
                                     <td class="py-4 px-6">{{ pendingItem.note }}</td>
                                     <td class="py-4 px-6">{{ pendingItem.note }}</td>
-                                    <!-- <td class="py-4 px-6">{{ dateFormat(pendingItem.createdAt) }}</td> -->
+                                    <td class="py-4 px-6">{{ dateFormat(pendingItem.createdAt) }}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -132,96 +133,13 @@ export default {
             await axios.get(`${process.env.VUE_APP_API_URL}/pendingOrder/query/${orderId}?token=${this.$store.state.accessToken}`).then((res) => {
                 if (res.data.status) {
                     this.pendingOrderList = res.data.data;
-
-                    this.$store.state.toastify.success(res.data.msg.en);
                 } else {
                     this.toastify.error(res.data.msg.en);
                 }
             });
+            this.fetchData();
             this.isLoading = false;
         },
-        // async orderHandler() {
-        //     this.isLoading = true;
-        //     await axios
-        //         .post(`${process.env.VUE_APP_API_URL}/transaction/${this.transactionDetail.transactionID}/order?token=${this.accessToken}`, {
-        //             barcode: this.barcode,
-        //         })
-        //         .then((res) => {
-        //             if (!res.data.status) this.toastify.error(res.data.msg.en);
-        //         })
-        //         .catch((err) => {
-        //             console.log(err);
-        //             this.toastify.error(err.response.data.msg.en || "Error occurred while processing order.");
-        //         });
-        //     this.fetchData();
-        //     this.isLoading = false;
-        // },
-        // async handlePay() {
-        //     this.isLoading = true;
-        //     await axios
-        //         .post(`${process.env.VUE_APP_API_URL}/transaction/${this.transactionDetail.transactionID}/pay?token=${this.accessToken}`, {
-        //             cash: this.cash,
-        //         })
-        //         .then((res) => {
-        //             if (res.data.status) {
-        //                 this.toastify.success(res.data.msg.en);
-        //             } else {
-        //                 this.toastify.error(res.data.msg.en);
-        //             }
-        //         })
-        //         .catch((err) => {
-        //             this.toastify.error(err.response.data.msg.en || "Error occurred while processing order.");
-        //         });
-        //     this.fetchData();
-        //     this.isLoading = false;
-        // },
-        // async handleUpdateQuantity(product, type) {
-        //     this.isLoading = true;
-        //     let qty = product.qty;
-        //     let barcode = product.barcode;
-        //     await axios
-        //         .post(`${process.env.VUE_APP_API_URL}/transaction/${this.transactionDetail.transactionID}/order?token=${this.accessToken}`, {
-        //             barcode,
-        //             qty: type == "increase" ? (qty += 1) : (qty -= 1),
-        //         })
-        //         .then((res) => {
-        //             if (res.data.status) {
-        //                 this.toastify.success(res.data.msg.en);
-        //             } else {
-        //                 this.toastify.error(res.data.msg.en);
-        //             }
-        //         })
-        //         .catch((err) => {
-        //             this.toastify.error(err.response.data.msg.en || "Error occurred while processing order.");
-        //         });
-        //     this.fetchData();
-        //     this.isLoading = false;
-        // },
-        // async handleAddCustomer() {
-        //     this.isLoading = true;
-        //     await axios
-        //         .post(`${process.env.VUE_APP_API_URL}/transaction/${this.transactionDetail.transactionID}/add-customer?token=${this.accessToken}`, {
-        //             customerID: this.customerID,
-        //         })
-        //         .then((res) => {
-        //             if (res.data.status) {
-        //                 this.toastify.success(res.data.msg.en);
-        //             } else {
-        //                 this.toastify.error(res.data.msg.en);
-        //             }
-        //         })
-        //         .catch((err) => {
-        //             this.toastify.error(err.response.data.msg.en || "Error occurred while processing order.");
-        //         });
-        //     this.fetchData();
-        //     this.isLoading = false;
-        // },
-        // async togglePointHandler() {
-        //     await axios.post(`${process.env.VUE_APP_API_URL}/transaction/${this.transactionDetail.transactionID}/toggle-point?token=${this.accessToken}`).then((res) => {
-        //         console.log(res.data);
-        //     });
-        //     this.fetchData();
-        // },
     },
     computed: { ...mapState(["accessToken", "payload", "toastify"]) },
     components: { Loading, DashboardMenu },

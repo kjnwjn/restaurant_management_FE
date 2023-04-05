@@ -4,7 +4,7 @@
 
         <main class="main-container">
             <!-- <Loading :active="isLoading" :is-full-page="true" :can-cancel="false" /> -->
-            <pre>{{ tableData }}</pre>
+            <!-- <pre>{{ tableData }}</pre> -->
             <div class="grid grid-cols-3 p-4" v-if="tableData">
                 <div class="col-span-3 pr-6 mb-4" v-for="(item, i) in tableData.pendingOrder" :key="i">
                     <h1 class="ml-2 text-green-700 font-bold text-lg uppercase">Session order {{ i + 1 }}</h1>
@@ -24,10 +24,7 @@
                                 <tbody>
                                     <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700" v-for="(dish, i) in item.orderData" :key="i">
                                         <td class="py-4 px-6 flex justify-between items-center">
-                                            <button
-                                                class="inline-flex items-center p-1 text-sm font-medium text-gray-500 bg-white rounded-full border border-gray-300"
-                                                type="button"
-                                            >
+                                            <button class="inline-flex items-center p-1 text-sm font-medium text-gray-500 bg-white rounded-full border border-gray-300" type="button">
                                                 {{ dish.dishId }}
                                             </button>
                                         </td>
@@ -81,7 +78,7 @@ export default {
                 .then(async (res) => {
                     if (res.data.status && res.data.data) {
                         this.$store.commit("set_tableData", res.data.data);
-                        this.$store.state.toastify.success(res.data.msg.en);
+                        // this.$store.state.toastify.success(res.data.msg.en);
                     } else {
                         this.$store.commit("set_tableData", { tableId: this.$route.params.tableId });
                         this.$store.state.toastify.error(res.data.msg.en);
