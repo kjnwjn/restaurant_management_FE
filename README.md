@@ -50,7 +50,7 @@ npm install
 
 Cấu hình các biến môi trường:
 
--   **SERVER_BASE_URL**: địa chỉ mặc định của server.
+-   **VUE_SERVER_BASE_URL**: địa chỉ mặc định của server.
 -   **VUE_APP_BASE_URL**: địa chỉ mặc định của VueJS font-end chạy ở môi trường DEV.
 -   **VUE_APP_API_URL**: chỉ định địa chỉ API cho việc call API ở phía font-end.
 

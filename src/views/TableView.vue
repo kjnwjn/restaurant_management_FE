@@ -19,7 +19,7 @@
                     </div>
                 </div>
                 <!-- <div class="col-span-1"> -->
-                <div class="order-detail absolute h-full flex flex-col w-full px-[20px] py-[15px] gap-3" v-if="tableData.tableData">
+                <div class="order-detail absolute h-full flex flex-col w-full px-[20px] py-[15px] gap-3" v-if="tableData?.tableData">
                     <button class="minimize-btn absolute text-medium inline-flex items-center px-3 text-sm font-medium text-gray-300" type="button">
                         <ThemifyIcon icon="angle-double-up" />
                     </button>
@@ -83,6 +83,7 @@ import cardDish from "@/components/CardDish.vue";
 import { mapState } from "vuex";
 import ThemifyIcon from "vue-themify-icons/ThemifyIcon.vue";
 import Loading from "vue-loading-overlay";
+import store from "../store";
 
 export default {
     data() {
@@ -92,8 +93,19 @@ export default {
             categoryList: null,
         };
     },
+    sockets: {
+        connect: function () {
+            console.log("socket connected");
+        },
+        "update-table-status": (table) => {
+            if (table) {
+                console.log(table);
+                store.commit("set_tableData", table);
+            }
+        },
+    },
     async mounted() {
-        this.fetchData();
+        await this.fetchData();
     },
     methods: {
         dateFormat,
@@ -107,7 +119,6 @@ export default {
                 .then(async (res) => {
                     if (res.data.status && res.data.data) {
                         this.$store.commit("set_tableData", res.data.data);
-                        // this.$store.state.toastify.success(res.data.msg.en);
                     } else {
                         this.$store.commit("set_tableData", { tableId: this.$route.params.tableId });
                         this.$store.state.toastify.error(res.data.msg.en);

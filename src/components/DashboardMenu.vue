@@ -4,7 +4,7 @@
             <img src="@/assets/logo.png" width="25px" />
             <h1 class="font-bold text-2xl uppercase ml-4">Store System</h1>
         </div>
-        <div class="w-full p-6 main-content-menu" v-if="!tableData">
+        <div class="w-full p-6 main-content-menu" v-if="menuList.length == 0">
             <h1 class="text-2xl text-center">{{ payload ? `Hi, ${payload.fullName}` : "Welcome!" }}</h1>
             <div class="menu-list mt-8" v-if="payload && accessToken">
                 <ul class="mb-3">

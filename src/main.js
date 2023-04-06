@@ -4,11 +4,24 @@ import router from "./router";
 import store from "./store";
 import ThemifyIcon from "vue-themify-icons";
 import VueToastify from "vue-toastify";
-
 import VueSocketIO from "vue-socket.io";
-import socketio from "socket.io";
+import SocketIO from "socket.io-client";
 
-Vue.use(VueSocketIO, socketio("http://localhost:3300"));
+// export const SocketInstance = socketio("http://localhost:3300");
+// Vue.use(VueSocketIO, SocketInstance);
+Vue.use(
+    new VueSocketIO({
+        debug: true,
+        allowEIO3: true,
+
+        connection: SocketIO(`http://localhost:3300`, {}), // http://192.168.0.5:3300
+        vuex: {
+            store,
+            actionPrefix: "SOCKET_",
+            mutationPrefix: "SOCKET_",
+        },
+    })
+);
 
 Vue.config.productionTip = false;
 

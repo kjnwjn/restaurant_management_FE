@@ -4552,6 +4552,17 @@ engine.io-client@~3.5.0:
     xmlhttprequest-ssl "~1.6.2"
     yeast "0.1.2"
 
+engine.io-client@~6.4.0:
+  version "6.4.0"
+  resolved "https://registry.yarnpkg.com/engine.io-client/-/engine.io-client-6.4.0.tgz#88cd3082609ca86d7d3c12f0e746d12db4f47c91"
+  integrity sha512-GyKPDyoEha+XZ7iEqam49vz6auPnNJ9ZBfy89f+rMMas8AuiMWOZ9PVzu8xb9ZC6rafUqiGHSCfu22ih66E+1g==
+  dependencies:
+    "@socket.io/component-emitter" "~3.1.0"
+    debug "~4.3.1"
+    engine.io-parser "~5.0.3"
+    ws "~8.11.0"
+    xmlhttprequest-ssl "~2.0.0"
+
 engine.io-parser@~2.2.0:
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/engine.io-parser/-/engine.io-parser-2.2.1.tgz#57ce5611d9370ee94f99641b589f94c97e4f5da7"
@@ -9919,6 +9930,16 @@ socket.io-client@^2.1.1:
     socket.io-parser "~3.3.0"
     to-array "0.1.4"
 
+socket.io-client@^4.6.1:
+  version "4.6.1"
+  resolved "https://registry.yarnpkg.com/socket.io-client/-/socket.io-client-4.6.1.tgz#80d97d5eb0feca448a0fb6d69a7b222d3d547eab"
+  integrity sha512-5UswCV6hpaRsNg5kkEHVcbBIXEYoVbMQaHJBXJCyEQ+CiFPV1NIOY0XOFWG4XR4GZcB8Kn6AsRs/9cy9TbqVMQ==
+  dependencies:
+    "@socket.io/component-emitter" "~3.1.0"
+    debug "~4.3.2"
+    engine.io-client "~6.4.0"
+    socket.io-parser "~4.2.1"
+
 socket.io-parser@~3.3.0:
   version "3.3.3"
   resolved "https://registry.yarnpkg.com/socket.io-parser/-/socket.io-parser-3.3.3.tgz#3a8b84823eba87f3f7624e64a8aaab6d6318a72f"
@@ -11092,10 +11113,10 @@ vue-server-renderer@^2.6.10:
     serialize-javascript "^6.0.0"
     source-map "0.5.6"
 
-vue-socket.io@^3.0.10:
-  version "3.0.10"
-  resolved "https://registry.yarnpkg.com/vue-socket.io/-/vue-socket.io-3.0.10.tgz#76135bf5043baf484c648636a7a9822b4c11c084"
-  integrity sha512-XGYjD30Q9xAeHpBnp2SU+ljEe59qpGKaAQe4VOO9ezuly09MlzrT2ZZPJu3BVFpQwKdjQDz1I2fV9r4YjlZDCA==
+vue-socket.io@3.0.5:
+  version "3.0.5"
+  resolved "https://registry.yarnpkg.com/vue-socket.io/-/vue-socket.io-3.0.5.tgz#2923cbc601262577159080627828031d6ea0e10f"
+  integrity sha512-+caWHVSphz0iEJOdHK8inAth7E4r97/9w3XD+vxMxCkfKtZNf/D07/ZmRrwFUSlCLJ1EDph/gYFoHy06KBUBCg==
   dependencies:
     socket.io-client "^2.1.1"
 
@@ -11658,6 +11679,11 @@ xmlhttprequest-ssl@~1.6.2:
   version "1.6.3"
   resolved "https://registry.yarnpkg.com/xmlhttprequest-ssl/-/xmlhttprequest-ssl-1.6.3.tgz#03b713873b01659dfa2c1c5d056065b27ddc2de6"
   integrity sha512-3XfeQE/wNkvrIktn2Kf0869fC0BN6UpydVasGIeSm2B1Llihf7/0UfZM+eCkOw3P7bP4+qPgqhm7ZoxuJtFU0Q==
+
+xmlhttprequest-ssl@~2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/xmlhttprequest-ssl/-/xmlhttprequest-ssl-2.0.0.tgz#91360c86b914e67f44dce769180027c0da618c67"
+  integrity sha512-QKxVRxiRACQcVuQEYFsI1hhkrMlrXHPegbbd1yn9UHOmRxY+si12nQYzri3vbzt8VdTTRviqcKxcyllFas5z2A==
 
 xtend@^4.0.0, xtend@~4.0.1:
   version "4.0.2"

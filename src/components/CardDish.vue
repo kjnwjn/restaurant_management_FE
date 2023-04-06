@@ -4,7 +4,7 @@
             <div class="card-app-img" :class="{ active: !dish.status }">
                 <img src="@/assets/dish.jpeg" width="100%" />
             </div>
-            <div class="py-4 flex justify-center items-center btn-gr" :class="{ active: !dish.status }" v-if="tableData.tableData">
+            <div class="py-4 flex justify-center items-center btn-gr" :class="{ active: !dish.status }" v-if="tableData?.tableData">
                 <button class="text-base inline-flex items-center px-2 text-sm font-medium text-white-500 bg-red-500 rounded-full" type="button" @click="removeFromCart(dish)">-</button>
                 <!-- <input type="number" class="w-1/6 text-black outline-none rounded-xl text-center" min="0" max="10" /> -->
                 <button class="text-base inline-flex items-center px-2 text-sm font-medium text-white-500 bg-green-500 rounded-full" @click="addToCart(dish)" type="button">+</button>
