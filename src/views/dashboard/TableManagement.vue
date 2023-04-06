@@ -12,10 +12,7 @@
                     <ThemifyIcon icon="settings" />
                     <p class="ml-2">Create new table automatically</p>
                 </div>
-                <div
-                    v-on:click="createNewTable()"
-                    class="p-2 flex justify-center items-center transition-all bg-blue-400 hover:bg-blue-500 text-white w-80 text-center rounded cursor-pointer"
-                >
+                <div v-on:click="createNewTable()" class="p-2 flex justify-center items-center transition-all bg-blue-400 hover:bg-blue-500 text-white w-80 text-center rounded cursor-pointer">
                     <ThemifyIcon icon="plus" />
                     <button class="ml-2">Create</button>
                 </div>
@@ -27,7 +24,10 @@
             <div class="mb-6">
                 <div class="grid-menu">
                     <div v-for="(table, index) in tableList" :key="index">
-                        <router-link :to="'/dashboard/table/' + table.tableId">
+                        <router-link :to="'/dashboard/order/orderNew/' + table.tableId" v-if="!table.status">
+                            <card-table :table-id="table.tableId" :status="table.status" />
+                        </router-link>
+                        <router-link :to="'/dashboard/order/' + table.tableId" v-else>
                             <card-table :table-id="table.tableId" :status="table.status" />
                         </router-link>
                     </div>

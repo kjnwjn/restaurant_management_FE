@@ -72,13 +72,19 @@ const routes = [
         path: "/dashboard/order",
         name: "/dashboard/order",
         beforeEnter: auth,
-        component: () => import(/* webpackChunkName: "login" */ "../views/OrderManagement.vue"),
+        component: () => import(/* webpackChunkName: "Order" */ "../views/OrderManagement.vue"),
+    },
+    {
+        path: "/dashboard/order/orderNew/:tableId",
+        name: "dashboardOrderNew",
+        beforeEnter: auth,
+        component: () => import(/* webpackChunkName: "Order" */ "../views/OrderNew.vue"),
     },
     {
         path: "/dashboard/pendingOrder",
         name: "/dashboard/pendingOrder",
         beforeEnter: auth,
-        component: () => import(/* webpackChunkName: "login" */ "../views/PendingOrderManagement.vue"),
+        component: () => import(/* webpackChunkName: "Order" */ "../views/PendingOrderManagement.vue"),
     },
     {
         path: "/login",

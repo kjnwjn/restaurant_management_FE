@@ -4,7 +4,7 @@
             <img src="@/assets/logo.png" width="25px" />
             <h1 class="font-bold text-2xl uppercase ml-4">Store System</h1>
         </div>
-        <div class="w-full p-6 main-content-menu" v-if="menuList.length == 0">
+        <div class="w-full p-6 main-content-menu" v-if="!tableData">
             <h1 class="text-2xl text-center">{{ payload ? `Hi, ${payload.fullName}` : "Welcome!" }}</h1>
             <div class="menu-list mt-8" v-if="payload && accessToken">
                 <ul class="mb-3">
@@ -22,12 +22,6 @@
                         <div class="flex items-center w-full pl-6 transition-all">
                             <ThemifyIcon icon="timer" />
                             <li class="p-1 pl-2">Pending Order</li>
-                        </div>
-                    </router-link>
-                    <router-link to="/customer">
-                        <div class="flex items-center w-full pl-6 transition-all">
-                            <ThemifyIcon icon="face-smile" />
-                            <li class="p-1 pl-2">Customer</li>
                         </div>
                     </router-link>
                 </ul>

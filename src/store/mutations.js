@@ -26,4 +26,16 @@ export default {
     set_menuList(state, menuList) {
         state.menuList = menuList;
     },
+    set_pendingOrderList(state, pendingOrderList) {
+        state.pendingOrderList = pendingOrderList;
+    },
+    set_pendingOrderListIndex(state, index) {
+        state.pendingOrderList.push(index);
+    },
+    set_pendingOrderListRepair(state, pendingOrderItem, index) {
+        state.pendingOrderList[index].status = pendingOrderItem.status;
+    },
+    set_pendingItemUpdateStatus(state, pendingItemUpdateStatus) {
+        state.pendingItemUpdateStatus = pendingItemUpdateStatus;
+    },
 };

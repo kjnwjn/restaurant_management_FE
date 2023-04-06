@@ -6,4 +6,6 @@ export default {
     menuIndex: null,
     pendingOrderData: [],
     menuList: localStorage.getItem("menuList") ? JSON.parse(localStorage.getItem("menuList")) : [],
+    pendingOrderList: null,
+    pendingItemUpdateStatus: null,
 };

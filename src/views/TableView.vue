@@ -99,8 +99,12 @@ export default {
         },
         "update-table-status": (table) => {
             if (table) {
-                console.log(table);
-                store.commit("set_tableData", table);
+                let tableData = {
+                    tableData: table,
+                    pendingOrder: [],
+                };
+
+                store.commit("set_tableData", tableData);
             }
         },
     },

@@ -24,13 +24,26 @@
                             <tbody v-if="pendingOrderList">
                                 <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700" v-for="(pendingItem, i) in pendingOrderList" :key="i">
                                     <td class="py-4 px-6 flex justify-between items-center">
-                                        <button class="inline-flex items-center p-1 text-sm font-medium text-gray-500 bg-white rounded-full border border-gray-300" type="button" v-on:click="handleGetPendingOrder(pendingItem)">
+                                        <button
+                                            :class="pendingItem.status ? 'py-4 px-6 bg-green-500' : 'py-4 px-6 bg-red-500'"
+                                            class="inline-flex items-center p-1 text-sm font-medium text-gray-500 bg-white rounded-full border border-gray-300"
+                                            type="button"
+                                            v-on:click="handleGetPendingOrder(pendingItem)"
+                                        >
                                             {{ pendingItem.pendingId }}
                                         </button>
                                     </td>
                                     <td class="py-4 px-6">{{ pendingItem.orderId }}</td>
                                     <td class="py-4 px-6">{{ pendingItem.tableId }}</td>
-                                    <td :class="pendingItem.status ? 'py-4 px-6 text-green-400' : 'py-4 px-6 text-yellow-500'">{{ pendingItem.status ? "Available" : "Unavailable" }}</td>
+                                    <template v-if="pendingItemUpdateStatus">
+                                        <td :class="pendingItemUpdateStatus.status ? 'py-4 px-6 text-green-400' : 'py-4 px-6 text-red-500'" v-if="pendingItemUpdateStatus.pendingId == pendingItem.pendingId">
+                                            {{ pendingItemUpdateStatus.status ? "Available" : "Unavailable" }}
+                                        </td>
+                                        <td :class="pendingItem.status ? 'py-4 px-6 text-green-400' : 'py-4 px-6 text-red-500'" v-else>{{ pendingItem.status ? "Available" : "Unavailable" }}</td>
+                                    </template>
+                                    <template v-else>
+                                        <td :class="pendingItem.status ? 'py-4 px-6 text-green-400' : 'py-4 px-6 text-red-500'">{{ pendingItem.status ? "Available" : "Unavailable" }}</td>
+                                    </template>
                                     <td class="py-4 px-6">{{ pendingItem.note }}</td>
                                     <td class="py-4 px-6">{{ dateFormat(pendingItem.createdAt) }}</td>
                                     <td class="py-4 px-6">
@@ -90,19 +103,48 @@ import { mapState } from "vuex";
 import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
 import DashboardMenu from "@/components/DashboardMenu.vue";
+import store from "../store";
 
 export default {
     data() {
         return {
             isLoading: true,
-            pendingOrderList: null,
             dishList: null,
             dish: [],
             pendingOrderId: null,
         };
     },
+    sockets: {
+        connect: function () {},
+        "new-pending-order": (pendingOrder) => {
+            if (pendingOrder) {
+                store.commit("set_pendingOrderListIndex", pendingOrder);
+            }
+        },
+        "update-pending-order-status": (pendingData) => {
+            // let listData = store.state.pendingOrderList;
+            // let index;
+            if (pendingData) {
+                // const isCorrect = store.state.pendingOrderList.filter((item, i) => {
+                //     if (item.pendingId == pendingData.pendingId) {
+                //         index = i;
+                //         return item;
+                //     }
+                // });
+                // if (isCorrect.length > 0) {
+                //     // listData[index] = pendingData;
+                // }
+                store.commit("set_pendingItemUpdateStatus", pendingData);
+            }
+        },
+    },
     async mounted() {
         this.fetchData();
+        // console.log(
+        //     this.$socket.io.on("update-pending-order-status", (item) => {
+        //         console.log(item);
+        //     })
+        // );
     },
     methods: {
         dateFormat,
@@ -114,7 +156,8 @@ export default {
                 .get(`${process.env.VUE_APP_API_URL}/pendingOrder/get-all?token=${this.$store.state.accessToken}`)
                 .then(async (res) => {
                     if (res.data.status && res.data.data) {
-                        this.pendingOrderList = res.data.data.queryPendingOrder;
+                        this.$store.commit("set_pendingOrderList", res.data.data.queryPendingOrder);
+                        // this.pendingOrderList = res.data.data.queryPendingOrder;
                     } else {
                         this.toastify.error(res.data.msg.en);
                     }
@@ -155,7 +198,7 @@ export default {
             this.isLoading = false;
         },
     },
-    computed: { ...mapState(["accessToken", "payload", "toastify"]) },
+    computed: { ...mapState(["accessToken", "payload", "toastify", "pendingOrderList", "pendingItemUpdateStatus"]) },
     components: { Loading, DashboardMenu },
 };
 </script>
