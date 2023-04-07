@@ -81,6 +81,12 @@ const routes = [
         component: () => import(/* webpackChunkName: "Order" */ "../views/OrderManagement.vue"),
     },
     {
+        path: "/dashboard/order/payment/:orderId",
+        name: "dashboardOrderPayment",
+        beforeEnter: auth,
+        component: () => import(/* webpackChunkName: "Order" */ "../views/OrderPaymentManagement.vue"),
+    },
+    {
         path: "/dashboard/order/orderNew/:tableId",
         name: "dashboardOrderNew",
         beforeEnter: auth,

@@ -122,29 +122,13 @@ export default {
             }
         },
         "update-pending-order-status": (pendingData) => {
-            // let listData = store.state.pendingOrderList;
-            // let index;
             if (pendingData) {
-                // const isCorrect = store.state.pendingOrderList.filter((item, i) => {
-                //     if (item.pendingId == pendingData.pendingId) {
-                //         index = i;
-                //         return item;
-                //     }
-                // });
-                // if (isCorrect.length > 0) {
-                //     // listData[index] = pendingData;
-                // }
                 store.commit("set_pendingItemUpdateStatus", pendingData);
             }
         },
     },
     async mounted() {
         this.fetchData();
-        // console.log(
-        //     this.$socket.io.on("update-pending-order-status", (item) => {
-        //         console.log(item);
-        //     })
-        // );
     },
     methods: {
         dateFormat,
@@ -157,7 +141,6 @@ export default {
                 .then(async (res) => {
                     if (res.data.status && res.data.data) {
                         this.$store.commit("set_pendingOrderList", res.data.data.queryPendingOrder);
-                        // this.pendingOrderList = res.data.data.queryPendingOrder;
                     } else {
                         this.toastify.error(res.data.msg.en);
                     }
@@ -177,6 +160,7 @@ export default {
             this.isLoading = false;
         },
         handleGetPendingOrder(pendingItem) {
+            this.dish = [];
             this.pendingOrderId = pendingItem.pendingId;
             pendingItem.orderData.forEach((item) => {
                 const isExist = this.dishList.filter((dish) => Number(dish.dishId) == Number(item.dishId));
