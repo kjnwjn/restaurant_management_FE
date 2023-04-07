@@ -52,7 +52,9 @@ export default {
                 })
                 .then((res) => {
                     if (res.data.status) {
-                        this.toastify.success(res.data.msg.en);
+                        console.log(res.data);
+                        // this.toastify.success(res.data.msg.en);
+                        this.$router.push(`/dashboard/table/${this.tableId}/${res.data.data.orderId}`);
                     } else {
                         this.toastify.error(res.data.msg.en);
                     }

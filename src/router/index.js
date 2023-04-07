@@ -67,6 +67,12 @@ const routes = [
         beforeEnter: auth,
         component: () => import(/* webpackChunkName: "dashboardTable" */ "../views/dashboard/TableManagement.vue"),
     },
+    {
+        path: "/dashboard/table/:tableId/:orderId",
+        name: "dashboardTableDetail",
+        beforeEnter: auth,
+        component: () => import(/* webpackChunkName: "dashboardTable" */ "../views/OrderDetailManagement.vue"),
+    },
 
     {
         path: "/dashboard/order",

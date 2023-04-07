@@ -32,10 +32,10 @@ export default {
     set_pendingOrderListIndex(state, index) {
         state.pendingOrderList.push(index);
     },
-    set_pendingOrderListRepair(state, pendingOrderItem, index) {
-        state.pendingOrderList[index].status = pendingOrderItem.status;
-    },
     set_pendingItemUpdateStatus(state, pendingItemUpdateStatus) {
         state.pendingItemUpdateStatus = pendingItemUpdateStatus;
+    },
+    set_dishData(state, dishData) {
+        state.dishData = dishData;
     },
 };

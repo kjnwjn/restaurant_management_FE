@@ -103,7 +103,7 @@ import { mapState } from "vuex";
 import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
 import DashboardMenu from "@/components/DashboardMenu.vue";
-import store from "../store";
+import store from "@/store";
 
 export default {
     data() {

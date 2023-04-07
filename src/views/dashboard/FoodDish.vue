@@ -57,7 +57,15 @@
                                 </th>
                                 <td class="py-4 px-6">{{ dish.categoryId }}</td>
                                 <td class="py-4 px-6">{{ dish.name }}</td>
-                                <td :class="dish.status ? 'py-4 px-6 text-green-400' : 'py-4 px-6 text-yellow-500'">{{ dish.status ? "Available" : "Unavailable" }}</td>
+                                <template v-if="dishData">
+                                    <td :class="dishData.status ? 'py-4 px-6 text-green-400' : 'py-4 px-6 text-red-500'" v-if="dishData.dishId == dish.dishId">
+                                        {{ dishData.status ? "Available" : "Unavailable" }}
+                                    </td>
+                                    <td :class="dish.status ? 'py-4 px-6 text-green-400' : 'py-4 px-6 text-red-500'" v-else>{{ dish.status ? "Available" : "Unavailable" }}</td>
+                                </template>
+                                <template v-else>
+                                    <td :class="dish.status ? 'py-4 px-6 text-green-400' : 'py-4 px-6 text-red-500'">{{ dish.status ? "Available" : "Unavailable" }}</td>
+                                </template>
                                 <td class="py-4 px-6">{{ dateFormat(dish.createdAt) }}</td>
                                 <td class="py-4 px-6">{{ dateFormat(dish.updatedAt) }}</td>
                                 <td class="py-4 px-6 flex" v-if="payload.role == 'ADMIN'">
@@ -84,6 +92,7 @@ import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
 import dateFormat from "@/helpers/dateFormat";
 import DashboardMenu from "@/components/DashboardMenu.vue";
+import store from "@/store";
 
 export default {
     components: { ThemifyIcon, Loading, DashboardMenu },
@@ -98,6 +107,15 @@ export default {
                 categoryId: "",
             },
         };
+    },
+    sockets: {
+        connect: function () {},
+
+        "update-dish-status": (dish) => {
+            if (dish) {
+                store.commit("set_dishData", dish);
+            }
+        },
     },
     async mounted() {
         this.fetchData();
@@ -115,7 +133,6 @@ export default {
             await axios
                 .post(`${process.env.VUE_APP_API_URL}/dish/new-dish?token=${this.accessToken}`, formData, { headers })
                 .then((res) => {
-                    console.log(res);
                     if (res.data.status) {
                         this.toastify.success(res.data.msg.en);
                     } else {
@@ -173,6 +190,6 @@ export default {
             this.isLoading = false;
         },
     },
-    computed: { ...mapState(["accessToken", "payload", "toastify"]) },
+    computed: { ...mapState(["accessToken", "payload", "toastify", "dishData"]) },
 };
 </script>

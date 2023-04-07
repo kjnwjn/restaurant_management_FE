@@ -83,7 +83,7 @@ import cardDish from "@/components/CardDish.vue";
 import { mapState } from "vuex";
 import ThemifyIcon from "vue-themify-icons/ThemifyIcon.vue";
 import Loading from "vue-loading-overlay";
-import store from "../store";
+import store from "@/store";
 
 export default {
     data() {

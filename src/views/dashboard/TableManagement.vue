@@ -55,6 +55,7 @@ export default {
             tableList: null,
         };
     },
+
     async mounted() {
         this.fetchData();
     },
