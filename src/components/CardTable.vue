@@ -1,12 +1,23 @@
 <template>
     <div class="card-app-wrapper p-6" v-if="tableData && Number(tableData?.tableData.tableId) == tableId">
-        <div id="card-app" :class="{ active: tableData.tableData.status }">
+        <!-- <template v-if="tableData.status !== 'WAIT_FOR_PAY'"> -->
+        <div id="card-app" :class="{ active: tableData.tableData.status }" class="disabled:opacity-75">
             <div class="card-app-img p-6">
                 <img src="@/assets/plate.png" width="100%" />
             </div>
             <p>{{ tableId }}</p>
             <p>{{ tableData.tableData.status ? "Unavailable" : "Available" }}</p>
         </div>
+        <!-- </template> -->
+        <!-- <template v-else>
+            <div id="card-app" :class="{ active: tableData.tableData.status }">
+                <div class="card-app-img p-6">
+                    <img src="@/assets/plate.png" width="100%" />
+                </div>
+                <p>{{ tableId }}</p>
+                <p>{{ tableData.tableData.status ? "Unavailable" : "Available" }}</p>
+            </div>
+        </template> -->
     </div>
     <div class="card-app-wrapper p-6" v-else>
         <div id="card-app" :class="{ active: status }">

@@ -56,8 +56,11 @@
                 <div class="flex items-center justify-center text-center text-slate-600 font-semibold text-[25px] my-3" v-if="orderData">
                     <h1 class="flex justify-center">Total: {{ priceFormat(orderData.tempAmount) }}</h1>
                 </div>
-                <div class="flex gap-1 text-slate-600 w-[100%] justify-center items-center text-[15px]">
+                <div class="flex gap-1 text-slate-600 w-[100%] justify-center items-center text-[15px]" v-if="!orderData.isPaid">
                     <button type="button" class="w-[25%] bg-green-600 py-3 rounded-lg text-lg text-gray-50 uppercase btn-order" @click="handlePayment(orderData.orderId)">PayMent</button>
+                </div>
+                <div class="flex gap-1 text-slate-600 w-[100%] justify-center items-center text-[15px]" v-else>
+                    <button type="button" class="w-[25%] bg-blue-600 py-3 rounded-lg text-lg text-gray-50 uppercase btn-order" @click="handleBackBtn">Back</button>
                 </div>
             </template>
         </main>
@@ -96,11 +99,11 @@ export default {
             await axios
                 .get(`${process.env.VUE_APP_API_URL}/order/payment/${this.$route.params.orderId}?token=${this.$store.state.accessToken}`)
                 .then(async (res) => {
+                    console.log(res);
                     if (res.data.status && res.data.data) {
                         this.orderData = res.data.data;
                     } else {
                         this.toastify.error(res.data.msg.en);
-                        this.$router.push(`/*`);
                     }
                 })
                 .catch((e) => console.log(e));
@@ -126,6 +129,9 @@ export default {
                     this.dish.push({ dish: isExist[0], qty: item.qty });
                 }
             });
+        },
+        handleBackBtn() {
+            this.$router.push(`/dashboard/table`);
         },
         async handlePayment(orderId) {
             this.isLoading = true;
@@ -155,7 +161,7 @@ export default {
                             });
                     }
                 });
-
+            this.fetchData();
             this.isLoading = false;
         },
     },
