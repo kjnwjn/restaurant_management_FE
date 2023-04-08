@@ -3,7 +3,56 @@
         <DashboardMenu :menu="menuList" />
         <main class="main-container">
             <Loading :active="isLoading" :is-full-page="true" :can-cancel="false" />
-            <div class="grid grid-cols-3 p-4">
+            <div class="flex items-center mb-4 text-green-700 font-bold text-lg uppercase">
+                <ThemifyIcon icon="menu" />
+                <h1 class="ml-2">Cart summary:</h1>
+            </div>
+            <div class="mb-4">
+                <div class="mb-1 text-md font-medium text-gray-900 flex items-center">
+                    <ThemifyIcon icon="settings" />
+                    <p class="ml-2">
+                        Current item count:
+                        {{
+                            pendingOrderData.reduce((total, item, index) => {
+                                total += item.qty;
+                                return total;
+                            }, 0)
+                        }}
+                    </p>
+                </div>
+                <div class="mb-1 text-md font-medium text-gray-900 flex items-center">
+                    <ThemifyIcon icon="settings" />
+                    <p class="ml-2">
+                        Temporary total:
+                        {{
+                            priceFormat(
+                                pendingOrderData.reduce((total, item, index) => {
+                                    total += item.dish.price * item.qty;
+                                    return total;
+                                }, 0)
+                            )
+                        }}
+                    </p>
+                </div>
+            </div>
+            <div class="flex items-center mb-4 text-green-700 font-bold text-lg uppercase">
+                <ThemifyIcon icon="menu" />
+                <h1 class="ml-2">Menu items:</h1>
+            </div>
+            <div class="mb-6" id="main-menu-list">
+                <template v-if="getCategoryList() && getCategoryList()?.disList.length > 0">
+                    <div class="" v-for="(dish, i) in getCategoryList().disList" :key="i">
+                        <card-dish :dish="dish"></card-dish>
+                    </div>
+                </template>
+                <template v-else>
+                    <div class="flex items-center mb-4 text-red-600 text-lg">
+                        <h1 class="ml-2">Select items in the left menu for ordering</h1>
+                    </div>
+                </template>
+            </div>
+
+            <!-- <div class="grid grid-cols-3 p-4">
                 <div class="col-span-3 pr-2">
                     <div class="grid grid-cols-3">
                         <template v-if="getCategoryList() && getCategoryList()?.disList.length > 0">
@@ -13,18 +62,17 @@
                         </template>
                         <template v-else>
                             <div class="flex items-center mb-4 text-red-700 font-bold text-lg uppercase">
-                                <h1 class="ml-2">Category empty</h1>
+                                <h1 class="ml-2">Select items in the left menu</h1>
                             </div>
                         </template>
                     </div>
                 </div>
-                <!-- <div class="col-span-1"> -->
+
                 <div class="order-detail absolute h-full flex flex-col w-full px-[20px] py-[15px] gap-3" v-if="tableData?.tableData">
                     <button class="minimize-btn absolute text-medium inline-flex items-center px-3 text-sm font-medium text-gray-300" type="button">
                         <ThemifyIcon icon="angle-double-up" />
                     </button>
 
-                    <!-- chi tiết bảng hóa đơn -->
                     <div class="flex flex-col absolute inset-0 mx-auto my-auto px-2 py-2 rounded-[20px]">
                         <div class="flex items-center justify-center text-center text-gray-300 font-semibold text-[25px] my-3">
                             <h1 class="flex justify-center">ORDER SESSITON FOR TABLE {{ tableData.tableData.tableId }}</h1>
@@ -42,7 +90,6 @@
                                 <h1 class="w-[25%]">Amount</h1>
                             </div>
                             <div class="flex flex-col my-5 pending-dish_item">
-                                <!-- <h1 class="rounded px-2 flex items-    background: ;center justify-center">Lần 1 - 22:10 - 31/3/2023</h1> -->
                                 <div class="flex text-18px font-medium pl-3 py-2 border-b-[1px] border-slate-700" v-for="(pending, i) in pendingOrderData" :key="i">
                                     <h1 class="w-[35%]">{{ pending.dish.name }}</h1>
                                     <h1 class="w-[15%]">{{ pending.qty }}</h1>
@@ -63,13 +110,12 @@
                         <button type="button" class="w-[25%] rounded-lg btn-order" @click="handleOrder(pendingOrderData)">order</button>
                     </div>
                 </div>
-                <!-- </div> -->
-            </div>
+            </div> -->
         </main>
+        <div id="cart-container"></div>
     </section>
     <section v-else>
-        <pre>{{ menuList }}</pre>
-        <h1>No data</h1>
+        <h1>No data for dished, please insert into database!</h1>
     </section>
 </template>
 
@@ -97,14 +143,15 @@ export default {
         connect: function () {
             console.log("socket connected");
         },
-        "update-table-status": (table) => {
+        "update-table-status": function (table) {
             if (table) {
-                let tableData = {
-                    tableData: table,
-                    pendingOrder: [],
-                };
-
-                store.commit("set_tableData", tableData);
+                if (table.tableId == this.$route.params.tableId) {
+                    let tableData = {
+                        tableData: table,
+                        pendingOrder: [],
+                    };
+                    store.commit("set_tableData", tableData);
+                }
             }
         },
     },
@@ -117,7 +164,6 @@ export default {
         dateFormatV2,
         async fetchData() {
             this.isLoading = true;
-
             await axios
                 .get(`${process.env.VUE_APP_API_URL}/table/get-order/${this.$route.params.tableId}`)
                 .then(async (res) => {
@@ -125,13 +171,11 @@ export default {
                         this.$store.commit("set_tableData", res.data.data);
                     } else {
                         this.$store.commit("set_tableData", { tableId: this.$route.params.tableId });
-                        this.$store.state.toastify.error(res.data.msg.en);
                     }
                 })
                 .catch(() => {});
             localStorage.setItem("set_defaultPOD", JSON.stringify([]));
             this.$store.commit("set_defaultPOD", []);
-
             this.isLoading = false;
         },
         totalQty(arr) {
@@ -166,7 +210,6 @@ export default {
                             })
                             .then(async (res) => {
                                 if (res.data.status && res.data.data) {
-                                    // this.$store.state.toastify.success(res.data.msg.en);
                                     this.$router.push(`/client/table/${this.tableData.tableData.tableId}/order-session`);
                                 } else {
                                     this.$store.state.toastify.error(res.data.msg.en);
@@ -246,5 +289,22 @@ export default {
 .pending-note textarea {
     background: #d6cda4;
     color: #3d8361;
+}
+#cart-container {
+    width: 300px;
+    height: 100vh;
+    background: black;
+    position: fixed;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+main.main-container {
+    width: calc(100% - 600px) !important;
+}
+#main-menu-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(217px, 1fr));
+    gap: 20px;
 }
 </style>
