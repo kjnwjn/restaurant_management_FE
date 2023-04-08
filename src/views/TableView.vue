@@ -54,7 +54,7 @@
         </main>
         <div id="cart-container">
             <div class="flex items-center justify-center text-center font-semibold text-[25px] my-3">
-                <h1 class="flex justify-center">Table no.{{ tableData.tableData.tableId }}</h1>
+                <h1 class="flex justify-center">Table no.{{ tableData?.tableData?.tableId }}</h1>
             </div>
             <div id="cjss" class="flex flex-col overflow-auto">
                 <div class="text-white flex text-18px font-semibold pl-3 py-2 rounded-t">

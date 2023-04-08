@@ -1,7 +1,7 @@
 <template>
     <div class="card-app-wrapper p-6" v-if="tableData && Number(tableData?.tableData.tableId) == tableId">
         <!-- <template v-if="tableData.status !== 'WAIT_FOR_PAY'"> -->
-        <div id="card-app" :class="{ active: tableData.tableData.status }" class="disabled:opacity-75">
+        <div id="card-app" :class="{ active: tableData.tableData.status }">
             <div class="card-app-img p-6">
                 <img src="@/assets/plate.png" width="100%" />
             </div>

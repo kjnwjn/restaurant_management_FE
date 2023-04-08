@@ -28,7 +28,7 @@
                             <router-link :to="'/dashboard/order/orderNew/' + table.tableId" v-if="!table.status">
                                 <card-table :table-id="table.tableId" :status="table.status" />
                             </router-link>
-                            <div v-else @click="getOrderData(table.tableId)">
+                            <div v-else @click="getOrderData(table)">
                                 <card-table :table-id="table.tableId" :status="table.status" />
                             </div>
                         </template>
@@ -72,7 +72,6 @@ export default {
             await axios
                 .post(`${process.env.VUE_APP_API_URL}/table/new-table?token=${this.accessToken}`)
                 .then((res) => {
-                    console.log(res);
                     if (res.data.status) {
                         this.toastify.success(res.data.msg.en);
                     } else {
@@ -101,14 +100,18 @@ export default {
                 });
             this.isLoading = false;
         },
-        async getOrderData(tableId) {
+        async getOrderData(table) {
             this.isLoading = true;
             await axios
-                .get(`${process.env.VUE_APP_API_URL}/table/get-order/${tableId}?token=${this.accessToken}`)
+                .get(`${process.env.VUE_APP_API_URL}/table/get-order/${table.tableId}?token=${this.accessToken}`)
                 .then((res) => {
-                    console.log(res);
                     if (res.data.status) {
-                        this.$router.push(`/dashboard/table/${tableId}/${res.data.data.tableData.orderId}`);
+                        console.log(res);
+                        if (res.data.data.tableData.status == "WAIT_FOR_PAY") {
+                            this.$router.push(`/dashboard/order/payment/${res.data.data.tableData.orderId}`);
+                        } else {
+                            this.$router.push(`/dashboard/table/${table.tableId}/${res.data.data.tableData.orderId}`);
+                        }
                     } else {
                         this.toastify.error(res.data.status);
                     }
