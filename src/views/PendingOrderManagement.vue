@@ -3,9 +3,11 @@
         <DashboardMenu />
 
         <main class="main-container">
-            <!-- <pre>{{ pendingOrderList }}</pre> -->
             <Loading :active="isLoading" :is-full-page="true" :can-cancel="false" />
-
+            <div class="flex items-center mb-4 text-green-700 font-bold text-lg uppercase">
+                <ThemifyIcon icon="menu" />
+                <h1 class="ml-2">List of pending order:</h1>
+            </div>
             <div class="pending-list grid grid-cols-3 p-4" v-if="pendingOrderList">
                 <div class="pending-list-child col-span-3 pr-6">
                     <div class="overflow-x-auto relative">
@@ -25,8 +27,7 @@
                                 <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700" v-for="(pendingItem, i) in pendingOrderList" :key="i">
                                     <td class="py-4 px-6 flex justify-between items-center">
                                         <button
-                                            :class="pendingItem.status ? 'py-4 px-6 bg-green-500' : 'py-4 px-6 bg-red-500'"
-                                            class="inline-flex items-center p-1 text-sm font-medium text-gray-500 bg-white rounded-full border border-gray-300"
+                                            class="py-2 px-6 inline-flex items-center p-1 text-sm font-medium text-gray-500 bg-white rounded-full border border-gray-300"
                                             type="button"
                                             v-on:click="handleGetPendingOrder(pendingItem)"
                                         >
@@ -36,18 +37,25 @@
                                     <td class="py-4 px-6">{{ pendingItem.orderId }}</td>
                                     <td class="py-4 px-6">{{ pendingItem.tableId }}</td>
                                     <template v-if="pendingItemUpdateStatus">
-                                        <td :class="pendingItemUpdateStatus.status ? 'py-4 px-6 text-green-400' : 'py-4 px-6 text-red-500'" v-if="pendingItemUpdateStatus.pendingId == pendingItem.pendingId">
+                                        <td
+                                            :class="pendingItemUpdateStatus.status ? 'py-4 px-6 text-green-400' : 'py-4 px-6 text-red-500'"
+                                            v-if="pendingItemUpdateStatus.pendingId == pendingItem.pendingId"
+                                        >
                                             {{ pendingItemUpdateStatus.status ? "Available" : "Unavailable" }}
                                         </td>
-                                        <td :class="pendingItem.status ? 'py-4 px-6 text-green-400' : 'py-4 px-6 text-red-500'" v-else>{{ pendingItem.status ? "Available" : "Unavailable" }}</td>
+                                        <td :class="pendingItem.status ? 'py-4 px-6 text-green-400' : 'py-4 px-6 text-red-500'" v-else>
+                                            {{ pendingItem.status ? "Available" : "Unavailable" }}
+                                        </td>
                                     </template>
                                     <template v-else>
-                                        <td :class="pendingItem.status ? 'py-4 px-6 text-green-400' : 'py-4 px-6 text-red-500'">{{ pendingItem.status ? "Available" : "Unavailable" }}</td>
+                                        <td :class="pendingItem.status ? 'py-4 px-6 text-green-400' : 'py-4 px-6 text-red-500'">
+                                            {{ pendingItem.status ? "Available" : "Unavailable" }}
+                                        </td>
                                     </template>
-                                    <td class="py-4 px-6">{{ pendingItem.note }}</td>
+                                    <td class="py-4 px-6">{{ pendingItem.note || "--" }}</td>
                                     <td class="py-4 px-6">{{ dateFormat(pendingItem.createdAt) }}</td>
                                     <td class="py-4 px-6">
-                                        <div v-on:click="switchStatus(pendingItem.pendingId)" class="text-blue-500 cursor-pointer p-2">Switch status</div>
+                                        <div v-on:click="switchStatus(pendingItem.pendingId)" class="text-blue-500 cursor-pointer p-2">Mark done</div>
                                     </td>
                                 </tr>
                             </tbody>
@@ -55,9 +63,9 @@
                     </div>
                 </div>
             </div>
-            <div class="flex items-center mb-4 text-green-700 font-bold text-lg uppercase" v-if="pendingOrderId">
+            <div class="flex items-center mb-4 text-green-700 font-bold text-lg uppercase">
                 <ThemifyIcon icon="menu" />
-                <h1 class="ml-2">List of dish belong to pending order : {{ pendingOrderId }}</h1>
+                <h1 class="ml-2">List of dish belong to pending order: {{ pendingOrderId || "" }}</h1>
             </div>
             <div class="dish-list grid grid-cols-3 p-4" v-if="dish && dish.length > 0">
                 <div class="pending-list-child col-span-3 pr-6">
@@ -72,10 +80,13 @@
                                     <th scope="col" class="py-3 px-6">Dish Qty</th>
                                 </tr>
                             </thead>
-                            <tbody v-if="dish">
+                            <tbody v-if="dish && pendingOrderId">
                                 <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700" v-for="(item, i) in dish" :key="i">
                                     <td class="py-4 px-6 flex justify-between items-center">
-                                        <button class="inline-flex items-center p-1 text-sm font-medium text-gray-500 bg-white rounded-full border border-gray-300" type="button">
+                                        <button
+                                            class="py-2 px-6 inline-flex items-center p-1 text-sm font-medium text-gray-500 bg-white rounded-full border border-gray-300"
+                                            type="button"
+                                        >
                                             {{ item.dish.dishId }}
                                         </button>
                                     </td>
@@ -88,6 +99,9 @@
                         </table>
                     </div>
                 </div>
+            </div>
+            <div v-else>
+                <h1>There no data!</h1>
             </div>
         </main>
     </div>
