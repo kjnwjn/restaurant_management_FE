@@ -98,7 +98,7 @@ export default {
     box-shadow: 0px 3px 9px -2px rgba(0, 0, 0, 0.4);
 }
 #card-app.active {
-    background: #1c6758;
+    background: #797cbd;
 }
 .card-app-img.active {
     opacity: 0.5;

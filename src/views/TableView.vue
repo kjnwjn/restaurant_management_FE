@@ -51,68 +51,37 @@
                     </div>
                 </template>
             </div>
-
-            <!-- <div class="grid grid-cols-3 p-4">
-                <div class="col-span-3 pr-2">
-                    <div class="grid grid-cols-3">
-                        <template v-if="getCategoryList() && getCategoryList()?.disList.length > 0">
-                            <div class="col-span-1 pr-2" v-for="(dish, i) in getCategoryList().disList" :key="i">
-                                <card-dish :dish="dish"></card-dish>
-                            </div>
-                        </template>
-                        <template v-else>
-                            <div class="flex items-center mb-4 text-red-700 font-bold text-lg uppercase">
-                                <h1 class="ml-2">Select items in the left menu</h1>
-                            </div>
-                        </template>
-                    </div>
-                </div>
-
-                <div class="order-detail absolute h-full flex flex-col w-full px-[20px] py-[15px] gap-3" v-if="tableData?.tableData">
-                    <button class="minimize-btn absolute text-medium inline-flex items-center px-3 text-sm font-medium text-gray-300" type="button">
-                        <ThemifyIcon icon="angle-double-up" />
-                    </button>
-
-                    <div class="flex flex-col absolute inset-0 mx-auto my-auto px-2 py-2 rounded-[20px]">
-                        <div class="flex items-center justify-center text-center text-gray-300 font-semibold text-[25px] my-3">
-                            <h1 class="flex justify-center">ORDER SESSITON FOR TABLE {{ tableData.tableData.tableId }}</h1>
-                        </div>
-                        <div class="flex flex-col gap-1 text-gray-300 w-[100%] justify-center items-center text-[15px]">
-                            <h1>Order session</h1>
-                        </div>
-                        <div id="cjss" class="flex flex-col overflow-auto h-1/2" v-if="pendingOrderData.length > 0">
-                            <div class="text-gray-200 flex text-18px font-semibold pl-3 py-2 rounded-t">
-                                <div class="flex gap-2 w-[35%]">
-                                    <h1 class="">List dish</h1>
-                                </div>
-                                <h1 class="w-[15%]">Qty</h1>
-                                <h1 class="w-[25%]">Unit</h1>
-                                <h1 class="w-[25%]">Amount</h1>
-                            </div>
-                            <div class="flex flex-col my-5 pending-dish_item">
-                                <div class="flex text-18px font-medium pl-3 py-2 border-b-[1px] border-slate-700" v-for="(pending, i) in pendingOrderData" :key="i">
-                                    <h1 class="w-[35%]">{{ pending.dish.name }}</h1>
-                                    <h1 class="w-[15%]">{{ pending.qty }}</h1>
-                                    <h1 class="w-[25%]">{{ priceFormat(pending.dish.price) }}</h1>
-                                    <h1 class="w-[25%]">{{ priceFormat(pending.dish.price * pending.qty) }}</h1>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="text-gray-200 pending-note mt-auto z-50 flex justify-between items-center h-14" v-if="pendingOrderData.length > 0">
-                        <label for="note" class="">Note</label>
-                        <textarea name="note" id="" cols="30" class="h-full rounded-lg outline-none pl-4" rows="10" v-model="note"></textarea>
-                    </div>
-                    <div class="flex justify-between items-center text-yellow-300 font-semibold py-5 text-[16px] mb-5" v-if="pendingOrderData.length > 0">
-                        <h1 class="w-[35%] ml-2">Total</h1>
-                        <h1 class="w-[15%]">{{ totalQty(pendingOrderData).totalQty }}</h1>
-                        <h1 class="w-[25%]">{{ priceFormat(totalQty(pendingOrderData).totalPrice) }}</h1>
-                        <button type="button" class="w-[25%] rounded-lg btn-order" @click="handleOrder(pendingOrderData)">order</button>
-                    </div>
-                </div>
-            </div> -->
         </main>
-        <div id="cart-container"></div>
+        <div id="cart-container">
+            <div class="flex items-center justify-center text-center font-semibold text-[25px] my-3">
+                <h1 class="flex justify-center">Table no.{{ tableData.tableData.tableId }}</h1>
+            </div>
+            <div id="cjss" class="flex flex-col overflow-auto">
+                <div class="text-white flex text-18px font-semibold pl-3 py-2 rounded-t">
+                    <h1 class="w-[35%]">Name</h1>
+                    <h1 class="w-[15%]">Qty</h1>
+                    <h1 class="w-[25%]">Amount</h1>
+                </div>
+                <div class="flex flex-col my-5 pending-dish_item" v-if="pendingOrderData.length > 0">
+                    <div class="flex text-18px font-medium pl-3 py-2 border-b-[1px] border-slate-700" v-for="(pending, i) in pendingOrderData" :key="i">
+                        <h1 class="w-[35%]">{{ pending.dish.name }}</h1>
+                        <h1 class="w-[15%]">{{ pending.qty }}</h1>
+                        <h1 class="w-[25%]">{{ priceFormat(pending.dish.price * pending.qty) }}</h1>
+                    </div>
+                </div>
+            </div>
+            <div id="confirm-section" class="font-semibold py-5 text-[16px] mb-5" v-if="pendingOrderData.length > 0">
+                <div class="mb-4">
+                    <h1 class="mb-1">Qty: {{ totalQty(pendingOrderData).totalQty }}</h1>
+                    <h1 class="mb-1">Total: {{ priceFormat(totalQty(pendingOrderData).totalPrice) }}</h1>
+                </div>
+                <div class="mb-4" v-if="pendingOrderData.length > 0">
+                    <label class="text-white">Note:</label>
+                    <input name="note" class="text-gray-800 rounded-lg outline-none w-full py-2 px-4" v-model="note" />
+                </div>
+                <button type="button" class="w-full rounded-full btn-order py-4" @click="handleOrder(pendingOrderData)">Order</button>
+            </div>
+        </div>
     </section>
     <section v-else>
         <h1>No data for dished, please insert into database!</h1>
@@ -245,30 +214,13 @@ export default {
     top: 0;
     width: 57vh;
 }
-.minimize-btn {
-    top: 0;
-    z-index: 1000;
-    background: #13483e;
-    left: 16px;
-    border-radius: 5px;
-}
-.pending-dish_item {
-    color: #d6cda4;
-}
-.cjss {
-    background: #d6cda4;
-    border-radius: 10px;
+#cjss {
+    height: 60%;
+    overflow: hidden scroll;
 }
 #cjss::-webkit-scrollbar {
-    width: 10px;
+    width: 2px;
 }
-
-/* Track */
-#cjss::-webkit-scrollbar-track {
-    background: #1c6758;
-}
-
-/* Handle */
 #cjss::-webkit-scrollbar-thumb {
     background: #888;
 }
@@ -281,30 +233,32 @@ export default {
 .btn-order:hover {
     background: #a8a181;
 }
-
-/* Handle on hover */
 #cjss::-webkit-scrollbar-thumb:hover {
     background: #225a4f;
 }
-.pending-note textarea {
-    background: #d6cda4;
-    color: #3d8361;
-}
 #cart-container {
-    width: 300px;
+    padding: 10px;
+    width: 380px;
     height: 100vh;
-    background: black;
+    color: white;
+    background: #797cbd;
+    box-shadow: -4px 0px 10px -6px #00000033;
     position: fixed;
     right: 0;
     top: 0;
     bottom: 0;
 }
 main.main-container {
-    width: calc(100% - 600px) !important;
+    width: calc(100% - 680px) !important;
 }
 #main-menu-list {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(217px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 20px;
+}
+#confirm-section {
+    position: absolute;
+    width: 95%;
+    bottom: 0;
 }
 </style>
