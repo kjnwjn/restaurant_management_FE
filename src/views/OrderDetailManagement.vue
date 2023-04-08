@@ -226,11 +226,11 @@ export default {
                 .then(async (value) => {
                     if (value) {
                         await axios
-                            .put(`${process.env.VUE_APP_API_URL}/order/remove-order?orderId=${orderId}&token=${this.$store.state.accessToken}`)
+                            .delete(`${process.env.VUE_APP_API_URL}/order/remove-order/${orderId}?token=${this.$store.state.accessToken}`)
                             .then((res) => {
                                 console.log(res);
                                 if (res.data.status) {
-                                    // this.$router.push(`/dashboard/order/payment/${orderId}`);
+                                    this.$router.push(`/dashboard/table`);
                                 } else {
                                     this.toastify.error(res.data.msg.en);
                                 }
