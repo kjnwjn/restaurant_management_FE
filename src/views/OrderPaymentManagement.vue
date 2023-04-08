@@ -147,9 +147,8 @@ export default {
                                 money: this.money,
                             })
                             .then((res) => {
-                                console.log(res);
                                 if (res.data.status) {
-                                    this.orderData = this.data.data;
+                                    this.orderData = res.data.data;
                                     this.toastify.success(res.data.msg.en);
                                 } else {
                                     this.toastify.error(res.data.msg.en);

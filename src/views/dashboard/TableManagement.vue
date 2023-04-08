@@ -105,8 +105,8 @@ export default {
             await axios
                 .get(`${process.env.VUE_APP_API_URL}/table/get-order/${table.tableId}?token=${this.accessToken}`)
                 .then((res) => {
+                    console.log(res);
                     if (res.data.status) {
-                        console.log(res);
                         if (res.data.data.tableData.status == "WAIT_FOR_PAY") {
                             this.$router.push(`/dashboard/order/payment/${res.data.data.tableData.orderId}`);
                         } else {

@@ -26,21 +26,14 @@
                             <tbody v-if="pendingOrderList">
                                 <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700" v-for="(pendingItem, i) in pendingOrderList" :key="i">
                                     <td class="py-4 px-6 flex justify-between items-center">
-                                        <button
-                                            class="py-2 px-6 inline-flex items-center p-1 text-sm font-medium text-gray-500 bg-white rounded-full border border-gray-300"
-                                            type="button"
-                                            v-on:click="handleGetPendingOrder(pendingItem)"
-                                        >
+                                        <button class="py-2 px-6 inline-flex items-center p-1 text-sm font-medium text-gray-500 bg-white rounded-full border border-gray-300" type="button" v-on:click="handleGetPendingOrder(pendingItem)">
                                             {{ pendingItem.pendingId }}
                                         </button>
                                     </td>
                                     <td class="py-4 px-6">{{ pendingItem.orderId }}</td>
                                     <td class="py-4 px-6">{{ pendingItem.tableId }}</td>
                                     <template v-if="pendingItemUpdateStatus">
-                                        <td
-                                            :class="pendingItemUpdateStatus.status ? 'py-4 px-6 text-green-400' : 'py-4 px-6 text-red-500'"
-                                            v-if="pendingItemUpdateStatus.pendingId == pendingItem.pendingId"
-                                        >
+                                        <td :class="pendingItemUpdateStatus.status ? 'py-4 px-6 text-green-400' : 'py-4 px-6 text-red-500'" v-if="pendingItemUpdateStatus.pendingId == pendingItem.pendingId">
                                             {{ pendingItemUpdateStatus.status ? "Available" : "Unavailable" }}
                                         </td>
                                         <td :class="pendingItem.status ? 'py-4 px-6 text-green-400' : 'py-4 px-6 text-red-500'" v-else>
@@ -83,10 +76,7 @@
                             <tbody v-if="dish && pendingOrderId">
                                 <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700" v-for="(item, i) in dish" :key="i">
                                     <td class="py-4 px-6 flex justify-between items-center">
-                                        <button
-                                            class="py-2 px-6 inline-flex items-center p-1 text-sm font-medium text-gray-500 bg-white rounded-full border border-gray-300"
-                                            type="button"
-                                        >
+                                        <button class="py-2 px-6 inline-flex items-center p-1 text-sm font-medium text-gray-500 bg-white rounded-full border border-gray-300" type="button">
                                             {{ item.dish.dishId }}
                                         </button>
                                     </td>
@@ -130,14 +120,19 @@ export default {
     },
     sockets: {
         connect: function () {},
-        "new-pending-order": (pendingOrder) => {
+        "new-pending-order": function (pendingOrder) {
             if (pendingOrder) {
-                store.commit("set_pendingOrderListIndex", pendingOrder);
+                this.fetchData();
             }
         },
         "update-pending-order-status": (pendingData) => {
             if (pendingData) {
                 store.commit("set_pendingItemUpdateStatus", pendingData);
+            }
+        },
+        "update-pending-status": function (pendingData) {
+            if (pendingData) {
+                this.fetchData();
             }
         },
     },

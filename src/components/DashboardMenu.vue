@@ -24,6 +24,12 @@
                             <li class="p-1 pl-2">Pending Order</li>
                         </div>
                     </router-link>
+                    <router-link to="/dashboard/invoice">
+                        <div class="flex items-center w-full pl-6 transition-all">
+                            <ThemifyIcon icon="timer" />
+                            <li class="p-1 pl-2">Invoice</li>
+                        </div>
+                    </router-link>
                 </ul>
                 <hr class="my-4 opacity-50" />
                 <ul class="mb-3">

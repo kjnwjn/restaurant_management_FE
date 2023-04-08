@@ -99,6 +99,12 @@ const routes = [
         component: () => import(/* webpackChunkName: "Order" */ "../views/PendingOrderManagement.vue"),
     },
     {
+        path: "/dashboard/invoice",
+        name: "/dashboard/invoice",
+        beforeEnter: auth,
+        component: () => import(/* webpackChunkName: "Invoice" */ "../views/InvoiceManagement.vue"),
+    },
+    {
         path: "/login",
         name: "login",
         component: () => import(/* webpackChunkName: "login" */ "../views/LoginView.vue"),
