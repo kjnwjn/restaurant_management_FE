@@ -2,7 +2,6 @@
     <div>
         <DashboardMenu />
         <main class="main-container">
-            <!-- <pre>{{ orderData }}</pre> -->
             <Loading :active="isLoading" :is-full-page="true" :can-cancel="false" />
             <div class="flex items-center justify-center text-center text-slate-600 font-semibold text-[25px] my-3" v-if="orderData">
                 <h1 class="flex justify-center">ORDER {{ orderData.orderId }} DETAILS</h1>
@@ -50,14 +49,27 @@
                     <h1 class="col-span-1 mb-2 text-lg font-medium text-gray-900 dark:text-gray-300">Table: {{ orderData.tableId }}</h1>
                 </div>
                 <div class="mb-6 grid grid-cols-2">
-                    <input v-model="money" type="text" class="col-span-1 bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-2/5 outline-none p-2.5" placeholder="Money" required="" />
+                    <input
+                        v-model="money"
+                        type="number"
+                        class="col-span-1 bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-2/5 outline-none p-2.5"
+                        placeholder="Money"
+                        required=""
+                    />
                     <h1 class="col-span-1 block mb-2 text-lg font-medium text-gray-900 dark:text-gray-300">Change due : {{ orderData.change }}</h1>
                 </div>
                 <div class="flex items-center justify-center text-center text-slate-600 font-semibold text-[25px] my-3" v-if="orderData">
                     <h1 class="flex justify-center">Total: {{ priceFormat(orderData.tempAmount) }}</h1>
                 </div>
+<<<<<<< HEAD
                 <div class="flex gap-1 text-slate-600 w-[100%] justify-center items-center text-[15px]" v-if="!orderData.isPaid">
                     <button type="button" class="w-[25%] bg-green-600 py-3 rounded-lg text-lg text-gray-50 uppercase btn-order" @click="handlePayment(orderData.orderId)">PayMent</button>
+=======
+                <div class="flex gap-1 text-slate-600 w-[100%] justify-center items-center text-[15px]">
+                    <button type="button" class="w-[25%] bg-green-600 py-3 rounded-lg text-lg text-gray-50 uppercase btn-order" @click="handlePayment(orderData.orderId)">
+                        PayMent
+                    </button>
+>>>>>>> 2a49d8a29ce7f1435266803797c7cd4a5e2068be
                 </div>
                 <div class="flex gap-1 text-slate-600 w-[100%] justify-center items-center text-[15px]" v-else>
                     <button type="button" class="w-[25%] bg-blue-600 py-3 rounded-lg text-lg text-gray-50 uppercase btn-order" @click="handleBackBtn">Back</button>

@@ -10,7 +10,7 @@ const routes = [
         path: "/",
         name: "index",
         beforeEnter: () => {
-            router.push("/home");
+            router.push("/dashboard/table");
         },
     },
     {
