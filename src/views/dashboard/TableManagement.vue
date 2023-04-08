@@ -24,12 +24,14 @@
             <div class="mb-6">
                 <div class="grid-menu">
                     <div v-for="(table, index) in tableList" :key="index">
-                        <router-link :to="'/dashboard/order/orderNew/' + table.tableId" v-if="!table.status">
-                            <card-table :table-id="table.tableId" :status="table.status" />
-                        </router-link>
-                        <router-link :to="'/dashboard/order/' + table.tableId" v-else>
-                            <card-table :table-id="table.tableId" :status="table.status" />
-                        </router-link>
+                        <template>
+                            <router-link :to="'/dashboard/order/orderNew/' + table.tableId" v-if="!table.status">
+                                <card-table :table-id="table.tableId" :status="table.status" />
+                            </router-link>
+                            <div v-else @click="getOrderData(table.tableId)">
+                                <card-table :table-id="table.tableId" :status="table.status" />
+                            </div>
+                        </template>
                     </div>
                 </div>
             </div>
@@ -55,7 +57,11 @@ export default {
             tableList: null,
         };
     },
-
+    sockets: {
+        "update-table-status": function () {
+            this.fetchData();
+        },
+    },
     async mounted() {
         this.fetchData();
     },
@@ -95,8 +101,25 @@ export default {
                 });
             this.isLoading = false;
         },
+        async getOrderData(tableId) {
+            this.isLoading = true;
+            await axios
+                .get(`${process.env.VUE_APP_API_URL}/table/get-order/${tableId}?token=${this.accessToken}`)
+                .then((res) => {
+                    console.log(res);
+                    if (res.data.status) {
+                        this.$router.push(`/dashboard/table/${tableId}/${res.data.data.tableData.orderId}`);
+                    } else {
+                        this.toastify.error(res.data.status);
+                    }
+                })
+                .catch((err) => {
+                    this.toastify.error(err.message);
+                });
+            this.isLoading = false;
+        },
     },
-    computed: { ...mapState(["accessToken", "payload", "toastify"]) },
+    computed: { ...mapState(["accessToken", "payload", "toastify", "tableData"]) },
 };
 </script>
 
