@@ -11,8 +11,8 @@
             <div class="pending-list grid grid-cols-3 p-4" v-if="pendingOrderList">
                 <div class="pending-list-child col-span-3 pr-6">
                     <div class="overflow-x-auto relative">
-                        <table class="overflow-scroll w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                        <table class="overflow-scroll w-full text-sm text-left text-gray-500 text-gray-400">
+                            <thead class="text-xs text-gray-700 uppercase bg-gray-50 text-gray-400">
                                 <tr>
                                     <th scope="col" class="py-3 px-6">Pending order id</th>
                                     <th scope="col" class="py-3 px-6">orderId</th>
@@ -20,11 +20,11 @@
                                     <th scope="col" class="py-3 px-6">status</th>
                                     <th scope="col" class="py-3 px-6">note</th>
                                     <th scope="col" class="py-3 px-6">Create At</th>
-                                    <th scope="col" class="py-3 px-6">Action</th>
+                                    <th scope="col" class="py-3 px-6" v-if="payload && payload?.role != 'STAFF' && payload?.role != 'MANAGER'">Action</th>
                                 </tr>
                             </thead>
                             <tbody v-if="pendingOrderList">
-                                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700" v-for="(pendingItem, i) in pendingOrderList" :key="i">
+                                <tr class="bg-white border-b bg-gray-800 border-gray-700" v-for="(pendingItem, i) in pendingOrderList" :key="i">
                                     <td class="py-4 px-6 flex justify-between items-center">
                                         <button class="py-2 px-6 inline-flex items-center p-1 text-sm font-medium text-gray-500 bg-white rounded-full border border-gray-300" type="button" v-on:click="handleGetPendingOrder(pendingItem)">
                                             {{ pendingItem.pendingId }}
@@ -47,7 +47,7 @@
                                     </template>
                                     <td class="py-4 px-6">{{ pendingItem.note || "--" }}</td>
                                     <td class="py-4 px-6">{{ dateFormat(pendingItem.createdAt) }}</td>
-                                    <td class="py-4 px-6">
+                                    <td class="py-4 px-6" v-if="payload && payload?.role != 'STAFF' && payload?.role != 'MANAGER'">
                                         <div v-on:click="switchStatus(pendingItem.pendingId)" class="text-blue-500 cursor-pointer p-2">Mark done</div>
                                     </td>
                                 </tr>
@@ -63,8 +63,8 @@
             <div class="dish-list grid grid-cols-3 p-4" v-if="dish && dish.length > 0">
                 <div class="pending-list-child col-span-3 pr-6">
                     <div class="overflow-x-auto relative">
-                        <table class="overflow-scroll w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                        <table class="overflow-scroll w-full text-sm text-left text-gray-500 text-gray-400">
+                            <thead class="text-xs text-gray-700 uppercase bg-gray-50 text-gray-400">
                                 <tr>
                                     <th scope="col" class="py-3 px-6">Dish Id</th>
                                     <th scope="col" class="py-3 px-6">Dish Name</th>
@@ -74,7 +74,7 @@
                                 </tr>
                             </thead>
                             <tbody v-if="dish && pendingOrderId">
-                                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700" v-for="(item, i) in dish" :key="i">
+                                <tr class="bg-white border-b bg-gray-800 border-gray-700" v-for="(item, i) in dish" :key="i">
                                     <td class="py-4 px-6 flex justify-between items-center">
                                         <button class="py-2 px-6 inline-flex items-center p-1 text-sm font-medium text-gray-500 bg-white rounded-full border border-gray-300" type="button">
                                             {{ item.dish.dishId }}

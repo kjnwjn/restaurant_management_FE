@@ -10,8 +10,8 @@
             <div class="grid grid-cols-3">
                 <div class="col-span-2">
                     <div class="overflow-x-auto relative">
-                        <table class="overflow-scroll w-full text-sm text-left text-gray-500 dark:text-gray-400 mb-4">
-                            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                        <table class="overflow-scroll w-full text-sm text-left text-gray-500 text-gray-400 mb-4">
+                            <thead class="text-xs text-gray-700 uppercase bg-gray-50 text-gray-400">
                                 <tr>
                                     <th scope="col" class="py-3 px-6">Date</th>
                                     <th scope="col" class="py-3 px-6">UserCode</th>
@@ -22,12 +22,12 @@
                             </thead>
                             <tbody v-if="attendanceList && attendanceList.length > 0">
                                 <template v-for="attendance in attendanceList">
-                                    <!-- <tr class="bg-blue-400 border-b dark:bg-gray-800 dark:border-gray-700">
+                                    <!-- <tr class="bg-blue-400 border-b bg-gray-800 border-gray-700">
                                     <td class="py-4 px-6" colspan="5">{{ attendance.dateString }}</td>
                                 </tr> -->
-                                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700" v-for="(account, i) in attendance.data" :key="i">
+                                    <tr class="bg-white border-b bg-gray-800 border-gray-700" v-for="(account, i) in attendance.data" :key="i">
                                         <td class="py-4 px-6">{{ attendance.dateString }}</td>
-                                        <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                        <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap text-white">
                                             {{ account.userCode }}
                                         </th>
                                         <td class="py-4 px-6">{{ dateFormat(account.timeIn) }}</td>
@@ -86,12 +86,8 @@
                             <h1>{{ accountDetail.fullName }}</h1>
                         </div>
                         <div class="mt-5">
-                            <button class="px-3 py-2 bg-blue-400 hover:bg-blue-500 transition-all text-white mr-2 rounded-md w-50" v-on:click="attendanceHandler('checkIn')">
-                                CheckIn
-                            </button>
-                            <button class="px-3 py-2 bg-blue-400 hover:bg-blue-500 transition-all text-white ml-2 rounded-md w-50" v-on:click="attendanceHandler('checkOut')">
-                                CheckOut
-                            </button>
+                            <button class="px-3 py-2 bg-blue-400 hover:bg-blue-500 transition-all text-white mr-2 rounded-md w-50" v-on:click="attendanceHandler('checkIn')">CheckIn</button>
+                            <button class="px-3 py-2 bg-blue-400 hover:bg-blue-500 transition-all text-white ml-2 rounded-md w-50" v-on:click="attendanceHandler('checkOut')">CheckOut</button>
                         </div>
                     </div>
                 </div>
@@ -141,15 +137,13 @@ export default {
         },
         async confirmAccountHandler() {
             this.isLoading = true;
-            await axios
-                .get(`${process.env.VUE_APP_API_URL}/account/${this.accountDetail.userCode ? this.accountDetail.userCode : "null"}/detail?token=${this.accessToken}`)
-                .then((res) => {
-                    if (res.data.status) {
-                        this.accountDetail = res.data.data;
-                    } else {
-                        this.toastify.error(res.data.msg.en);
-                    }
-                });
+            await axios.get(`${process.env.VUE_APP_API_URL}/account/${this.accountDetail.userCode ? this.accountDetail.userCode : "null"}/detail?token=${this.accessToken}`).then((res) => {
+                if (res.data.status) {
+                    this.accountDetail = res.data.data;
+                } else {
+                    this.toastify.error(res.data.msg.en);
+                }
+            });
             this.isLoading = false;
         },
         async getAttendanceHandler() {

@@ -12,7 +12,7 @@
                         <ThemifyIcon icon="arrow-circle-right" />
                         <h1 class="ml-2 font-bold uppercase">Point of Sale</h1>
                     </div>
-                    <router-link to="/dashboard/order">
+                    <router-link to="/dashboard/order" v-if="payload.role == 'MANAGER' || payload.role == 'ADMIN' || payload.role == 'STAFF'">
                         <div class="flex items-center w-full pl-6 transition-all">
                             <ThemifyIcon icon="server" />
                             <li class="p-1 pl-2">Order</li>
@@ -24,7 +24,7 @@
                             <li class="p-1 pl-2">Pending Order</li>
                         </div>
                     </router-link>
-                    <router-link to="/dashboard/invoice">
+                    <router-link to="/dashboard/invoice" v-if="payload.role == 'MANAGER' || payload.role == 'ADMIN'">
                         <div class="flex items-center w-full pl-6 transition-all">
                             <ThemifyIcon icon="timer" />
                             <li class="p-1 pl-2">Invoice</li>
@@ -32,7 +32,7 @@
                     </router-link>
                 </ul>
                 <hr class="my-4 opacity-50" />
-                <ul class="mb-3">
+                <ul class="mb-3" v-if="payload.role == 'ADMIN'">
                     <div class="flex items-center mb-1 text-white">
                         <ThemifyIcon icon="arrow-circle-right" />
                         <h1 class="ml-2 font-bold uppercase">Account Management</h1>
@@ -64,7 +64,7 @@
                     </router-link>
                 </ul>
                 <hr class="my-4 opacity-50" />
-                <ul class="mb-3">
+                <ul class="mb-3" v-if="payload.role == 'ADMIN' || payload.role == 'CHEF'">
                     <div class="flex items-center mb-1 text-white">
                         <ThemifyIcon icon="arrow-circle-right" />
                         <h1 class="ml-2 font-bold uppercase">Category & Dish</h1>

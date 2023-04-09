@@ -17,7 +17,7 @@ const routes = [
         path: "/home",
         name: "home",
         beforeEnter: auth,
-        component: () => import(/* webpackChunkName: "home" */ "../views/POSView.vue"),
+        component: () => import(/* webpackChunkName: "home" */ "../views/OrderDetailManagement.vue"),
     },
     {
         path: "/client/table/:tableId",

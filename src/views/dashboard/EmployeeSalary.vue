@@ -9,8 +9,8 @@
         <div class="grid grid-cols-3">
             <div class="col-span-2">
                 <div class="overflow-x-auto relative">
-                    <table class="overflow-scroll w-full text-sm text-left text-gray-500 dark:text-gray-400 mb-4">
-                        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                    <table class="overflow-scroll w-full text-sm text-left text-gray-500 text-gray-400 mb-4">
+                        <thead class="text-xs text-gray-700 uppercase bg-gray-50 text-gray-400">
                             <tr>
                                 <th scope="col" class="py-3 px-6">User code</th>
                                 <th scope="col" class="py-3 px-6">Full name</th>
@@ -20,8 +20,8 @@
                             </tr>
                         </thead>
                         <tbody v-if="dataList.length > 0">
-                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700" v-for="(employee, i) in dataList" :key="i">
-                                <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            <tr class="bg-white border-b bg-gray-800 border-gray-700" v-for="(employee, i) in dataList" :key="i">
+                                <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap text-white">
                                     {{ employee.userCode }}
                                 </th>
                                 <td class="py-4 px-6">{{ employee.fullName }}</td>
@@ -65,10 +65,7 @@
                         <ThemifyIcon icon="settings" />
                         <p class="ml-2">Export to excel file:</p>
                     </div>
-                    <div
-                        v-on:click="exportHandler"
-                        class="flex justify-center items-center transition-all text-white w-full py-2 text-center rounded bg-blue-400 hover:bg-blue-500 cursor-pointer"
-                    >
+                    <div v-on:click="exportHandler" class="flex justify-center items-center transition-all text-white w-full py-2 text-center rounded bg-blue-400 hover:bg-blue-500 cursor-pointer">
                         <ThemifyIcon icon="export" />
                         <button class="ml-2">Export</button>
                     </div>

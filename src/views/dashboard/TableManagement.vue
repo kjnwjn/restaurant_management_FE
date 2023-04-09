@@ -3,20 +3,22 @@
         <DashboardMenu />
         <main class="main-container">
             <Loading :active="isLoading" :is-full-page="true" :can-cancel="false" />
-            <div class="flex items-center mb-4 text-green-700 font-bold text-lg uppercase">
-                <ThemifyIcon icon="menu" />
-                <h1 class="ml-2">Table Management</h1>
-            </div>
-            <div class="mb-6">
-                <div class="mb-2 text-md font-medium text-gray-900 flex items-center">
-                    <ThemifyIcon icon="settings" />
-                    <p class="ml-2">Create new table automatically</p>
+            <template v-if="payload && payload?.role == 'ADMIN'">
+                <div class="flex items-center mb-4 text-green-700 font-bold text-lg uppercase">
+                    <ThemifyIcon icon="menu" />
+                    <h1 class="ml-2">Table Management</h1>
                 </div>
-                <div v-on:click="createNewTable()" class="p-2 flex justify-center items-center transition-all bg-blue-400 hover:bg-blue-500 text-white w-80 text-center rounded cursor-pointer">
-                    <ThemifyIcon icon="plus" />
-                    <button class="ml-2">Create</button>
+                <div class="mb-6">
+                    <div class="mb-2 text-md font-medium text-gray-900 flex items-center">
+                        <ThemifyIcon icon="settings" />
+                        <p class="ml-2">Create new table automatically</p>
+                    </div>
+                    <div v-on:click="createNewTable()" class="p-2 flex justify-center items-center transition-all bg-blue-400 hover:bg-blue-500 text-white w-80 text-center rounded cursor-pointer">
+                        <ThemifyIcon icon="plus" />
+                        <button class="ml-2">Create</button>
+                    </div>
                 </div>
-            </div>
+            </template>
             <div class="flex items-center mb-4 text-green-700 font-bold text-lg uppercase">
                 <ThemifyIcon icon="menu" />
                 <h1 class="ml-2">List of table</h1>

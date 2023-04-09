@@ -1,10 +1,7 @@
 <template>
     <main>
         <Loading :active="isLoading" :is-full-page="true" :can-cancel="false" />
-        <div
-            class="py-2 bg-green-400 rounded-full text-white text-center mb-9 font-bold text-lg cursor-pointer hover:bg-green-500 transition-all"
-            v-on:click="newTransactionHandler"
-        >
+        <div class="py-2 bg-green-400 rounded-full text-white text-center mb-9 font-bold text-lg cursor-pointer hover:bg-green-500 transition-all" v-on:click="newTransactionHandler">
             <ThemifyIcon icon="shopping-cart" />
             <button class="ml-3">Create New Transaction</button>
         </div>
@@ -51,8 +48,8 @@
             <h1 class="ml-2">List of transactions:</h1>
         </div>
         <div class="overflow-x-auto relative">
-            <table class="overflow-scroll w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <table class="overflow-scroll w-full text-sm text-left text-gray-500 text-gray-400">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-50 text-gray-400">
                     <tr>
                         <th scope="col" class="py-3 px-6">Transaction ID</th>
                         <th scope="col" class="py-3 px-6">Cashier</th>
@@ -64,14 +61,9 @@
                     </tr>
                 </thead>
                 <tbody v-if="transactionList">
-                    <tr
-                        class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
-                        v-for="(transaction, i) in transactionList"
-                        :key="i"
-                        :class="{ 'bg-pink-100': !transaction.payStatus }"
-                    >
+                    <tr class="bg-white border-b bg-gray-800 border-gray-700" v-for="(transaction, i) in transactionList" :key="i" :class="{ 'bg-pink-100': !transaction.payStatus }">
                         <router-link :to="'/transaction/' + transaction.transactionID">
-                            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap text-white">
                                 {{ transaction.transactionID }}
                             </th>
                         </router-link>

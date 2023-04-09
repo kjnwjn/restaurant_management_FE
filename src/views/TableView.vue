@@ -1,5 +1,5 @@
 <template>
-    <section class="bg-white dark:bg-gray-900" v-if="menuList && menuList.length > 0">
+    <section class="bg-white bg-gray-900" v-if="menuList && menuList.length > 0">
         <DashboardMenu :menu="menuList" />
         <main class="main-container">
             <Loading :active="isLoading" :is-full-page="true" :can-cancel="false" />

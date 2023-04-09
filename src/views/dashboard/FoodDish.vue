@@ -3,43 +3,45 @@
         <DashboardMenu />
         <main class="main-container">
             <Loading :active="isLoading" :is-full-page="true" :can-cancel="false" />
-            <div class="flex items-center mb-4 text-green-700 font-bold text-lg uppercase">
-                <ThemifyIcon icon="menu" />
-                <h1 class="ml-2">Dishes management</h1>
-            </div>
-            <div class="mb-6">
-                <div class="mb-6 text-md font-medium text-gray-900 flex items-center">
-                    <ThemifyIcon icon="settings" />
-                    <p class="ml-2">Create new dish:</p>
+            <template v-if="payload && payload?.role == 'ADMIN'">
+                <div class="flex items-center mb-4 text-green-700 font-bold text-lg uppercase">
+                    <ThemifyIcon icon="menu" />
+                    <h1 class="ml-2">Dishes management</h1>
                 </div>
-                <div class="grid gap-6 mb-6 md:grid-cols-2">
-                    <div>
-                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Thumbnail</label>
-                        <input v-on:change="uploadFile()" ref="file" class="border-gray-300 text-gray-900 border rounded-lg block w-full text-sm cursor-pointer pl-2 py-2 mr-4" type="file" />
+                <div class="mb-6">
+                    <div class="mb-6 text-md font-medium text-gray-900 flex items-center">
+                        <ThemifyIcon icon="settings" />
+                        <p class="ml-2">Create new dish:</p>
                     </div>
-                    <div>
-                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Dish name</label>
-                        <input v-model="dish.name" class="border-gray-300 text-gray-900 border text-sm rounded-lg block w-full p-2.5" />
+                    <div class="grid gap-6 mb-6 md:grid-cols-2">
+                        <div>
+                            <label class="block mb-2 text-sm font-medium text-gray-900 text-gray-300">Thumbnail</label>
+                            <input v-on:change="uploadFile()" ref="file" class="border-gray-300 text-gray-900 border rounded-lg block w-full text-sm cursor-pointer pl-2 py-2 mr-4" type="file" />
+                        </div>
+                        <div>
+                            <label class="block mb-2 text-sm font-medium text-gray-900 text-gray-300">Dish name</label>
+                            <input v-model="dish.name" class="border-gray-300 text-gray-900 border text-sm rounded-lg block w-full p-2.5" />
+                        </div>
+                        <div>
+                            <label class="block mb-2 text-sm font-medium text-gray-900 text-gray-300">Price</label>
+                            <input v-model="dish.price" type="number" class="border-gray-300 text-gray-900 border text-sm rounded-lg block w-full p-2.5" />
+                        </div>
+                        <div>
+                            <label class="block mb-2 text-sm font-medium text-gray-900 text-gray-300">Category ID</label>
+                            <input v-model="dish.categoryId" type="number" class="border-gray-300 text-gray-900 border text-sm rounded-lg block w-full p-2.5" />
+                        </div>
                     </div>
-                    <div>
-                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Price</label>
-                        <input v-model="dish.price" type="number" class="border-gray-300 text-gray-900 border text-sm rounded-lg block w-full p-2.5" />
-                    </div>
-                    <div>
-                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Category ID</label>
-                        <input v-model="dish.categoryId" type="number" class="border-gray-300 text-gray-900 border text-sm rounded-lg block w-full p-2.5" />
-                    </div>
+                    <button type="submit" v-on:click="newDish" class="text-white transition-all bg-blue-400 hover:bg-blue-500 focus:outline-none font-medium rounded-lg text-sm w-full sm:w-auto px-8 py-2.5 text-center">Submit</button>
                 </div>
-                <button type="submit" v-on:click="newDish" class="text-white transition-all bg-blue-400 hover:bg-blue-500 focus:outline-none font-medium rounded-lg text-sm w-full sm:w-auto px-8 py-2.5 text-center">Submit</button>
-            </div>
+            </template>
             <div class="flex items-center mb-4 text-green-700 font-bold text-lg uppercase">
                 <ThemifyIcon icon="menu" />
                 <h1 class="ml-2">List of dishes</h1>
             </div>
             <div class="mb-6">
                 <div class="overflow-x-auto relative">
-                    <table class="overflow-scroll w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                    <table class="overflow-scroll w-full text-sm text-left text-gray-500 text-gray-400">
+                        <thead class="text-xs text-gray-700 uppercase bg-gray-50 text-gray-400">
                             <tr>
                                 <th scope="col" class="py-3 px-6">Dish ID</th>
                                 <th scope="col" class="py-3 px-6">Category ID</th>
@@ -47,12 +49,12 @@
                                 <th scope="col" class="py-3 px-6">Status</th>
                                 <th scope="col" class="py-3 px-6">Created At</th>
                                 <th scope="col" class="py-3 px-6">Last modified</th>
-                                <th scope="col" class="py-3 px-6" v-if="payload.role == 'ADMIN'">Action</th>
+                                <th scope="col" class="py-3 px-6" v-if="payload.role == 'ADMIN' || payload.role == 'CHEF'">Action</th>
                             </tr>
                         </thead>
                         <tbody v-if="dishList && dishList.length > 0">
-                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700" v-for="(dish, i) in dishList" :key="i">
-                                <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            <tr class="bg-white border-b bg-gray-800 border-gray-700" v-for="(dish, i) in dishList" :key="i">
+                                <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap text-white">
                                     {{ dish.dishId }}
                                 </th>
                                 <td class="py-4 px-6">{{ dish.categoryId }}</td>
@@ -68,9 +70,9 @@
                                 </template>
                                 <td class="py-4 px-6">{{ dateFormat(dish.createdAt) }}</td>
                                 <td class="py-4 px-6">{{ dateFormat(dish.updatedAt) }}</td>
-                                <td class="py-4 px-6 flex" v-if="payload.role == 'ADMIN'">
-                                    <div v-on:click="dishRemove(dish.dishId)" class="text-red-500 cursor-pointer p-2"><ThemifyIcon icon="trash" />Delete</div>
-                                    <div v-on:click="switchStatus(dish.dishId)" class="text-blue-500 cursor-pointer p-2"><ThemifyIcon icon="panel" />Switch status</div>
+                                <td class="py-4 px-6 flex" v-if="payload.role == 'ADMIN' || payload.role == 'CHEF'">
+                                    <div v-on:click="dishRemove(dish.dishId)" class="text-red-500 cursor-pointer p-2" v-if="payload.role == 'ADMIN'"><ThemifyIcon icon="trash" />Delete</div>
+                                    <div v-on:click="switchStatus(dish.dishId)" class="text-blue-500 cursor-pointer p-2">Switch status</div>
                                 </td>
                             </tr>
                         </tbody>

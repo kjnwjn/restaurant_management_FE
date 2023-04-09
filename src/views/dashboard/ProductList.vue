@@ -11,8 +11,8 @@
                 <h1 class="ml-2">Total products: {{ totalProducts }}</h1>
             </div>
             <div class="overflow-x-auto relative">
-                <table class="overflow-scroll w-full text-sm text-left text-gray-500 dark:text-gray-400 mb-4">
-                    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                <table class="overflow-scroll w-full text-sm text-left text-gray-500 text-gray-400 mb-4">
+                    <thead class="text-xs text-gray-700 uppercase bg-gray-50 text-gray-400">
                         <tr>
                             <th scope="col" class="py-3 px-6">Barcode</th>
                             <th scope="col" class="py-3 px-6">Product name</th>
@@ -24,8 +24,8 @@
                         </tr>
                     </thead>
                     <tbody v-if="productsData.result ? (productsData.result.perPage > 0 ? true : false) : false">
-                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700" v-for="(product, i) in productsData.result.data" :key="i">
-                            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        <tr class="bg-white border-b bg-gray-800 border-gray-700" v-for="(product, i) in productsData.result.data" :key="i">
+                            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap text-white">
                                 {{ product.barcode }}
                             </th>
                             <td class="py-4 px-6">{{ product.productName }}</td>
@@ -43,17 +43,9 @@
                     <h1 class="">Empty list, there is no data!</h1>
                 </div>
                 <div class="flex items-center" v-if="productsData.result ? (productsData.result.perPage > 0 ? true : false) : false">
-                    <button class="underline px-2 py-1 rounded-full" v-if="productsData && productsData.currentPage != 1" v-on:click="pagePagination(productsData.currentPage - 1)">
-                        Previous
-                    </button>
+                    <button class="underline px-2 py-1 rounded-full" v-if="productsData && productsData.currentPage != 1" v-on:click="pagePagination(productsData.currentPage - 1)">Previous</button>
                     <p class="px-2 py-4 font-bold">{{ `${productsData.currentPage}/${productsData.pageTotal}` }}</p>
-                    <button
-                        class="underline px-2 py-1 rounded-full"
-                        v-if="productsData && productsData.currentPage < productsData.pageTotal"
-                        v-on:click="pagePagination(productsData.currentPage + 1)"
-                    >
-                        Next
-                    </button>
+                    <button class="underline px-2 py-1 rounded-full" v-if="productsData && productsData.currentPage < productsData.pageTotal" v-on:click="pagePagination(productsData.currentPage + 1)">Next</button>
                 </div>
             </div>
         </main>

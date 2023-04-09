@@ -18,8 +18,8 @@
             <div class="grid grid-cols-3 p-4">
                 <div class="col-span-3 pr-6">
                     <div class="overflow-x-auto relative">
-                        <table class="overflow-scroll w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                        <table class="overflow-scroll w-full text-sm text-left text-gray-500 text-gray-400">
+                            <thead class="text-xs text-gray-700 uppercase bg-gray-50 text-gray-400">
                                 <tr>
                                     <th scope="col" class="py-3 px-6">order Id</th>
                                     <th scope="col" class="py-3 px-6">table Id</th>
@@ -30,7 +30,7 @@
                                 </tr>
                             </thead>
                             <tbody v-if="orderList && orderList?.paid">
-                                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700" v-for="(orderItem, i) in orderList.paid.list" :key="i">
+                                <tr class="bg-white border-b bg-gray-800 border-gray-700" v-for="(orderItem, i) in orderList.paid.list" :key="i">
                                     <td class="py-4 px-6 flex justify-between items-center">
                                         <button class="inline-flex items-center p-1 text-sm font-medium text-gray-500 bg-white rounded-full border border-gray-300" type="button" v-on:click="handleGetPendingOrder(orderItem.orderId)">
                                             {{ orderItem.orderId }}
@@ -55,8 +55,8 @@
             <div class="grid grid-cols-3 p-4" v-if="pendingOrderList">
                 <div class="col-span-3 pr-6">
                     <div class="overflow-x-auto relative">
-                        <table class="overflow-scroll w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                        <table class="overflow-scroll w-full text-sm text-left text-gray-500 text-gray-400">
+                            <thead class="text-xs text-gray-700 uppercase bg-gray-50 text-gray-400">
                                 <tr>
                                     <th scope="col" class="py-3 px-6">Pending order id</th>
                                     <th scope="col" class="py-3 px-6">orderId</th>
@@ -68,7 +68,7 @@
                                 </tr>
                             </thead>
                             <tbody v-if="pendingOrderList">
-                                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700" v-for="(pendingItem, i) in pendingOrderList" :key="i">
+                                <tr class="bg-white border-b bg-gray-800 border-gray-700" v-for="(pendingItem, i) in pendingOrderList" :key="i">
                                     <td class="py-4 px-6 flex justify-between items-center">
                                         <button class="inline-flex items-center p-1 text-sm font-medium text-gray-500 bg-white rounded-full border border-gray-300" type="button" v-on:click="handleGetPendingOrder(pendingItem.pendingId)">
                                             {{ pendingItem.pendingId }}

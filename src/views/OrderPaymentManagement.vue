@@ -14,8 +14,8 @@
             <div class="dish-list p-4" v-if="dish && dish.length > 0">
                 <div class="pending-list-child col-span-3 pr-6">
                     <div class="overflow-x-auto relative">
-                        <table class="overflow-scroll w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                        <table class="overflow-scroll w-full text-sm text-left text-gray-500 text-gray-400">
+                            <thead class="text-xs text-gray-700 uppercase bg-gray-50 text-gray-400">
                                 <tr>
                                     <th scope="col" class="py-3 px-6">Dish Id</th>
                                     <th scope="col" class="py-3 px-6">Dish Name</th>
@@ -24,7 +24,7 @@
                                 </tr>
                             </thead>
                             <tbody v-if="dish">
-                                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700" v-for="(item, i) in dish" :key="i">
+                                <tr class="bg-white border-b bg-gray-800 border-gray-700" v-for="(item, i) in dish" :key="i">
                                     <td class="py-4 px-6 flex justify-between items-center">
                                         <button class="inline-flex items-center p-1 text-sm font-medium text-gray-500 bg-white rounded-full border border-gray-300" type="button">
                                             {{ item.dish.dishId }}
@@ -41,16 +41,16 @@
             </div>
             <template v-if="orderData">
                 <div class="mb-6 grid grid-cols-2">
-                    <h1 class="col-span-1 mb-2 text-lg font-medium text-gray-900 dark:text-gray-300">Status: {{ orderData.status }}</h1>
-                    <h1 class="col-span-1 mb-2 text-lg font-medium text-gray-900 dark:text-gray-300">Created by: {{ orderData.userCode }}</h1>
+                    <h1 class="col-span-1 mb-2 text-lg font-medium text-gray-900 text-gray-300">Status: {{ orderData.status }}</h1>
+                    <h1 class="col-span-1 mb-2 text-lg font-medium text-gray-900 text-gray-300">Created by: {{ orderData.userCode }}</h1>
                 </div>
                 <div class="mb-6 grid grid-cols-2">
-                    <h1 class="col-span-1 mb-2 text-lg font-medium text-gray-900 dark:text-gray-300">Create At: {{ dateFormat(orderData.createdAt) }}</h1>
-                    <h1 class="col-span-1 mb-2 text-lg font-medium text-gray-900 dark:text-gray-300">Table: {{ orderData.tableId }}</h1>
+                    <h1 class="col-span-1 mb-2 text-lg font-medium text-gray-900 text-gray-300">Create At: {{ dateFormat(orderData.createdAt) }}</h1>
+                    <h1 class="col-span-1 mb-2 text-lg font-medium text-gray-900 text-gray-300">Table: {{ orderData.tableId }}</h1>
                 </div>
                 <div class="mb-6 grid grid-cols-2">
                     <input v-model="money" type="number" class="col-span-1 bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-2/5 outline-none p-2.5" placeholder="Money" required="" />
-                    <h1 class="col-span-1 block mb-2 text-lg font-medium text-gray-900 dark:text-gray-300">Change due : {{ orderData.change }}</h1>
+                    <h1 class="col-span-1 block mb-2 text-lg font-medium text-gray-900 text-gray-300">Change due : {{ orderData.change }}</h1>
                 </div>
                 <div class="flex items-center justify-center text-center text-slate-600 font-semibold text-[25px] my-3" v-if="orderData">
                     <h1 class="flex justify-center">Total: {{ priceFormat(orderData.tempAmount) }}</h1>

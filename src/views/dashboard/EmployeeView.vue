@@ -8,8 +8,8 @@
                 <h1 class="ml-2">List of all employees:</h1>
             </div>
             <div class="overflow-x-auto relative">
-                <table class="overflow-scroll w-full text-sm text-left text-gray-500 dark:text-gray-400 mb-4">
-                    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                <table class="overflow-scroll w-full text-sm text-left text-gray-500 text-gray-400 mb-4">
+                    <thead class="text-xs text-gray-700 uppercase bg-gray-50 text-gray-400">
                         <tr>
                             <th scope="col" class="py-3 px-6">UserCode</th>
                             <th scope="col" class="py-3 px-6">Fullname</th>
@@ -19,13 +19,13 @@
                         </tr>
                     </thead>
                     <tbody v-if="employeeList.length > 0">
-                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700" v-for="(employee, i) in employeeList" :key="i">
+                        <tr class="bg-white border-b bg-gray-800 border-gray-700" v-for="(employee, i) in employeeList" :key="i">
                             <router-link :to="'/employee/' + employee.userCode + '/detail'" v-if="payload.role == 'ADMIN'">
-                                <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap text-white">
                                     {{ employee.userCode }}
                                 </th>
                             </router-link>
-                            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white" v-else>
+                            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap text-white" v-else>
                                 {{ employee.userCode }}
                             </th>
                             <td class="py-4 px-6">{{ employee.fullName }}</td>

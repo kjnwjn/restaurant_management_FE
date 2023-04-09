@@ -23,8 +23,8 @@
             <div class="grid grid-cols-3">
                 <div class="col-span-2">
                     <div class="overflow-x-auto relative">
-                        <table class="overflow-scroll w-full text-sm text-left text-gray-500 dark:text-gray-400 mb-4">
-                            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                        <table class="overflow-scroll w-full text-sm text-left text-gray-500 text-gray-400 mb-4">
+                            <thead class="text-xs text-gray-700 uppercase bg-gray-50 text-gray-400">
                                 <tr>
                                     <th scope="col" class="py-3 px-6">Customer ID</th>
                                     <th scope="col" class="py-3 px-6">Fullname</th>
@@ -34,8 +34,8 @@
                                 </tr>
                             </thead>
                             <tbody v-if="customerList.length > 0">
-                                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700" v-for="(customer, i) in customerList" :key="i">
-                                    <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ customer.customerID }}</th>
+                                <tr class="bg-white border-b bg-gray-800 border-gray-700" v-for="(customer, i) in customerList" :key="i">
+                                    <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap text-white">{{ customer.customerID }}</th>
                                     <td class="py-4 px-6">{{ customer.fullName }}</td>
                                     <td class="py-4 px-6">{{ customer.point }}</td>
                                     <td class="py-4 px-6">{{ dateFormat(customer.createdAt) }}</td>
@@ -54,7 +54,7 @@
                         <h1 class="ml-2">Create new customer</h1>
                     </div>
                     <div class="mb-6">
-                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Phone number</label>
+                        <label class="block mb-2 text-sm font-medium text-gray-900 text-gray-300">Phone number</label>
                         <input
                             v-model="customer.customerID"
                             type="tel"
@@ -64,13 +64,8 @@
                         />
                     </div>
                     <div class="mb-6">
-                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Full name</label>
-                        <input
-                            v-model="customer.fullName"
-                            type="text"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                            placeholder="Mr.Jone"
-                        />
+                        <label class="block mb-2 text-sm font-medium text-gray-900 text-gray-300">Full name</label>
+                        <input v-model="customer.fullName" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Mr.Jone" />
                     </div>
                     <div class="mb-6">
                         <button

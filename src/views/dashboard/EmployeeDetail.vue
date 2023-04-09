@@ -14,15 +14,15 @@
                 </div>
                 <div class="grid gap-6 mb-6 md:grid-cols-2">
                     <div>
-                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">User code</label>
+                        <label class="block mb-2 text-sm font-medium text-gray-900 text-gray-300">User code</label>
                         <input v-model="employee.userCode" disabled class="bg-gray-200 border border-gray-300 text-gray-500 text-sm rounded-lg block w-full p-2.5" />
                     </div>
                     <div>
-                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Full name</label>
+                        <label class="block mb-2 text-sm font-medium text-gray-900 text-gray-300">Full name</label>
                         <input v-model="employee.fullName" type="text" disabled class="bg-gray-200 border border-gray-300 text-gray-500 text-sm rounded-lg block w-full p-2.5" />
                     </div>
                     <div>
-                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Basic salary</label>
+                        <label class="block mb-2 text-sm font-medium text-gray-900 text-gray-300">Basic salary</label>
                         <input
                             :disabled="payload.role != 'ADMIN'"
                             :class="{
@@ -35,7 +35,7 @@
                         />
                     </div>
                     <div>
-                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Role</label>
+                        <label class="block mb-2 text-sm font-medium text-gray-900 text-gray-300">Role</label>
                         <input disabled v-model="employee.role" class="bg-gray-200 border border-gray-300 text-gray-500 text-sm rounded-lg block w-full p-2.5" />
                     </div>
                 </div>

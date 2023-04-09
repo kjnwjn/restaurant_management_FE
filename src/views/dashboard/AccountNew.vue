@@ -15,17 +15,11 @@
                 </div>
                 <div class="grid gap-6 mb-6 md:grid-cols-2">
                     <div>
-                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Full name</label>
-                        <input
-                            v-model="fullName"
-                            type="text"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                            placeholder="Fullname"
-                            required=""
-                        />
+                        <label class="block mb-2 text-sm font-medium text-gray-900 text-gray-300">Full name</label>
+                        <input v-model="fullName" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Fullname" required="" />
                     </div>
                     <div>
-                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Role</label>
+                        <label class="block mb-2 text-sm font-medium text-gray-900 text-gray-300">Role</label>
                         <select v-model="role" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5">
                             <option value="CHEF" selected>CHEF</option>
                             <option value="STAFF" selected>STAFF</option>
@@ -35,23 +29,11 @@
                 </div>
                 <div class="mb-6">
                     <div>
-                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Password</label>
-                        <input
-                            v-model="password"
-                            type="password"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                            placeholder="Password"
-                            required=""
-                        />
+                        <label class="block mb-2 text-sm font-medium text-gray-900 text-gray-300">Password</label>
+                        <input v-model="password" type="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Password" required="" />
                     </div>
                 </div>
-                <button
-                    type="submit"
-                    v-on:click="registerAccountHandler"
-                    class="text-white transition-all bg-blue-400 hover:bg-blue-500 focus:outline-none font-medium rounded-lg text-sm w-full sm:w-auto px-8 py-2.5 text-center"
-                >
-                    Submit
-                </button>
+                <button type="submit" v-on:click="registerAccountHandler" class="text-white transition-all bg-blue-400 hover:bg-blue-500 focus:outline-none font-medium rounded-lg text-sm w-full sm:w-auto px-8 py-2.5 text-center">Submit</button>
             </div>
         </main>
     </div>

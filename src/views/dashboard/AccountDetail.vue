@@ -14,29 +14,19 @@
                 </div>
                 <div class="grid gap-6 mb-6 grid-cols-2">
                     <div>
-                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">User code</label>
+                        <label class="block mb-2 text-sm font-medium text-gray-900 text-gray-300">User code</label>
                         <input :value="accountData.userCode" disabled class="bg-gray-200 border border-gray-300 text-gray-500 text-sm rounded-lg block w-full p-2.5" />
                     </div>
                     <div>
-                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Full name</label>
-                        <input
-                            v-model="accountData.fullName"
-                            placeholder="Fullname"
-                            type="text"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                        />
+                        <label class="block mb-2 text-sm font-medium text-gray-900 text-gray-300">Full name</label>
+                        <input v-model="accountData.fullName" placeholder="Fullname" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" />
                     </div>
                     <div>
-                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Email</label>
-                        <input
-                            v-model="accountData.email"
-                            type="email"
-                            placeholder="example@example.com"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                        />
+                        <label class="block mb-2 text-sm font-medium text-gray-900 text-gray-300">Email</label>
+                        <input v-model="accountData.email" type="email" placeholder="example@example.com" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" />
                     </div>
                     <div>
-                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Phone number</label>
+                        <label class="block mb-2 text-sm font-medium text-gray-900 text-gray-300">Phone number</label>
                         <input
                             type="tel"
                             pattern="[0-9]{4}-[0-9]{3}-[0-9]{3}"
@@ -46,24 +36,18 @@
                         />
                     </div>
                     <div>
-                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Role</label>
+                        <label class="block mb-2 text-sm font-medium text-gray-900 text-gray-300">Role</label>
                         <select v-model="accountData.role" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5">
                             <option value="MANAGER" :selected="accountData.role == 'MANAGER'">MANAGER</option>
                             <option value="STAFF" :selected="accountData.role == 'STAFF'">STAFF</option>
                         </select>
                     </div>
                     <div>
-                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Last login</label>
+                        <label class="block mb-2 text-sm font-medium text-gray-900 text-gray-300">Last login</label>
                         <input disabled :value="dateFormat(accountData.lastLogin)" class="bg-gray-200 border border-gray-300 text-gray-500 text-sm rounded-lg block w-full p-2.5" />
                     </div>
                 </div>
-                <button
-                    type="submit"
-                    v-on:click="updateHandler"
-                    class="text-white transition-all bg-blue-400 hover:bg-blue-500 focus:outline-none font-medium rounded-lg text-sm w-full sm:w-auto px-8 py-2.5 text-center"
-                >
-                    Update
-                </button>
+                <button type="submit" v-on:click="updateHandler" class="text-white transition-all bg-blue-400 hover:bg-blue-500 focus:outline-none font-medium rounded-lg text-sm w-full sm:w-auto px-8 py-2.5 text-center">Update</button>
             </div>
         </main>
     </div>
