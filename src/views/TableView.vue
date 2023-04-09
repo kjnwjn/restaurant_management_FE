@@ -42,7 +42,12 @@
             <div class="mb-6" id="main-menu-list">
                 <template v-if="getCategoryList() && getCategoryList()?.disList.length > 0">
                     <div class="" v-for="(dish, i) in getCategoryList().disList" :key="i">
-                        <card-dish :dish="dish"></card-dish>
+                        <template v-if="dishData && dishData?.dishId == dish.dishId">
+                            <card-dish :dish="dishData"></card-dish>
+                        </template>
+                        <template v-else>
+                            <card-dish :dish="dish"></card-dish>
+                        </template>
                     </div>
                 </template>
                 <template v-else>
@@ -106,6 +111,7 @@ export default {
             isLoading: true,
             note: "",
             categoryList: null,
+            dishData: null,
         };
     },
     sockets: {
@@ -121,6 +127,11 @@ export default {
                     };
                     store.commit("set_tableData", tableData);
                 }
+            }
+        },
+        "update-dish-status": function (dish) {
+            if (dish) {
+                this.dishData = dish;
             }
         },
     },

@@ -22,7 +22,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr class="bg-white border-b bg-gray-800 border-gray-700" v-for="(dish, i) in item.orderData" :key="i">
+                                    <tr class="bg-white border-b border-gray-700" v-for="(dish, i) in item.orderData" :key="i">
                                         <td class="py-4 px-6 flex justify-between items-center">
                                             <button class="inline-flex items-center p-1 text-sm font-medium text-gray-500 bg-white rounded-full border border-gray-300" type="button">
                                                 {{ dish.dishId }}

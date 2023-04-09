@@ -24,7 +24,7 @@
                     </thead>
                     <tbody v-if="accountList && accountList.length > 0">
                         <tr class="bg-white border-b bg-gray-800 border-gray-700" v-for="(account, i) in accountList" :key="i">
-                            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap text-white">
+                            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
                                 {{ account.userCode }}
                             </th>
                             <td class="py-4 px-6">{{ account.fullName }}</td>

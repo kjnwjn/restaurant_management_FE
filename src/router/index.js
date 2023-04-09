@@ -28,6 +28,7 @@ const routes = [
     {
         path: "/client/table/:tableId/order-session",
         name: "client/table/order-session",
+        beforeEnter: getMenuData,
         component: () => import(/* webpackChunkName: "client/table" */ "../views/OrderPending.vue"),
     },
     {

@@ -51,7 +51,7 @@
                     </router-link>
                 </ul>
                 <hr class="my-4 opacity-50" />
-                <ul class="mb-3">
+                <ul class="mb-3" v-if="payload.role != 'CHEF'">
                     <div class="flex items-center mb-1 text-white">
                         <ThemifyIcon icon="arrow-circle-right" />
                         <h1 class="ml-2 font-bold uppercase">Table management</h1>

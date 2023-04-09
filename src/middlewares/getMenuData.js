@@ -10,11 +10,9 @@ export default async function (to, from, next) {
             .then((res) => {
                 if (res.data.status) {
                     store.commit("set_menuList", res.data.data);
-                    localStorage.setItem("menuList", JSON.stringify(res.data.data));
                     return next();
                 } else {
-                    store.commit("set_menuList", JSON.parse(localStorage.getItem("menuList")));
-                    return next();
+                    store.push("/*");
                 }
             })
             .catch((err) => {

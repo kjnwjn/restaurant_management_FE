@@ -5,7 +5,7 @@ export default {
     tableData: null,
     menuIndex: null,
     pendingOrderData: [],
-    menuList: localStorage.getItem("menuList") ? JSON.parse(localStorage.getItem("menuList")) : [],
+    menuList: [],
     pendingOrderList: null,
     pendingItemUpdateStatus: null,
     dishData: null,

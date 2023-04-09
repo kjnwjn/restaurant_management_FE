@@ -3,7 +3,7 @@
         <DashboardMenu />
         <main class="main-container">
             <Loading :active="isLoading" :is-full-page="true" :can-cancel="false" />
-            <template v-if="payload.role == 'ADMIN'">
+            <template v-if="payload.role == 'ADMIN' || payload.role == 'CHEF'">
                 <div class="flex items-center mb-4 text-green-700 font-bold text-lg uppercase">
                     <ThemifyIcon icon="menu" />
                     <h1 class="ml-2">Food category</h1>
@@ -38,7 +38,7 @@
                         </thead>
                         <tbody v-if="categoryList && categoryList.length > 0">
                             <tr class="bg-white border-b bg-gray-800 border-gray-700" v-for="(category, i) in categoryList" :key="i">
-                                <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap text-white">
+                                <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
                                     {{ category.categoryId }}
                                 </th>
                                 <td class="py-4 px-6">{{ category.name }}</td>
