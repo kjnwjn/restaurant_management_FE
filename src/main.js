@@ -11,7 +11,7 @@ Vue.use(
         debug: true,
         allowEIO3: true,
 
-        connection: SocketIO(`http://localhost:3300/`, {}), // http://192.168.0.5:3300
+        connection: SocketIO(`https://restaurant-management-system-28dc.onrender.com/`, {}), // http://192.168.0.5:3300
         vuex: {
             store,
             actionPrefix: "SOCKET_",
